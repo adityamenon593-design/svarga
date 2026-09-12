@@ -1,24 +1,218 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { ChatConsole } from "@/components/svarga/chat-console";
+import { ImageStudio } from "@/components/svarga/image-studio";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Svarga.ai — Where ancient knowledge meets the frontier" },
+      {
+        name: "description",
+        content:
+          "Svarga.ai reasons across Vedic sciences and the Western canon, with a live console and an image studio you can use right now.",
+      },
+      { property: "og:title", content: "Svarga.ai — Where ancient knowledge meets the frontier" },
+      {
+        property: "og:description",
+        content:
+          "Svarga.ai reasons across Vedic sciences and the Western canon, with a live console and an image studio you can use right now.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const BENCHMARKS = [
+  { name: "Parameshvara 1.0", score: 96.8, tone: "bg-crimson", muted: false },
+  { name: "Frontier Model A", score: 88.1, tone: "bg-saffron", muted: true },
+  { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
+];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-cream font-sans text-ink antialiased">
+      <header className="flex h-16 items-center justify-between border-b border-ink/10 px-8">
+        <div className="flex items-center gap-3">
+          <div className="grid size-9 place-items-center rounded-full border-2 border-saffron/50 font-display text-lg font-semibold text-saffron">
+            ॐ
+          </div>
+          <div className="leading-none">
+            <p className="font-display text-2xl font-semibold tracking-tight">Svarga</p>
+            <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
+              Divine Intelligence
+            </p>
+          </div>
+        </div>
+        <nav className="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
+          <a href="#console" className="text-ink">
+            Console
+          </a>
+          <a href="#benchmarks">Benchmarks</a>
+          <a href="#capacities">Capacities</a>
+          <a href="#studio">Studio</a>
+        </nav>
+        <div className="flex items-center gap-3">
+          <a href="#console" className="hidden text-sm font-medium sm:block">
+            Sign in
+          </a>
+          <a
+            href="#console"
+            className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream"
+          >
+            Console
+          </a>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-6xl px-6 lg:px-8">
+        <section id="console" className="grid items-center gap-12 pt-16 pb-10 lg:grid-cols-2">
+          <div>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-saffron/40 bg-sand/60 px-3 py-1">
+              <span className="size-1.5 animate-sv-pulse rounded-full bg-crimson" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">
+                Parameshvara 1.0 · v1.0.4
+              </span>
+            </div>
+            <h1 className="font-display leading-[0.95] tracking-tight">
+              <span className="block text-6xl font-semibold">Where ancient knowledge</span>
+              <span className="block text-6xl font-semibold text-crimson">
+                meets the frontier.
+              </span>
+            </h1>
+            <p className="mt-6 max-w-md leading-relaxed text-ink/70">
+              Svarga reasons across the Vedic sciences and the Western canon in a single grounded
+              answer — and renders what it describes. Ask it something on the right.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#studio"
+                className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream"
+              >
+                Open the image studio
+              </a>
+              <a
+                href="#capacities"
+                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold"
+              >
+                See the capacities
+              </a>
+            </div>
+            <div className="mt-8 flex gap-8">
+              <div>
+                <p className="font-display text-3xl font-semibold">4.2×</p>
+                <p className="mt-1 text-xs text-ink/50">Training corpus</p>
+              </div>
+              <div>
+                <p className="font-display text-3xl font-semibold">212 T</p>
+                <p className="mt-1 text-xs text-ink/50">Parameters</p>
+              </div>
+              <div>
+                <p className="font-display text-3xl font-semibold">39</p>
+                <p className="mt-1 text-xs text-ink/50">Languages</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
+            <div className="relative">
+              <ChatConsole />
+            </div>
+          </div>
+        </section>
+
+        <section id="benchmarks" className="border-t border-ink/10 py-14">
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+                Benchmarks
+              </p>
+              <h2 className="mt-2 font-display text-4xl font-semibold">
+                Outpacing every incumbent
+              </h2>
+            </div>
+            <p className="hidden max-w-xs text-sm text-ink/50 sm:block">
+              Composite reasoning, multimodal image, and multilingual scores. Higher is better.
+            </p>
+          </div>
+          <div className="space-y-6">
+            {BENCHMARKS.map((row) => (
+              <div key={row.name}>
+                <div
+                  className={`mb-2 flex justify-between font-mono text-xs ${row.muted ? "text-ink/50" : "text-ink/60"}`}
+                >
+                  <span>{row.name}</span>
+                  <span>{row.score}</span>
+                </div>
+                <div className="h-2.5 overflow-hidden rounded-full bg-sand">
+                  <div
+                    className={`h-full rounded-full ${row.tone}`}
+                    style={{ width: `${row.score}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="capacities" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Capacities
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">One model, every discipline.</h2>
+          <div className="grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+              <div className="grid size-10 place-items-center rounded-xl bg-crimson/10 font-display text-xl text-crimson">
+                ॐ
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-semibold">Vedantic Reasoning</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                Cites Upaniṣadic and Āyurvedic sources alongside peer-reviewed literature in a
+                single, grounded response.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+              <div className="grid size-10 place-items-center rounded-xl bg-saffron/20 font-display text-xl text-marigold">
+                ◈
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-semibold">Image Generation</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                Luminous, high-fidelity imagery rendered from the same understanding that writes the
+                answer — live in the studio below.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+              <div className="grid size-10 place-items-center rounded-xl bg-leaf/15 font-display text-xl text-leaf">
+                ✦
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-semibold">Multilingual · 39</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                Fluent across Sanskrit, Hindi, English and 36 more, tuned for nuance and cultural
+                context.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="studio" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Studio
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Render what it describes.</h2>
+          <ImageStudio />
+        </section>
+      </main>
+
+      <footer className="mt-6 border-t border-ink/10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 sm:flex-row lg:px-8">
+          <p className="font-display text-lg font-semibold">Svarga</p>
+          <p className="text-xs text-ink/50">
+            Benchmark figures shown are illustrative placeholders, not measured results.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
