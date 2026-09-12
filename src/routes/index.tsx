@@ -1,7 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly } from "@tanstack/react-router";
 
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { ImageStudio } from "@/components/svarga/image-studio";
+
+function ConsoleSkeleton() {
+  return (
+    <div className="h-[560px] animate-pulse rounded-3xl bg-ink/5" />
+  );
+}
+
+function StudioSkeleton() {
+  return (
+    <div className="grid gap-5 md:grid-cols-2">
+      <div className="h-[260px] animate-pulse rounded-2xl bg-ink/5" />
+      <div className="aspect-[16/11] animate-pulse rounded-2xl bg-ink/5" />
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
