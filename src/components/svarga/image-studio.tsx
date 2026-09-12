@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { generateSvargaImage } from "@/lib/image.functions";
 
-const PRESETS = [
+const PRESETS: [string, string, string] = [
   "An anatomical illustration of the human lungs lit by golden prāṇa currents",
   "A brass Jantar Mantar dial against an indigo dusk sky",
   "A Sanskrit manuscript folio with gilded yantra marginalia",
