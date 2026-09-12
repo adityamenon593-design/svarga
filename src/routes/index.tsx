@@ -219,7 +219,9 @@ function Index() {
             Studio
           </p>
           <h2 className="mb-8 font-display text-4xl font-semibold">Render what it describes.</h2>
-          <ImageStudio />
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <ImageStudio />
+          </ClientOnly>
         </section>
       </main>
 
