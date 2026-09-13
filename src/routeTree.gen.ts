@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiSvargaChatRouteImport } from './routes/api/svarga-chat'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSvargaChatRoute = ApiSvargaChatRouteImport.update({
+  id: '/api/svarga-chat',
+  path: '/api/svarga-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/svarga-chat': typeof ApiSvargaChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/svarga-chat': typeof ApiSvargaChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/svarga-chat': typeof ApiSvargaChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/api/chat'
+  fullPaths: '/' | '/auth' | '/api/chat' | '/api/svarga-chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/api/chat'
-  id: '__root__' | '/' | '/auth' | '/api/chat'
+  to: '/' | '/auth' | '/api/chat' | '/api/svarga-chat'
+  id: '__root__' | '/' | '/auth' | '/api/chat' | '/api/svarga-chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiSvargaChatRoute: typeof ApiSvargaChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/svarga-chat': {
+      id: '/api/svarga-chat'
+      path: '/api/svarga-chat'
+      fullPath: '/api/svarga-chat'
+      preLoaderRoute: typeof ApiSvargaChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiSvargaChatRoute: ApiSvargaChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
