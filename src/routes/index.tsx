@@ -284,9 +284,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
             <div className="relative">
-              <ClientOnly fallback={<ConsoleSkeleton />}>
-                <ChatConsole />
-              </ClientOnly>
+              <HeroPreview />
             </div>
           </div>
         </section>
