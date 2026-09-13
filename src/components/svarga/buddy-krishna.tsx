@@ -85,14 +85,14 @@ export function BuddyKrishna() {
                 <MessageContent>
                   {message.role === "assistant" ? (
                     <MessageResponse className="[&_a]:text-crimson">
-                      {message.parts
+                      {(message.parts ?? [])
                         .filter((part) => part.type === "text")
                         .map((part) => part.text)
                         .join("")}
                     </MessageResponse>
                   ) : (
                     <p className="whitespace-pre-wrap">
-                      {message.parts
+                      {(message.parts ?? [])
                         .filter((part) => part.type === "text")
                         .map((part) => part.text)
                         .join("")}
