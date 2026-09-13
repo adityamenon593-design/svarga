@@ -90,9 +90,11 @@ export function Checkout() {
   async function pay(planId: PlanId) {
     if (!user || busy) return;
     if (!paymentHostRegistered()) {
-      toast.info(
-        "Live payments run only on svarga.digital while Razorpay approves this website. Please complete your purchase at svarga.digital.",
-      );
+      const target = `https://svarga.digital${window.location.search}${window.location.hash}`;
+      toast.info("Payments only work on svarga.digital. Opening it now…", {
+        action: { label: "Open", onClick: () => window.open(target, "_blank") },
+      });
+      window.open(target, "_blank");
       return;
     }
     setBusy(planId);
