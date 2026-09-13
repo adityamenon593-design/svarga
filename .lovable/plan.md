@@ -13,7 +13,8 @@
    - **Razorpay (recommended)** — Indian merchant account, supports UPI plus international cards once enabled. You create the account and give me the key; I wire a full checkout (order creation, payment verification, success page) into the site.
    - **Your own Stripe account** — you sign up at stripe.com, then I open the key form and wire checkout. Global cards, but onboarding takes longer.
 3. **Hosting** — stay deployed from Lovable; finish the two DNS records at Hostinger and publish. The app is already deployment-ready as-is (accounts, saved chats, image studio all working).
-4. **Launch checklist** once a payment choice lands: checkout page, success/failure handling, then publish and verify svarga.digital.
+4. **Zero-fault launch pass** — before publishing, I drive the live preview end to end (every section, the chat console, the image studio, sign-in with email and Google, thread open/switch/delete, gallery, contact links) at desktop and mobile widths, fix anything found, and re-check until clean: no visual glitches, no console errors, no broken flows.
+5. **Launch checklist** once a payment choice lands: checkout page, success/failure handling, then publish and verify svarga.digital.
 
 ## What I need from you
 
