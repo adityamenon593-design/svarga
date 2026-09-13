@@ -136,7 +136,6 @@ function Index() {
         </div>
         {menuOpen ? (
           <nav className="grid gap-1 border-t border-ink/10 px-4 py-3 text-sm font-medium text-ink/70 sm:px-6 lg:hidden">
-
             {NAV.map((item) => (
               <a
                 key={item.href}
