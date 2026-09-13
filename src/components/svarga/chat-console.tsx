@@ -67,8 +67,8 @@ export function ChatConsole() {
   const renderImage = useServerFn(generateSvargaImage);
   const removeThread = useServerFn(deleteConversation);
   const transport = useMemo(
-    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode } }),
-    [mode],
+    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode, memory } }),
+    [mode, memory],
   );
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     transport,
@@ -87,9 +87,23 @@ export function ChatConsole() {
     }
   }, [user, fetchThreads]);
 
+  const refreshMemory = useCallback(async () => {
+    if (!user) {
+      setMemory([]);
+      return;
+    }
+    try {
+      const rows = (await fetchMemory()) as Array<{ content: string }>;
+      setMemory(rows.map((row) => row.content));
+    } catch {
+      /* memory is optional */
+    }
+  }, [user, fetchMemory]);
+
   useEffect(() => {
     void refreshThreads();
-  }, [refreshThreads]);
+    void refreshMemory();
+  }, [refreshThreads, refreshMemory]);
   const busy = status === "submitted" || status === "streaming" || rendering;
 
   useEffect(() => {
