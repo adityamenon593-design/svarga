@@ -474,6 +474,9 @@ function Index() {
             Built in Bharat, billed in ₹ — no dollar pricing, no hidden conversion fees. Start free,
             upgrade when Svarga earns it.
           </p>
+          <div className="mb-6">
+            <TrustStrip compact />
+          </div>
           <ClientOnly fallback={<StudioSkeleton />}>
             <Checkout />
           </ClientOnly>
