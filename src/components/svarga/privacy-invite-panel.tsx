@@ -34,8 +34,12 @@ export function PrivacyInvitePanel() {
 
   useEffect(() => {
     if (!signedIn) return;
-    void loadPrivacy({}).then((r) => setMemoryOn(r.memoryEnabled)).catch(() => undefined);
-    void loadReferral({}).then(setReferral).catch(() => undefined);
+    void loadPrivacy({})
+      .then((r) => setMemoryOn(r.memoryEnabled))
+      .catch(() => undefined);
+    void loadReferral({})
+      .then(setReferral)
+      .catch(() => undefined);
   }, [signedIn, loadPrivacy, loadReferral]);
 
   if (!signedIn) {

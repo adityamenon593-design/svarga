@@ -42,7 +42,9 @@ export const Route = createFileRoute("/api/public/razorpay-webhook")({
         let payload: {
           event?: string;
           payload?: {
-            payment?: { entity?: { id?: string; order_id?: string; notes?: Record<string, string> } };
+            payment?: {
+              entity?: { id?: string; order_id?: string; notes?: Record<string, string> };
+            };
             order?: { entity?: { id?: string } };
           };
         };

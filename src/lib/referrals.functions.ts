@@ -50,7 +50,8 @@ export const getMyReferral = createServerFn({ method: "GET" })
 
     const invites = count ?? 0;
     const bonus =
-      Math.min(invites * BONUS_PER_INVITE, MAX_INVITE_BONUS) + (settings.referred_by ? JOINED_BONUS : 0);
+      Math.min(invites * BONUS_PER_INVITE, MAX_INVITE_BONUS) +
+      (settings.referred_by ? JOINED_BONUS : 0);
 
     return {
       code: settings.referral_code,
