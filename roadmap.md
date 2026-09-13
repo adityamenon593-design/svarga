@@ -65,3 +65,4 @@
 - [x] Donation confirmation + on-screen printable receipt; emailed receipt wired via notify.svarga.digital (sends once DNS verification completes).
 - [x] Buddies section: Baby Krishna buddy with Krishna's principles (karma yoga, dharma, bhakti, equanimity, etc.), baby Krishna face, live chat — free for everyone.
 - [x] Security scan: 4 warnings fixed — payments, donations, usage and referral tables now explicitly server-write-only.
+- [ ] Secure /api/chat: it is unauthenticated with no quota, unlike /api/svarga-chat.
