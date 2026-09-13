@@ -62,7 +62,7 @@ export function ChatConsole() {
   }, [user, fetchThreads]);
 
   useEffect(() => { void refreshThreads(); }, [refreshThreads]);
-  const busy = status === "submitted" || status === "streaming";
+  const busy = status === "submitted" || status === "streaming" || rendering;
 
   useEffect(() => {
     if (!user || busy || messages.length === 0) return;
@@ -78,10 +78,42 @@ export function ChatConsole() {
     }).catch(() => undefined);
   }, [user, busy, messages, conversationId, persistTurn, refreshThreads]);
 
+  const renderInConsole = async (prompt: string) => {
+    setRendering(true);
+    const userId = `u-${Date.now()}`;
+    setMessages((current) => [
+      ...current,
+      { id: userId, role: "user" as const, parts: [{ type: "text" as const, text: prompt }] },
+    ]);
+    try {
+      const result = await renderImage({ data: { prompt } });
+      setMessages((current) => [
+        ...current,
+        {
+          id: `a-${Date.now()}`,
+          role: "assistant" as const,
+          parts: [{ type: "text" as const, text: `![${prompt}](${result.url})` }],
+        },
+      ]);
+      if (user) {
+        await persistImage({ data: { prompt, imageUrl: result.url } }).catch(() => undefined);
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Image generation failed.");
+    } finally {
+      setRendering(false);
+    }
+  };
+
   const send = (text: string) => {
     const trimmed = text.trim();
     if (!trimmed || busy) return;
     setInput("");
+    if (mode === "image") {
+      lastPrompt.current = "";
+      void renderInConsole(trimmed);
+      return;
+    }
     lastPrompt.current = trimmed;
     void sendMessage({ text: trimmed });
   };
