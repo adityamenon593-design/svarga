@@ -75,16 +75,19 @@ export function Checkout() {
             toast.success("Payment confirmed. Welcome to Svarga Pro.");
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
+          } finally {
+            setBusy(false);
           }
         },
       });
       rzp.on("payment.failed", () => {
         toast.error("Payment failed. No amount was captured — please try again.");
+        setBusy(false);
       });
+      rzp.on("modal.ondismiss", () => setBusy(false));
       rzp.open();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not start the payment.");
-    } finally {
       setBusy(false);
     }
   }
@@ -106,9 +109,10 @@ export function Checkout() {
         </ul>
         {user ? (
           <button
+            type="button"
             onClick={() => void pay()}
             disabled={busy}
-            className="mt-6 rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-opacity disabled:opacity-50"
+            className="mt-6 rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
           >
             {busy ? "Opening secure checkout…" : "Subscribe with Razorpay"}
           </button>
