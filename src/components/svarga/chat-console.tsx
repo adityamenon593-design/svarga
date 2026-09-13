@@ -559,11 +559,49 @@ export function ChatConsole() {
           }
           className="min-h-16 text-cream placeholder:text-cream/40"
         />
-        <PromptInputFooter className="justify-end border-cream/10">
+        <PromptInputFooter className="items-center justify-between border-cream/10">
+          <div className="flex items-center gap-2">
+            <input
+              ref={fileInput}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (file) attach(file);
+                event.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => fileInput.current?.click()}
+              className="rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70 transition-colors hover:border-saffron/60 hover:text-saffron"
+              aria-label="Attach an image"
+            >
+              + Image
+            </button>
+            <button
+              type="button"
+              onClick={() => void toggleMic()}
+              disabled={transcribing}
+              aria-pressed={recording}
+              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${recording ? "border-crimson bg-crimson/20 text-crimson" : "border-cream/15 text-cream/70 hover:border-saffron/60 hover:text-saffron"}`}
+            >
+              {transcribing ? "Listening…" : recording ? "Stop ●" : "Speak 🎙"}
+            </button>
+            {attachment ? (
+              <span className="flex items-center gap-1 rounded-full border border-saffron/40 px-3 py-1 text-[11px] text-saffron">
+                {attachment.name.slice(0, 18)}
+                <button type="button" onClick={() => setAttachment(null)} aria-label="Remove image">
+                  ×
+                </button>
+              </span>
+            ) : null}
+          </div>
           <PromptInputSubmit
             status={rendering ? "submitted" : status}
             onStop={stop}
-            disabled={busy || input.trim().length === 0}
+            disabled={busy || (input.trim().length === 0 && !attachment)}
             className="bg-crimson text-cream hover:bg-crimson/90"
           />
         </PromptInputFooter>
