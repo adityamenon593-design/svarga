@@ -20,10 +20,3 @@
 - [x] Razorpay checkout (cards + UPI): keys saved, server functions, payments table, checkout UI wired.
 - [x] Runtime error sweep: no current console or request failures on home / auth.
 
-- [ ] Connect GitHub repo sync (user action: + menu -> GitHub -> Connect project)
-- [ ] Add Hostinger business email to contact section (waiting on address)
-- [ ] Global card payments (Razorpay/Stripe with own keys - built-in unavailable for IN)
-- [ ] Publish + verify svarga.digital DNS at Hostinger
-- [ ] Write requested prompt (awaiting purpose)
-- [ ] Razorpay checkout (cards + UPI): keys, server fns, payments table, checkout UI
-- [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows)
