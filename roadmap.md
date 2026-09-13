@@ -11,3 +11,8 @@
 ## Done
 - [x] Fixed chat/studio crash by rendering them client-side only.
 - [x] Verified landing page renders and chat streams answers.
+
+- [ ] Connect GitHub repo sync (user action: + menu -> GitHub -> Connect project)
+- [ ] Add Hostinger business email to contact section (waiting on address)
+- [ ] Global card payments (Razorpay/Stripe with own keys - built-in unavailable for IN)
+- [ ] Publish + verify svarga.digital DNS at Hostinger
