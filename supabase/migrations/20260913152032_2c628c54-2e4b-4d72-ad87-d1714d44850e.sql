@@ -1,0 +1,1 @@
+revoke all on function public.validate_user_settings_referred_by() from public, anon, authenticated;
