@@ -102,7 +102,9 @@ export function BuddyKrishna() {
               </Message>
             ))
           )}
-          {status === "submitted" ? <Shimmer className="text-sm">Krishna is smiling…</Shimmer> : null}
+          {status === "submitted" ? (
+            <Shimmer className="text-sm">Krishna is smiling…</Shimmer>
+          ) : null}
         </div>
 
         <form
