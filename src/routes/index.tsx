@@ -3,6 +3,7 @@ import { ClientOnly } from "@tanstack/react-router";
 
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { ImageStudio } from "@/components/svarga/image-studio";
+import { SettingsPanel } from "@/components/svarga/settings-panel";
 
 function ConsoleSkeleton() {
   return (
