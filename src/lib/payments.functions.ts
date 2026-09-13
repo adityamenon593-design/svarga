@@ -122,13 +122,17 @@ async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
 
 export const createOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ plan: z.enum(PLAN_IDS) }).parse(input))
+  .inputValidator((input: unknown) =>
+    z.object({ plan: z.enum(PLAN_IDS), currency: z.enum(CURRENCIES).default("INR") }).parse(input),
+  )
   .handler(async ({ data, context }) => {
     const keyId = process.env["RAZORPAY_KEY_ID"];
     const keySecret = process.env["RAZORPAY_KEY_SECRET"];
     if (!keyId || !keySecret) throw new Error("Payments are not configured yet.");
 
     const plan = PLANS[data.plan as PlanId];
+    const currency = data.currency as Currency;
+    const amount = plan.amounts[currency];
     const res = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",
       headers: {
@@ -136,8 +140,8 @@ export const createOrder = createServerFn({ method: "POST" })
         Authorization: `Basic ${btoa(`${keyId}:${keySecret}`)}`,
       },
       body: JSON.stringify({
-        amount: plan.amountPaise,
-        currency: plan.currency,
+        amount,
+        currency,
         receipt: `svarga_${context.userId.slice(0, 8)}_${Date.now()}`,
       }),
     });
@@ -153,14 +157,15 @@ export const createOrder = createServerFn({ method: "POST" })
       user_id: context.userId,
       order_id: order.id,
       plan: plan.id,
-      amount_paise: plan.amountPaise,
-      currency: plan.currency,
+      amount_paise: amount,
+      currency,
       status: "created",
     });
     if (error) throw new Error("Could not record the order. Please try again.");
 
-    return { orderId: order.id, amountPaise: plan.amountPaise, currency: plan.currency, keyId };
+    return { orderId: order.id, amountPaise: amount, currency, keyId };
   });
+
 
 export const verifyPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
