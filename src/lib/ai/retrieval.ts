@@ -12,7 +12,7 @@ async function retrieveLibrary(userId: string, query: string, limit: number): Pr
     const embedding = await embedText(query);
     if (!embedding) return [];
 
-    const { data, error } = await supabaseAdmin.rpc("match_document_chunks", {
+    const { data, error } = await (supabaseAdmin.rpc as any)("match_document_chunks", {
       query_embedding: embedding,
       match_count: limit,
       p_user_id: userId,
