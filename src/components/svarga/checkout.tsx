@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
-import { createOrder, verifyPayment, PLANS, TIERS, type PlanId } from "@/lib/payments.functions";
+import {
+  createOrder,
+  verifyPayment,
+  PLANS,
+  TIERS,
+  type PlanId,
+  type Currency,
+} from "@/lib/payments.functions";
+
 
 declare global {
   interface Window {
@@ -66,7 +74,7 @@ export function Checkout() {
     setBusy(planId);
     const plan = PLANS[planId];
     try {
-      const order = await runCreateOrder({ data: { plan: planId } });
+      const order = await runCreateOrder({ data: { plan: planId, currency } });
       await loadRazorpayScript();
       if (!window.Razorpay) throw new Error("Payment window unavailable.");
 
