@@ -41,6 +41,23 @@ type UsageInfo = {
   modes: readonly string[];
 };
 
+type Source = { title: string; url: string };
+
+function parseAnswer(text: string) {
+  const uncertain = text.trimStart().toLowerCase().startsWith("[uncertain]");
+  let body = uncertain ? text.replace(/^\[uncertain\]\s*/i, "") : text;
+  const sourceMatch = body.match(/## Sources\s*([\s\S]*?)$/i);
+  const sourceText = sourceMatch ? sourceMatch[1] : "";
+  body = sourceMatch ? body.slice(0, sourceMatch.index).trim() : body;
+  const sources: Source[] = [...sourceText.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)].map(
+    (m) => ({
+      title: m[1].replace(/^source:\s*/i, "").trim(),
+      url: m[2],
+    }),
+  );
+  return { uncertain, body, sources };
+}
+
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
   "How does Āryabhaṭa's sine table relate to Taylor series?",
