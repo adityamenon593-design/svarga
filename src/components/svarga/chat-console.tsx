@@ -120,7 +120,12 @@ export function ChatConsole() {
         void refreshThreads();
       })
       .catch(() => undefined);
-  }, [user, busy, messages, conversationId, persistTurn, refreshThreads]);
+    void learn({ data: { prompt, answer } })
+      .then((result) => {
+        if (result.learned > 0) void refreshMemory();
+      })
+      .catch(() => undefined);
+  }, [user, busy, messages, conversationId, persistTurn, refreshThreads, learn, refreshMemory]);
 
   const renderInConsole = async (prompt: string) => {
     setRendering(true);
