@@ -71,3 +71,5 @@
 - [x] Per-user / per-IP rate limiting on /api/svarga-chat: 30 requests/minute for signed-in users, 10/minute for guests; returns 429 with Retry-After header when exceeded. Verified abusive traffic is blocked.
 
 - [ ] Live ₹1 transaction test on svarga.digital (user pays, I verify capture + records)
+
+- [x] Payment button on preview now redirects to svarga.digital (live payments only work there)
