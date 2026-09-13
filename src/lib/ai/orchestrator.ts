@@ -103,6 +103,8 @@ export async function streamSvarga({
     // Keep only recent turns so a long chat degrades gracefully instead of
     // failing the whole request with a context-length overflow.
     messages: await convertToModelMessages(trimHistory(messages)),
+    tools: svargaTools(userId),
+    stopWhen: stepCountIs(50),
     providerOptions: {
       openai: {
         forceReasoning: true,
