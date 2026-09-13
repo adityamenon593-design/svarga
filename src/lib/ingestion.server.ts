@@ -12,7 +12,7 @@ export async function runIngestion({
   const { embedTexts } = await import("./ai/embeddings.server");
 
   const { data: doc, error } = await supabaseAdmin
-    .from("documents" as "documents")
+    .from("documents" as const)
     .select("*")
     .eq("id", documentId)
     .single();
@@ -21,7 +21,7 @@ export async function runIngestion({
   }
 
   await supabaseAdmin
-    .from("documents" as "documents")
+    .from("documents" as const)
     .update({ status: "processing", error: null })
     .eq("id", documentId);
 
@@ -56,20 +56,20 @@ export async function runIngestion({
     }
 
     const { error: insertError } = await supabaseAdmin
-      .from("document_chunks" as "document_chunks")
+      .from("document_chunks" as const)
       .insert(rows as any);
     if (insertError) {
       throw new Error(insertError.message);
     }
 
     await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .update({ status: "ready", error: null })
       .eq("id", documentId);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .update({ status: "error", error: message })
       .eq("id", documentId);
     throw err;
