@@ -261,6 +261,30 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          invitee_id: string
+          inviter_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          invitee_id: string
+          inviter_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          invitee_id?: string
+          inviter_id?: string
+        }
+        Relationships: []
+      }
       usage_events: {
         Row: {
           created_at: string
@@ -302,6 +326,33 @@ export type Database = {
           created_at?: string
           id?: string
           kind?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_settings: {
+        Row: {
+          created_at: string
+          memory_enabled: boolean
+          referral_code: string
+          referred_by: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          memory_enabled?: boolean
+          referral_code: string
+          referred_by?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          memory_enabled?: boolean
+          referral_code?: string
+          referred_by?: string | null
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
