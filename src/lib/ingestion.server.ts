@@ -49,16 +49,16 @@ export async function runIngestion({
         content,
         embedding: embeddings[index],
       }))
-      .filter((row): row is typeof row & { embedding: number[] } => row.embedding != null);
+      .filter((row): row is typeof row & { embedding: number[] } => row.embedding != null)
+      .map((row) => ({ ...row, embedding: `[${row.embedding.join(",")}]` }));
 
     if (rows.length === 0) {
       throw new Error("Failed to generate embeddings for the document");
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: insertError } = await supabaseAdmin
       .from("document_chunks" as const)
-      .insert(rows as any);
+      .insert(rows as { document_id: string; chunk_index: number; content: string; embedding: string }[]);
     if (insertError) {
       throw new Error(insertError.message);
     }
