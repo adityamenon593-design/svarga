@@ -2,6 +2,8 @@
 
 ## Open
 
+- [ ] Continuous learning: Svarga learns each user's facts/preferences from conversation and applies them in later chats (per-user memory, not model retraining).
+
 - [ ] "Train on Indian + global data": from-scratch training is out of scope; deliver via knowledge library uploads + live web search (needs Perplexity key).
 
 - [ ] Position Svarga as an all-in-one assistant: chat, reasoning, research, code, math, writing, images, documents, translation.
