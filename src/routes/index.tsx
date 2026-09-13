@@ -52,6 +52,34 @@ function StudioSkeleton() {
   );
 }
 
+function IndianFlag({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-label="Indian flag" viewBox="0 0 180 120" className={className} role="img">
+      <title>Indian flag</title>
+      <rect width="180" height="40" className="fill-saffron" />
+      <rect y="40" width="180" height="40" className="fill-white" />
+      <rect y="80" width="180" height="40" className="fill-leaf" />
+      <g className="fill-ink" transform="translate(90, 60)">
+        <circle r="12" fill="none" strokeWidth="1.2" className="stroke-ink" />
+        {Array.from({ length: 24 }).map((_, i) => {
+          const a = (i * 15 * Math.PI) / 180;
+          return (
+            <line
+              key={i}
+              x1={Math.cos(a) * 12}
+              y1={Math.sin(a) * 12}
+              x2={Math.cos(a) * 3}
+              y2={Math.sin(a) * 3}
+              strokeWidth="1.2"
+              className="stroke-ink"
+            />
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
 function HeroPreview() {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-sand/50 p-6 shadow-2xl shadow-ink/10 backdrop-blur sm:p-8">
@@ -258,9 +286,12 @@ function Index() {
               <p className="truncate font-display text-xl font-semibold tracking-tight sm:text-2xl">
                 Svarga
               </p>
-              <p className="truncate font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
-                Made in India
-              </p>
+              <div className="flex items-center gap-1.5">
+                <IndianFlag className="h-2.5 w-auto rounded-[1px]" />
+                <p className="truncate font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
+                  Made in India
+                </p>
+              </div>
             </div>
           </div>
           <nav className="hidden items-center gap-5 text-sm font-medium text-ink/70 lg:flex xl:gap-8">
@@ -367,6 +398,13 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
             <div className="relative">
+              <div className="mb-4 flex items-center gap-3 rounded-2xl border border-ink/10 bg-white/60 p-3 shadow-lg shadow-ink/5 backdrop-blur">
+                <IndianFlag className="h-16 w-auto rounded-md shadow-sm" />
+                <div>
+                  <p className="font-display text-lg font-semibold leading-tight">Made in India</p>
+                  <p className="text-xs text-ink/60">Hosted in Bharat · Built for Viksit Bharat</p>
+                </div>
+              </div>
               <HeroPreview />
             </div>
           </div>
@@ -572,7 +610,10 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div>
-              <p className="font-display text-lg font-semibold">Svarga</p>
+              <div className="flex items-center gap-2">
+                <IndianFlag className="h-4 w-auto rounded-[1px]" />
+                <p className="font-display text-lg font-semibold">Svarga</p>
+              </div>
               <p className="mt-1 max-w-sm text-sm text-ink/60">
                 A solo project by <span className="font-medium text-ink">Aditya Mohan Menon</span>.
                 <br />
