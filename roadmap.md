@@ -61,3 +61,4 @@
 - [ ] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
 - [ ] Connect Perplexity (or equivalent) for live web answers with citations
 - [ ] Memory privacy: explicit consent toggle for learning + clear saved memory anytime
+- [ ] Svarga self-awareness: knows it is Svarga.ai, created by founder Aditya Mohan Menon
