@@ -11,6 +11,7 @@ import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
 import { DonatePanel } from "@/components/svarga/donate";
 import { BuddyKrishna } from "@/components/svarga/buddy-krishna";
+import { LanguageSelector } from "@/components/svarga/languages";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
