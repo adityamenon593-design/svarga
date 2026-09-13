@@ -239,7 +239,8 @@ export function ChatConsole() {
         ]
       : undefined;
     setAttachment(null);
-    void sendMessage({ text: trimmed || "Please look at this and help me.", files });
+    const text = trimmed || "Please look at this and help me.";
+    void (files ? sendMessage({ text, files }) : sendMessage({ text }));
   };
 
   const attach = (file: File) => {
