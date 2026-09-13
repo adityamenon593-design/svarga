@@ -83,19 +83,16 @@ async function extractText(buffer: ArrayBuffer, kind: string): Promise<string> {
   }
 
   if (kind === "pdf") {
-    // pdfjs-dist types are strict about init parameters; runtime accepts our options.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const loadingTask = pdfjs.getDocument({
       data: new Uint8Array(buffer),
       useSystemFonts: true,
-    } as any);
+    } as unknown as Parameters<typeof pdfjs.getDocument>[0]);
     const pdf = await loadingTask.promise;
     let text = "";
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
       const content = await page.getTextContent();
-      text +=
-        content.items.map((item) => (item as { str: string }).str).join(" ") + "\n";
+      text += content.items.map((item) => (item as { str: string }).str).join(" ") + "\n";
     }
     return text;
   }
