@@ -7,15 +7,27 @@ export const Route = createFileRoute("/api/svarga-chat")({
     handlers: {
       POST: async ({ request }) => {
         try {
-          const body = (await request.json()) as { messages?: unknown; mode?: unknown };
+          const body = (await request.json()) as {
+            messages?: unknown;
+            mode?: unknown;
+            memory?: unknown;
+          };
           if (!Array.isArray(body.messages))
             return new Response("Messages are required", { status: 400 });
           const mode =
             body.mode === "research" || body.mode === "reasoning" || body.mode === "creative"
               ? body.mode
               : "balanced";
-          const { result } = await streamSvarga({ messages: body.messages as UIMessage[], mode });
+          const memory = Array.isArray(body.memory)
+            ? body.memory.filter((item): item is string => typeof item === "string").slice(0, 20)
+            : [];
+          const { result } = await streamSvarga({
+            messages: body.messages as UIMessage[],
+            mode,
+            memory,
+          });
           return result.toUIMessageStreamResponse({
+            sendReasoning: true,
             originalMessages: body.messages as UIMessage[],
           });
         } catch (error) {
