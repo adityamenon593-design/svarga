@@ -96,28 +96,30 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-cream font-sans text-ink antialiased">
+    <div className="min-h-screen overflow-x-hidden bg-cream font-sans text-ink antialiased">
       <header className="sticky top-0 z-30 border-b border-ink/10 bg-cream/90 backdrop-blur">
-        <div className="flex h-16 items-center justify-between px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="grid size-9 place-items-center rounded-full border-2 border-saffron/50 font-display text-lg font-semibold text-saffron">
+        <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="grid size-9 shrink-0 place-items-center rounded-full border-2 border-saffron/50 font-display text-lg font-semibold text-saffron">
               ॐ
             </div>
-            <div className="leading-none">
-              <p className="font-display text-2xl font-semibold tracking-tight">Svarga</p>
-              <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
+            <div className="min-w-0 leading-none">
+              <p className="truncate font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                Svarga
+              </p>
+              <p className="truncate font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
                 Made in India
               </p>
             </div>
           </div>
-          <nav className="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
+          <nav className="hidden items-center gap-5 text-sm font-medium text-ink/70 lg:flex xl:gap-8">
             {NAV.map((item) => (
               <a key={item.href} href={item.href} className="transition-colors hover:text-crimson">
                 {item.label}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <ClientOnly fallback={<div className="h-9 w-24" />}>
               <AccountNav />
             </ClientOnly>
@@ -126,14 +128,15 @@ function Index() {
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((open) => !open)}
-              className="grid size-9 place-items-center rounded-full border border-ink/15 md:hidden"
+              className="grid size-9 shrink-0 place-items-center rounded-full border border-ink/15 lg:hidden"
             >
               {menuOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
         {menuOpen ? (
-          <nav className="grid gap-1 border-t border-ink/10 px-6 py-3 text-sm font-medium text-ink/70 md:hidden">
+          <nav className="grid gap-1 border-t border-ink/10 px-4 py-3 text-sm font-medium text-ink/70 sm:px-6 lg:hidden">
+
             {NAV.map((item) => (
               <a
                 key={item.href}
