@@ -27,6 +27,7 @@ import {
   saveTurn,
 } from "@/lib/history.functions";
 import { generateSvargaImage } from "@/lib/image.functions";
+import { learnFromTurn, listMemory } from "@/lib/memory.functions";
 
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
@@ -56,6 +57,9 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  const [memory, setMemory] = useState<string[]>([]);
+  const fetchMemory = useServerFn(listMemory);
+  const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
   const fetchMessages = useServerFn(listMessages);
   const persistTurn = useServerFn(saveTurn);
@@ -63,8 +67,8 @@ export function ChatConsole() {
   const renderImage = useServerFn(generateSvargaImage);
   const removeThread = useServerFn(deleteConversation);
   const transport = useMemo(
-    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode } }),
-    [mode],
+    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode, memory } }),
+    [mode, memory],
   );
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     transport,
@@ -83,9 +87,23 @@ export function ChatConsole() {
     }
   }, [user, fetchThreads]);
 
+  const refreshMemory = useCallback(async () => {
+    if (!user) {
+      setMemory([]);
+      return;
+    }
+    try {
+      const rows = (await fetchMemory()) as Array<{ content: string }>;
+      setMemory(rows.map((row) => row.content));
+    } catch {
+      /* memory is optional */
+    }
+  }, [user, fetchMemory]);
+
   useEffect(() => {
     void refreshThreads();
-  }, [refreshThreads]);
+    void refreshMemory();
+  }, [refreshThreads, refreshMemory]);
   const busy = status === "submitted" || status === "streaming" || rendering;
 
   useEffect(() => {
@@ -102,7 +120,12 @@ export function ChatConsole() {
         void refreshThreads();
       })
       .catch(() => undefined);
-  }, [user, busy, messages, conversationId, persistTurn, refreshThreads]);
+    void learn({ data: { prompt, answer } })
+      .then((result) => {
+        if (result.learned > 0) void refreshMemory();
+      })
+      .catch(() => undefined);
+  }, [user, busy, messages, conversationId, persistTurn, refreshThreads, learn, refreshMemory]);
 
   const renderInConsole = async (prompt: string) => {
     setRendering(true);
