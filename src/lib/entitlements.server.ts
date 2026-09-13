@@ -125,9 +125,29 @@ export type UsageSnapshot = {
   imagesUsed: number;
 };
 
+/** Extra daily free questions earned through invites (free tier only). */
+export async function getReferralBonus(userId: string): Promise<number> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const [{ count }, { data: settings }] = await Promise.all([
+    supabaseAdmin
+      .from("referrals")
+      .select("id", { count: "exact", head: true })
+      .eq("inviter_id", userId),
+    supabaseAdmin
+      .from("user_settings")
+      .select("referred_by")
+      .eq("user_id", userId)
+      .maybeSingle(),
+  ]);
+  const invited = Math.min((count ?? 0) * 25, 200);
+  return invited + (settings?.referred_by ? 50 : 0);
+}
+
 export async function getUsageSnapshot(userId: string): Promise<UsageSnapshot> {
   const tier = await getUserTier(userId);
-  const limits = TIER_LIMITS[tier];
+  const base = TIER_LIMITS[tier];
+  const bonus = tier === "free" ? await getReferralBonus(userId) : 0;
+  const limits: TierLimits = bonus ? { ...base, questions: base.questions + bonus } : base;
   const questionSince = new Date(
     Date.now() - (limits.questionWindow === "day" ? 1 : 30) * 86_400_000,
   );
