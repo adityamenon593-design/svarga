@@ -67,12 +67,7 @@ export const TIERS = [
     tagline: "Start free",
     monthly: 0,
     yearly: 0,
-    features: [
-      "25 questions a day",
-      "5 images a month",
-      "Balanced mode",
-      "Saved chat history",
-    ],
+    features: ["25 questions a day", "5 images a month", "Balanced mode", "Saved chat history"],
   },
   {
     id: "starter",
