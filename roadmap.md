@@ -11,6 +11,9 @@
 ## Done
 - [x] Fixed chat/studio crash by rendering them client-side only.
 - [x] Verified landing page renders and chat streams answers.
+- [x] Own tab icon; all external branding removed.
+- [x] Interactive pass: chat modes, mobile menu, all buttons wired.
+- [x] One console for everything: chat modes + image generation in the same window.
 
 - [ ] Connect GitHub repo sync (user action: + menu -> GitHub -> Connect project)
 - [ ] Add Hostinger business email to contact section (waiting on address)
