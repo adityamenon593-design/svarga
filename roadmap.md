@@ -57,7 +57,9 @@
 - [ ] Discuss "train on all the data in the world": training a model from scratch is not possible here; options are broader live web research + a knowledge library Svarga can search.
 - [x] Diagnosed live Razorpay failure: business/website mismatch — user must register svarga.digital + www in Razorpay dashboard; checkout now shows a note on unregistered hosts.
 
-- [ ] Razorpay webhook + payment status checker: confirm success/failure and auto-unlock the right plan
-- [ ] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
+- [x] Razorpay webhook + payment status checker (needs RAZORPAY_WEBHOOK_SECRET + dashboard webhook URL): confirm success/failure and auto-unlock the right plan
+- [x] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
 - [ ] Connect Perplexity (or equivalent) for live web answers with citations
-- [ ] Memory privacy: explicit consent toggle for learning + clear saved memory anytime
+- [x] Memory privacy: explicit consent toggle for learning + clear saved memory anytime
+- [x] Svarga self-awareness: knows it is Svarga.ai, created by founder Aditya Mohan Menon
+- [x] Donation confirmation + on-screen printable receipt ( [ ] emailed receipt needs sender domain) (needs a verified sender domain)
