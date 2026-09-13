@@ -51,7 +51,22 @@ export const PLANS = {
     interval: "year",
     amounts: { INR: 1499000, USD: 49000 },
   },
+  /**
+   * Hidden ₹1 order used to prove the live payment rail end-to-end.
+   * Tier prefix stays "free" so a successful test grants no paid entitlement.
+   */
+  free_livetest: {
+    id: "free_livetest",
+    tier: "free",
+    name: "Live payment test — ₹1",
+    interval: "month",
+    amounts: { INR: 100, USD: 100 },
+  },
 } as const;
+
+/** Plans that must never appear in the public pricing grid. */
+export const HIDDEN_PLANS: readonly PlanIdLike[] = ["free_livetest"];
+type PlanIdLike = keyof typeof PLANS;
 
 export type PlanId = keyof typeof PLANS;
 
