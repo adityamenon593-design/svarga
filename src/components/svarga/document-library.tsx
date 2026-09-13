@@ -24,7 +24,7 @@ export function DocumentLibrary() {
   const remove = useServerFn(deleteDocument);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     if (!user) return;
     setLoading(true);
     try {
@@ -35,13 +35,13 @@ export function DocumentLibrary() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchDocs, user]);
 
   useEffect(() => {
     void load();
     const id = setInterval(() => void load(), 5000);
     return () => clearInterval(id);
-  }, [user]);
+  }, [load]);
 
   const kindFromFile = (file: File): "pdf" | "text" | "epub" | "other" => {
     const ext = file.name.split(".").pop()?.toLowerCase();
