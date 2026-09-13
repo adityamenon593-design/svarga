@@ -40,14 +40,24 @@ export function BuddyKrishna() {
   return (
     <div className="grid gap-6 overflow-hidden rounded-3xl border border-saffron/30 bg-gradient-to-br from-saffron/10 via-cream to-cream p-6 sm:p-8 lg:grid-cols-[240px_1fr]">
       <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
-        <img
-          src={babyKrishna}
-          alt="Baby Krishna — Svarga buddy"
-          width={816}
-          height={816}
-          loading="lazy"
-          className="size-40 rounded-full border-4 border-saffron/50 object-cover shadow-lg shadow-saffron/20 lg:size-48"
-        />
+        <div
+          className={`svarga-holo ${busy ? "svarga-holo-active" : ""}`}
+          aria-hidden={false}
+          data-state={busy ? "speaking" : "idle"}
+        >
+          <span className="svarga-holo-ring" />
+          <span className="svarga-holo-ring svarga-holo-ring-slow" />
+          <img
+            src={babyKrishna}
+            alt="Baby Krishna — Svarga buddy"
+            width={816}
+            height={816}
+            loading="lazy"
+            className="svarga-holo-figure size-40 rounded-full border-4 border-saffron/50 object-cover lg:size-48"
+          />
+          <span className="svarga-holo-scan" />
+          <span className="svarga-holo-base" />
+        </div>
         <div>
           <h3 className="font-display text-2xl font-semibold text-ink">Baby Krishna</h3>
           <p className="mt-1 text-sm text-ink/60">
