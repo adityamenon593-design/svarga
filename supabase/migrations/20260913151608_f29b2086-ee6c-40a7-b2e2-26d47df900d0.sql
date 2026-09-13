@@ -1,0 +1,2 @@
+CREATE POLICY "rate_limits_block_authenticated" ON public.rate_limits AS RESTRICTIVE FOR ALL TO authenticated USING (false) WITH CHECK (false);
+CREATE POLICY "rate_limits_block_anon" ON public.rate_limits AS RESTRICTIVE FOR ALL TO anon USING (false) WITH CHECK (false);
