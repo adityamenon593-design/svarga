@@ -55,6 +55,14 @@ export const learnFromTurn = createServerFn({ method: "POST" })
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { learned: 0 };
 
+    // Learning is opt-out: respect the user's privacy switch.
+    const { data: settings } = await context.supabase
+      .from("user_settings")
+      .select("memory_enabled")
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (settings && settings.memory_enabled === false) return { learned: 0 };
+
     const gateway = createOpenAI({
       apiKey,
       baseURL: "https://ai.gateway.lovable.dev/v1",

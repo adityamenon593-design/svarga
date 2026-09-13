@@ -217,3 +217,65 @@ export const listMyPayments = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return data;
   });
+
+/**
+ * Live status check for one order. Reads Razorpay directly, so a payment that
+ * succeeded but never reported back (closed tab, webhook delay) still unlocks.
+ */
+export const checkOrderStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({ orderId: z.string().min(1) }).parse(input))
+  .handler(async ({ data, context }) => {
+    const keyId = process.env["RAZORPAY_KEY_ID"];
+    const keySecret = process.env["RAZORPAY_KEY_SECRET"];
+    if (!keyId || !keySecret) throw new Error("Payments are not configured yet.");
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row } = await supabaseAdmin
+      .from("payments")
+      .select("status, plan")
+      .eq("order_id", data.orderId)
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (!row) throw new Error("We could not find that order.");
+    if (row.status === "paid") return { status: "paid" as const, plan: row.plan };
+
+    const res = await fetch(`https://api.razorpay.com/v1/orders/${data.orderId}/payments`, {
+      headers: { Authorization: `Basic ${btoa(`${keyId}:${keySecret}`)}` },
+    });
+    if (!res.ok) {
+      const body = await res.text();
+      console.error(`Razorpay status check failed [${res.status}]: ${body}`);
+      throw new Error("Could not check the payment right now. Please try again shortly.");
+    }
+    const json = (await res.json()) as {
+      items?: Array<{ id: string; status: string; error_description?: string }>;
+    };
+    const items = json.items ?? [];
+    const captured = items.find((p) => p.status === "captured" || p.status === "authorized");
+
+    if (captured) {
+      await supabaseAdmin
+        .from("payments")
+        .update({ status: "paid", payment_id: captured.id })
+        .eq("order_id", data.orderId)
+        .eq("user_id", context.userId);
+      return { status: "paid" as const, plan: row.plan };
+    }
+
+    const failed = items.find((p) => p.status === "failed");
+    if (failed) {
+      await supabaseAdmin
+        .from("payments")
+        .update({ status: "failed", payment_id: failed.id })
+        .eq("order_id", data.orderId)
+        .eq("user_id", context.userId);
+      return {
+        status: "failed" as const,
+        plan: row.plan,
+        reason: failed.error_description ?? "The bank or card declined the payment.",
+      };
+    }
+
+    return { status: "pending" as const, plan: row.plan };
+  });

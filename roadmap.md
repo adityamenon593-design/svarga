@@ -56,3 +56,8 @@
 - [ ] Responsive polish for phone/tablet/desktop; installable home-screen app on Android + iOS.
 - [ ] Discuss "train on all the data in the world": training a model from scratch is not possible here; options are broader live web research + a knowledge library Svarga can search.
 - [x] Diagnosed live Razorpay failure: business/website mismatch — user must register svarga.digital + www in Razorpay dashboard; checkout now shows a note on unregistered hosts.
+
+- [ ] Razorpay webhook + payment status checker: confirm success/failure and auto-unlock the right plan
+- [ ] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
+- [ ] Connect Perplexity (or equivalent) for live web answers with citations
+- [ ] Memory privacy: explicit consent toggle for learning + clear saved memory anytime
