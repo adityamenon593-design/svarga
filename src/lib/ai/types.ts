@@ -1,6 +1,6 @@
 export type SvargaMode = "balanced" | "research" | "reasoning" | "creative";
 
-export type SourceKind = "vedic" | "modern" | "primary" | "web";
+export type SourceKind = "vedic" | "modern" | "primary" | "web" | "library";
 
 export interface SvargaSource {
   id: string;

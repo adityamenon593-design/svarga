@@ -38,6 +38,74 @@ export type Database = {
         }
         Relationships: []
       }
+      document_chunks: {
+        Row: {
+          chunk_index: number
+          content: string
+          document_id: string
+          embedding: string | null
+          id: string
+        }
+        Insert: {
+          chunk_index: number
+          content: string
+          document_id: string
+          embedding?: string | null
+          id?: string
+        }
+        Update: {
+          chunk_index?: number
+          content?: string
+          document_id?: string
+          embedding?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          created_at: string
+          error: string | null
+          file_path: string
+          id: string
+          kind: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          file_path: string
+          id?: string
+          kind: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          file_path?: string
+          id?: string
+          kind?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       generated_images: {
         Row: {
           created_at: string
@@ -204,7 +272,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      match_document_chunks: {
+        Args: {
+          match_count?: number
+          p_user_id?: string
+          query_embedding: string
+        }
+        Returns: {
+          content: string
+          document_id: string
+          id: string
+          similarity: number
+          title: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
