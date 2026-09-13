@@ -2,6 +2,8 @@
 
 ## Open
 
+- [ ] "Train on Indian + global data": from-scratch training is out of scope; deliver via knowledge library uploads + live web search (needs Perplexity key).
+
 - [ ] Position Svarga as an all-in-one assistant: chat, reasoning, research, code, math, writing, images, documents, translation.
 
 - [ ] Svarga should practically help with everyday Indian problems: govt schemes, farming, health access, jobs/exams, legal/consumer rights, money, local languages.
