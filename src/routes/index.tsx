@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 
 import { ChatConsole } from "@/components/svarga/chat-console";
+import { DocumentLibrary } from "@/components/svarga/document-library";
 import { ImageStudio } from "@/components/svarga/image-studio";
 import { SettingsPanel } from "@/components/svarga/settings-panel";
 import { ContactPanel } from "@/components/svarga/contact-panel";
@@ -86,6 +87,7 @@ const NAV = [
   { href: "#benchmarks", label: "Benchmarks" },
   { href: "#capacities", label: "Capacities" },
   { href: "#studio", label: "Studio" },
+  { href: "#library", label: "Library" },
   { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
   { href: "#settings", label: "Settings" },
@@ -294,6 +296,16 @@ function Index() {
           <h2 className="mb-8 font-display text-4xl font-semibold">Render what it describes.</h2>
           <ClientOnly fallback={<StudioSkeleton />}>
             <ImageStudio />
+          </ClientOnly>
+        </section>
+
+        <section id="library" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Library
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Upload your own knowledge.</h2>
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <DocumentLibrary />
           </ClientOnly>
         </section>
 

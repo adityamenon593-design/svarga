@@ -41,6 +41,23 @@ type UsageInfo = {
   modes: readonly string[];
 };
 
+type Source = { title: string; url: string };
+
+function parseAnswer(text: string) {
+  const uncertain = text.trimStart().toLowerCase().startsWith("[uncertain]");
+  let body = uncertain ? text.replace(/^\[uncertain\]\s*/i, "") : text;
+  const sourceMatch = body.match(/## Sources\s*([\s\S]*?)$/i);
+  const sourceText = sourceMatch?.[1] ?? "";
+  body = sourceMatch ? body.slice(0, sourceMatch.index).trim() : body;
+  const sources: Source[] = [...sourceText.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)].map(
+    (m) => ({
+      title: m[1]!.replace(/^source:\s*/i, "").trim(),
+      url: m[2]!,
+    }),
+  );
+  return { uncertain, body, sources };
+}
+
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
   "How does Āryabhaṭa's sine table relate to Taylor series?",
@@ -344,22 +361,53 @@ export function ChatConsole() {
               .map((part) => (part.type === "text" ? part.text : ""))
               .join("");
             if (!text) return null;
-            return message.role === "user" ? (
-              <div key={message.id} className="flex gap-3">
-                <div className="grid size-7 shrink-0 place-items-center rounded-full bg-cream/15 font-display text-xs text-cream/70">
-                  U
+            if (message.role === "user") {
+              return (
+                <div key={message.id} className="flex gap-3">
+                  <div className="grid size-7 shrink-0 place-items-center rounded-full bg-cream/15 font-display text-xs text-cream/70">
+                    U
+                  </div>
+                  <p className="pt-1 text-sm leading-relaxed text-cream/90">{text}</p>
                 </div>
-                <p className="pt-1 text-sm leading-relaxed text-cream/90">{text}</p>
-              </div>
-            ) : (
+              );
+            }
+
+            const answer = parseAnswer(text);
+            return (
               <Message key={message.id} from="assistant" className="gap-3">
                 <div className="grid size-7 shrink-0 place-items-center rounded-full bg-saffron font-display text-xs text-ink">
                   ॐ
                 </div>
                 <MessageContent className="rounded-2xl rounded-tl-sm bg-cream/5 p-4 text-sm leading-relaxed text-cream/85">
+                  {answer.uncertain && (
+                    <div className="mb-3 rounded-lg border border-saffron/30 bg-saffron/10 px-3 py-2 text-xs text-saffron">
+                      I&apos;m not fully confident about this. Could you clarify?
+                    </div>
+                  )}
                   <MessageResponse className="[&_a]:text-saffron [&_strong]:text-cream">
-                    {text}
+                    {answer.body}
                   </MessageResponse>
+                  {answer.sources.length > 0 && (
+                    <div className="mt-4 border-t border-cream/10 pt-3">
+                      <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-cream/40">
+                        Sources
+                      </p>
+                      <ul className="space-y-1">
+                        {answer.sources.map((source) => (
+                          <li key={source.url}>
+                            <a
+                              href={source.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs text-saffron hover:underline"
+                            >
+                              {source.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </MessageContent>
               </Message>
             );
