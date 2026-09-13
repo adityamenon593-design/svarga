@@ -22,6 +22,7 @@ export function SettingsPanel() {
   const clear = () => {
     setGithubToken("");
     setSaved(false);
+    toast.success("Token cleared from this tab.");
   };
 
   return (
@@ -88,12 +89,14 @@ export function SettingsPanel() {
         />
         <div className="mt-4 flex gap-3">
           <button
+            type="button"
             onClick={save}
             className="rounded-full bg-crimson px-5 py-2.5 text-sm font-semibold text-cream"
           >
             Hold token
           </button>
           <button
+            type="button"
             onClick={clear}
             className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink/70"
           >
