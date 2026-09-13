@@ -484,17 +484,33 @@ export function ChatConsole() {
             const text = (message.parts ?? [])
               .map((part) => (part.type === "text" ? part.text : ""))
               .join("");
-            if (!text) return null;
+            const images = (message.parts ?? []).flatMap((part) =>
+              part.type === "file" && part.mediaType?.startsWith("image/") ? [part.url] : [],
+            );
+            if (!text && images.length === 0) return null;
             if (message.role === "user") {
               return (
                 <div key={message.id} className="flex gap-3">
                   <div className="grid size-7 shrink-0 place-items-center rounded-full bg-cream/15 font-display text-xs text-cream/70">
                     U
                   </div>
-                  <p className="pt-1 text-sm leading-relaxed text-cream/90">{text}</p>
+                  <div className="space-y-2 pt-1">
+                    {images.map((url) => (
+                      <img
+                        key={url}
+                        src={url}
+                        alt="Attached by the user"
+                        className="max-h-40 rounded-xl border border-cream/10"
+                      />
+                    ))}
+                    {text ? (
+                      <p className="text-sm leading-relaxed text-cream/90">{text}</p>
+                    ) : null}
+                  </div>
                 </div>
               );
             }
+            if (!text) return null;
 
             const answer = parseAnswer(text);
             return (
