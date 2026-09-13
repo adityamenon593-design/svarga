@@ -42,23 +42,23 @@ export async function runIngestion({
     const chunks = chunkText(text);
     const embeddings = await embedTexts(chunks);
 
-    const rows: { document_id: string; chunk_index: number; content: string; embedding: number[] }[] =
-      chunks
-        .map((content, index) => ({
-          document_id: documentId,
-          chunk_index: index,
-          content,
-          embedding: embeddings[index],
-        }))
-        .filter((row): row is typeof row & { embedding: number[] } => row.embedding != null);
+    const rows = chunks
+      .map((content, index) => ({
+        document_id: documentId,
+        chunk_index: index,
+        content,
+        embedding: embeddings[index],
+      }))
+      .filter((row): row is typeof row & { embedding: number[] } => row.embedding != null);
 
     if (rows.length === 0) {
       throw new Error("Failed to generate embeddings for the document");
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: insertError } = await supabaseAdmin
       .from("document_chunks" as const)
-      .insert(rows);
+      .insert(rows as any);
     if (insertError) {
       throw new Error(insertError.message);
     }
