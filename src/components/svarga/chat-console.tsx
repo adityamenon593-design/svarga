@@ -89,6 +89,18 @@ export function ChatConsole() {
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [usage, setUsage] = useState<UsageInfo | null>(null);
+  const [attachment, setAttachment] = useState<{
+    name: string;
+    mediaType: string;
+    url: string;
+  } | null>(null);
+  const [recording, setRecording] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const recorder = useRef<MediaRecorder | null>(null);
+  const chunks = useRef<Blob[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fileInput = useRef<HTMLInputElement | null>(null);
   const fetchMemory = useServerFn(listMemory);
   const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
@@ -210,7 +222,7 @@ export function ChatConsole() {
 
   const send = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || busy) return;
+    if ((!trimmed && !attachment) || busy) return;
     setInput("");
     if (mode === "image") {
       lastPrompt.current = "";
@@ -218,7 +230,119 @@ export function ChatConsole() {
       return;
     }
     lastPrompt.current = trimmed;
-    void sendMessage({ text: trimmed });
+    const files = attachment
+      ? [
+          {
+            type: "file" as const,
+            mediaType: attachment.mediaType,
+            filename: attachment.name,
+            url: attachment.url,
+          },
+        ]
+      : undefined;
+    setAttachment(null);
+    const outgoing = trimmed || "Please look at this and help me.";
+    void (files ? sendMessage({ text: outgoing, files }) : sendMessage({ text: outgoing }));
+  };
+
+  const attach = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file.");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      toast.error("That image is too large. Keep it under 8 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () =>
+      setAttachment({ name: file.name, mediaType: file.type, url: String(reader.result) });
+    reader.readAsDataURL(file);
+  };
+
+  const stopRecording = () => {
+    recorder.current?.stop();
+    recorder.current?.stream.getTracks().forEach((track) => track.stop());
+    recorder.current = null;
+    setRecording(false);
+  };
+
+  const toggleMic = async () => {
+    if (recording) {
+      stopRecording();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const media = new MediaRecorder(stream);
+      chunks.current = [];
+      media.ondataavailable = (event) => {
+        if (event.data.size > 0) chunks.current.push(event.data);
+      };
+      media.onstop = async () => {
+        const blob = new Blob(chunks.current, { type: media.mimeType || "audio/webm" });
+        if (blob.size < 2048) {
+          toast.error("That recording was empty — please try again.");
+          return;
+        }
+        setTranscribing(true);
+        try {
+          const form = new FormData();
+          form.append("audio", blob, "recording.webm");
+          const response = await fetch("/api/voice/transcribe", {
+            method: "POST",
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+            body: form,
+          });
+          if (!response.ok) throw new Error(await response.text());
+          const data = (await response.json()) as { text?: string };
+          const heard = (data.text ?? "").trim();
+          if (!heard) {
+            toast.error("Svarga did not catch that. Please try again.");
+            return;
+          }
+          setInput((current) => (current ? `${current} ${heard}` : heard));
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : "Voice input failed.");
+        } finally {
+          setTranscribing(false);
+        }
+      };
+      media.start();
+      recorder.current = media;
+      setRecording(true);
+    } catch {
+      toast.error("Microphone access is needed to speak to Svarga.");
+    }
+  };
+
+  const speak = async (id: string, text: string) => {
+    if (speakingId === id) {
+      audioRef.current?.pause();
+      audioRef.current = null;
+      setSpeakingId(null);
+      return;
+    }
+    audioRef.current?.pause();
+    setSpeakingId(id);
+    try {
+      const response = await fetch("/api/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ text: text.slice(0, 3000) }),
+      });
+      if (!response.ok) throw new Error(await response.text());
+      const audio = new Audio(URL.createObjectURL(await response.blob()));
+      audioRef.current = audio;
+      audio.onended = () => setSpeakingId(null);
+      await audio.play();
+    } catch (error) {
+      setSpeakingId(null);
+      toast.error(error instanceof Error ? error.message : "Svarga could not speak that.");
+    }
   };
 
   const openThread = async (thread: Thread) => {
@@ -362,17 +486,31 @@ export function ChatConsole() {
             const text = (message.parts ?? [])
               .map((part) => (part.type === "text" ? part.text : ""))
               .join("");
-            if (!text) return null;
+            const images = (message.parts ?? []).flatMap((part) =>
+              part.type === "file" && part.mediaType?.startsWith("image/") ? [part.url] : [],
+            );
+            if (!text && images.length === 0) return null;
             if (message.role === "user") {
               return (
                 <div key={message.id} className="flex gap-3">
                   <div className="grid size-7 shrink-0 place-items-center rounded-full bg-cream/15 font-display text-xs text-cream/70">
                     U
                   </div>
-                  <p className="pt-1 text-sm leading-relaxed text-cream/90">{text}</p>
+                  <div className="space-y-2 pt-1">
+                    {images.map((url) => (
+                      <img
+                        key={url}
+                        src={url}
+                        alt="Attached by the user"
+                        className="max-h-40 rounded-xl border border-cream/10"
+                      />
+                    ))}
+                    {text ? <p className="text-sm leading-relaxed text-cream/90">{text}</p> : null}
+                  </div>
                 </div>
               );
             }
+            if (!text) return null;
 
             const answer = parseAnswer(text);
             return (
@@ -410,6 +548,13 @@ export function ChatConsole() {
                       </ul>
                     </div>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => void speak(message.id, answer.body)}
+                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-cream/40 transition-colors hover:text-saffron"
+                  >
+                    {speakingId === message.id ? "■ Stop" : "▶ Listen"}
+                  </button>
                 </MessageContent>
               </Message>
             );
@@ -437,11 +582,49 @@ export function ChatConsole() {
           }
           className="min-h-16 text-cream placeholder:text-cream/40"
         />
-        <PromptInputFooter className="justify-end border-cream/10">
+        <PromptInputFooter className="items-center justify-between border-cream/10">
+          <div className="flex items-center gap-2">
+            <input
+              ref={fileInput}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (file) attach(file);
+                event.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => fileInput.current?.click()}
+              className="rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70 transition-colors hover:border-saffron/60 hover:text-saffron"
+              aria-label="Attach an image"
+            >
+              + Image
+            </button>
+            <button
+              type="button"
+              onClick={() => void toggleMic()}
+              disabled={transcribing}
+              aria-pressed={recording}
+              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${recording ? "border-crimson bg-crimson/20 text-crimson" : "border-cream/15 text-cream/70 hover:border-saffron/60 hover:text-saffron"}`}
+            >
+              {transcribing ? "Listening…" : recording ? "Stop ●" : "Speak 🎙"}
+            </button>
+            {attachment ? (
+              <span className="flex items-center gap-1 rounded-full border border-saffron/40 px-3 py-1 text-[11px] text-saffron">
+                {attachment.name.slice(0, 18)}
+                <button type="button" onClick={() => setAttachment(null)} aria-label="Remove image">
+                  ×
+                </button>
+              </span>
+            ) : null}
+          </div>
           <PromptInputSubmit
             status={rendering ? "submitted" : status}
             onStop={stop}
-            disabled={busy || input.trim().length === 0}
+            disabled={busy || (input.trim().length === 0 && !attachment)}
             className="bg-crimson text-cream hover:bg-crimson/90"
           />
         </PromptInputFooter>

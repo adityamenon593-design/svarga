@@ -15,6 +15,7 @@ export async function runIngestion({
     .from("documents" as const)
     .select("*")
     .eq("id", documentId)
+    .eq("user_id", userId)
     .single();
   if (error || !doc) {
     throw new Error(error?.message ?? "Document not found");
@@ -23,7 +24,8 @@ export async function runIngestion({
   await supabaseAdmin
     .from("documents" as const)
     .update({ status: "processing", error: null })
-    .eq("id", documentId);
+    .eq("id", documentId)
+    .eq("user_id", userId);
 
   try {
     const { data: file, error: downloadError } = await supabaseAdmin.storage
@@ -68,13 +70,15 @@ export async function runIngestion({
     await supabaseAdmin
       .from("documents" as const)
       .update({ status: "ready", error: null })
-      .eq("id", documentId);
+      .eq("id", documentId)
+      .eq("user_id", userId);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     await supabaseAdmin
       .from("documents" as const)
       .update({ status: "error", error: message })
-      .eq("id", documentId);
+      .eq("id", documentId)
+      .eq("user_id", userId);
     throw err;
   }
 }

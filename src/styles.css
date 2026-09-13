@@ -167,3 +167,120 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+/* Baby Krishna hologram presence */
+.svarga-holo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  isolation: isolate;
+}
+
+.svarga-holo-figure {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 18px color-mix(in oklch, var(--saffron) 55%, transparent))
+    drop-shadow(0 0 42px color-mix(in oklch, var(--crimson) 25%, transparent));
+  animation: svarga-float 6s ease-in-out infinite;
+}
+
+.svarga-holo-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--saffron) 45%, transparent);
+  animation: svarga-halo 3.6s ease-out infinite;
+}
+
+.svarga-holo-ring-slow {
+  animation-duration: 5.4s;
+  animation-delay: 1.2s;
+  border-color: color-mix(in oklch, var(--crimson) 35%, transparent);
+}
+
+.svarga-holo-scan {
+  position: absolute;
+  inset: 0.75rem;
+  z-index: 3;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--saffron) 16%, transparent) 0px,
+    transparent 2px,
+    transparent 5px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation: svarga-scan 4.5s linear infinite;
+}
+
+.svarga-holo-base {
+  position: absolute;
+  bottom: -0.35rem;
+  z-index: 0;
+  height: 1.1rem;
+  width: 72%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--saffron) 55%, transparent),
+    transparent 70%
+  );
+  filter: blur(4px);
+  animation: svarga-halo 3.6s ease-in-out infinite;
+}
+
+.svarga-holo-active .svarga-holo-figure {
+  animation-duration: 3s;
+}
+
+.svarga-holo-active .svarga-holo-ring,
+.svarga-holo-active .svarga-holo-base {
+  animation-duration: 1.8s;
+}
+
+@keyframes svarga-float {
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes svarga-halo {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+}
+
+@keyframes svarga-scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svarga-holo-figure,
+  .svarga-holo-ring,
+  .svarga-holo-base,
+  .svarga-holo-scan {
+    animation: none;
+  }
+}

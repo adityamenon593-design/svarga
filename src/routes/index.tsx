@@ -11,6 +11,7 @@ import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
 import { DonatePanel } from "@/components/svarga/donate";
 import { BuddyKrishna } from "@/components/svarga/buddy-krishna";
+import { LanguageSelector } from "@/components/svarga/languages";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
@@ -466,6 +467,8 @@ function Index() {
             ))}
           </div>
         </section>
+
+        <LanguageSelector />
 
         <section id="buddies" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
