@@ -87,6 +87,7 @@ const NAV = [
   { href: "#capacities", label: "Capacities" },
   { href: "#studio", label: "Studio" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#professional", label: "Professional" },
   { href: "#contact", label: "Contact" },
   { href: "#settings", label: "Settings" },
 ];
