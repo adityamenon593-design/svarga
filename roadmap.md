@@ -16,3 +16,4 @@
 - [ ] Add Hostinger business email to contact section (waiting on address)
 - [ ] Global card payments (Razorpay/Stripe with own keys - built-in unavailable for IN)
 - [ ] Publish + verify svarga.digital DNS at Hostinger
+- [ ] Write requested prompt (awaiting purpose)
