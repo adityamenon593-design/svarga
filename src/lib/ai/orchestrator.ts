@@ -2,7 +2,11 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
 
 import { MODEL_CONFIG, SVARGA_VERSION, SYSTEM_PROMPT, modelForMode } from "./config";
-import { containsPromptInjection, validateChatInput } from "./guardrails";
+import {
+  containsPromptInjection,
+  uncertaintyInstructions,
+  validateChatInput,
+} from "./guardrails";
 import { retrieveContext } from "./retrieval";
 import type { SvargaMode } from "./types";
 
@@ -23,10 +27,12 @@ export async function streamSvarga({
   messages,
   mode = "balanced",
   memory = [],
+  userId,
 }: {
   messages: UIMessage[];
   mode?: SvargaMode;
   memory?: string[];
+  userId?: string;
 }) {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) {
