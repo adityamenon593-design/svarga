@@ -27,7 +27,19 @@ import {
   saveTurn,
 } from "@/lib/history.functions";
 import { generateSvargaImage } from "@/lib/image.functions";
+import { getMyUsage } from "@/lib/entitlements.functions";
+import { supabase } from "@/integrations/supabase/client";
 import { learnFromTurn, listMemory } from "@/lib/memory.functions";
+
+type UsageInfo = {
+  label: string;
+  questionsUsed: number;
+  questionsAllowed: number;
+  questionWindow: "day" | "month";
+  imagesUsed: number;
+  imagesAllowed: number;
+  modes: readonly string[];
+};
 
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
@@ -58,6 +70,8 @@ export function ChatConsole() {
 
   const [rendering, setRendering] = useState(false);
   const [memory, setMemory] = useState<string[]>([]);
+  const [token, setToken] = useState<string | null>(null);
+  const [usage, setUsage] = useState<UsageInfo | null>(null);
   const fetchMemory = useServerFn(listMemory);
   const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
@@ -66,9 +80,30 @@ export function ChatConsole() {
   const persistImage = useServerFn(saveImage);
   const renderImage = useServerFn(generateSvargaImage);
   const removeThread = useServerFn(deleteConversation);
+  const fetchUsage = useServerFn(getMyUsage);
+
+  useEffect(() => {
+    if (!user) {
+      setToken(null);
+      setUsage(null);
+      return;
+    }
+    void supabase.auth.getSession().then(({ data }) => {
+      setToken(data.session?.access_token ?? null);
+    });
+    void fetchUsage()
+      .then((info) => setUsage(info as UsageInfo))
+      .catch(() => undefined);
+  }, [user, fetchUsage]);
+
   const transport = useMemo(
-    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode, memory } }),
-    [mode, memory],
+    () =>
+      new DefaultChatTransport({
+        api: "/api/svarga-chat",
+        body: { mode, memory },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }),
+    [mode, memory, token],
   );
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     transport,
@@ -212,22 +247,42 @@ export function ChatConsole() {
         <span className="size-2.5 rounded-full bg-crimson" />
         <span className="size-2.5 rounded-full bg-leaf" />
         <span className="ml-auto font-mono text-[10px] text-cream/40">
-          svarga · made in india · live
+          {usage
+            ? `${usage.label} · ${usage.questionsUsed}/${usage.questionsAllowed} questions this ${usage.questionWindow} · ${usage.imagesUsed}/${usage.imagesAllowed} images`
+            : "svarga · made in india · live"}
         </span>
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
-        {MODES.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setMode(item.id)}
-            aria-pressed={mode === item.id}
-            className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${mode === item.id ? "border-saffron bg-saffron/15 text-saffron" : "border-cream/10 text-cream/55 hover:border-cream/30 hover:text-cream/80"}`}
-          >
-            {item.label}
-          </button>
-        ))}
+        {MODES.map((item) => {
+          const locked =
+            item.id !== "balanced" &&
+            item.id !== "image" &&
+            (user ? usage !== null && !usage.modes.includes(item.id) : true);
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                if (locked) {
+                  toast.error(
+                    user
+                      ? `${item.label} mode is part of the paid plans — upgrade to unlock it.`
+                      : `Sign in and choose a plan to use ${item.label} mode.`,
+                  );
+                  return;
+                }
+                setMode(item.id);
+              }}
+              aria-pressed={mode === item.id}
+              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${mode === item.id ? "border-saffron bg-saffron/15 text-saffron" : "border-cream/10 text-cream/55 hover:border-cream/30 hover:text-cream/80"} ${locked ? "opacity-50" : ""}`}
+            >
+              {item.label}
+              {locked ? " ·" : ""}
+            </button>
+          );
+        })}
       </div>
+
       {user ? (
         <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1">
           <button

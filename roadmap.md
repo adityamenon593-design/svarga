@@ -12,6 +12,9 @@
 - [ ] Add Hostinger business email to contact section (waiting on address).
 - [x] Add Professional nav item between Settings and account area, with a matching section on the page.
 - [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows).
+- [ ] Global pricing: INR + USD currency switch on checkout (India-affordable rupee prices kept).
+- [ ] Enforce plan limits server-side: paid tiers unlock their stated features only after payment.
+
 
 ## Done
 

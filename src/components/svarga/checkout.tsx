@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
-import { createOrder, verifyPayment, PLANS, TIERS, type PlanId } from "@/lib/payments.functions";
+import {
+  createOrder,
+  verifyPayment,
+  PLANS,
+  TIERS,
+  type PlanId,
+  type Currency,
+} from "@/lib/payments.functions";
 
 declare global {
   interface Window {
@@ -34,7 +41,17 @@ function loadRazorpayScript(): Promise<void> {
   return razorpayScriptPromise;
 }
 
-const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
+const money = (value: number, currency: Currency) =>
+  currency === "INR" ? `₹${value.toLocaleString("en-IN")}` : `$${value.toLocaleString("en-US")}`;
+
+function detectCurrency(): Currency {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
+    return tz.startsWith("Asia/Calcutta") || tz.startsWith("Asia/Kolkata") ? "INR" : "USD";
+  } catch {
+    return "INR";
+  }
+}
 
 export function Checkout() {
   const { user } = useAuth();
@@ -42,13 +59,18 @@ export function Checkout() {
   const runVerifyPayment = useServerFn(verifyPayment);
   const [busy, setBusy] = useState<PlanId | null>(null);
   const [yearly, setYearly] = useState(false);
+  const [currency, setCurrency] = useState<Currency>("INR");
+
+  useEffect(() => {
+    setCurrency(detectCurrency());
+  }, []);
 
   async function pay(planId: PlanId) {
     if (!user || busy) return;
     setBusy(planId);
     const plan = PLANS[planId];
     try {
-      const order = await runCreateOrder({ data: { plan: planId } });
+      const order = await runCreateOrder({ data: { plan: planId, currency } });
       await loadRazorpayScript();
       if (!window.Razorpay) throw new Error("Payment window unavailable.");
 
@@ -115,9 +137,28 @@ export function Checkout() {
         </button>
       </div>
 
+      <div className="flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => setCurrency("INR")}
+          aria-pressed={currency === "INR"}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${currency === "INR" ? "border-leaf bg-leaf/10 text-leaf" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          India · ₹ INR
+        </button>
+        <button
+          type="button"
+          onClick={() => setCurrency("USD")}
+          aria-pressed={currency === "USD"}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${currency === "USD" ? "border-leaf bg-leaf/10 text-leaf" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          Global · $ USD
+        </button>
+      </div>
+
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {TIERS.map((tier) => {
-          const price = yearly ? tier.yearly : tier.monthly;
+          const price = tier.price[currency][yearly ? "yearly" : "monthly"];
           const planId =
             tier.id === "free" ? null : (`${tier.id}_${yearly ? "yearly" : "monthly"}` as PlanId);
           const popular = "popular" in tier && tier.popular;
@@ -131,7 +172,7 @@ export function Checkout() {
               </p>
               <h3 className="mt-2 font-display text-2xl font-semibold">{tier.name}</h3>
               <p className="mt-3 font-display text-4xl font-semibold">
-                {price === 0 ? "Free" : inr(price)}
+                {price === 0 ? "Free" : money(price, currency)}
                 {price === 0 ? null : (
                   <span className="text-base font-normal text-ink/50">
                     {yearly ? " / year" : " / month"}
@@ -172,8 +213,9 @@ export function Checkout() {
         })}
       </div>
       <p className="text-center text-xs text-ink/45">
-        All prices in Indian rupees, inclusive of applicable taxes. Cards, UPI, net banking and
-        wallets accepted through Razorpay. Cancel any time — no lock-in.
+        Pay in rupees from India or in US dollars from anywhere else — cards, UPI, net banking and
+        wallets all accepted, inclusive of applicable taxes. Every paid feature unlocks the moment
+        your payment is confirmed. Cancel any time — no lock-in.
       </p>
     </div>
   );

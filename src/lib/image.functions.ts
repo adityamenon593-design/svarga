@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
 const ImageInput = z.object({
   prompt: z.string().min(3).max(1200),
 });
@@ -17,10 +19,15 @@ type GatewayImageResponse = {
 
 /** Generates an image with Lovable AI and returns a data/remote URL. */
 export const generateSvargaImage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => ImageInput.parse(input))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("Image generation is not configured.");
+
+    const { checkQuota, recordUsage } = await import("@/lib/entitlements.server");
+    const gate = await checkQuota(context.userId, "image");
+    if (!gate.ok) throw new Error(gate.message);
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/images/generations", {
       method: "POST",
@@ -61,5 +68,6 @@ export const generateSvargaImage = createServerFn({ method: "POST" })
       (json.data?.[0]?.b64_json ? `data:image/png;base64,${json.data[0].b64_json}` : undefined);
 
     if (!url) throw new Error("The model returned no image. Try rephrasing the prompt.");
+    await recordUsage(context.userId, "image");
     return { url };
   });
