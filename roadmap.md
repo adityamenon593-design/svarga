@@ -2,6 +2,8 @@
 
 ## Open
 
+- [ ] Position Svarga as an all-in-one assistant: chat, reasoning, research, code, math, writing, images, documents, translation.
+
 - [ ] Svarga should practically help with everyday Indian problems: govt schemes, farming, health access, jobs/exams, legal/consumer rights, money, local languages.
 
 - [ ] Donate button (Razorpay + GPay/UPI 8139012237) visible on the site, with "if payment fails, pay directly on GPay" fallback note.
