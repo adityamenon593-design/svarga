@@ -1,28 +1,27 @@
-# Seedance 2.5 commercial prompt for Svarga.ai
+# Payments + hosting: what is actually possible, and the plan
 
-## What this is
+## The two hard constraints
 
-A ready-to-paste shot-list prompt for Seedance 2.5, grounded in the site's real design system rather than a generic tech look. Approve the plan and the final prompt ships as the reply text plus a copyable file.
+**Stripe.** The built-in Stripe option is not offered for India-registered sellers, and the fallback Stripe path requires your own Stripe account with a secret key — you said you only have Google Pay India. Creating a Stripe account needs business/KYC details only you can provide.
 
-## Design analysis (what the ad must reflect)
+**Hostinger.** Svarga's accounts, chat history and image gallery run on Lovable Cloud (a managed database and server). That backend cannot be dropped onto a Hostinger static/PHP host; the site is deployed from Lovable and your domain points at it. Self-hosting on Hostinger would mean rebuilding the backend yourself from the exported code — possible, but a project, not a switch. The launch-ready path is: publish from Lovable, point svarga.digital at it (DNS records already given).
 
-The site's actual identity is "Vedic Luminous", not dark neon:
+## Plan
 
-- **Palette**: warm cream paper background, deep ink text, with crimson and marigold-saffron accents and a soft saffron glow behind the console.
-- **Typography**: Cormorant Garamond serif display headlines, Manrope body, JetBrains Mono for the small tracking-labels.
-- **Signature elements**: the circular ॐ mark ringed in saffron, a slow-rotating pulsing halo, generous rounded panels, and the hero line "Where ancient knowledge meets the frontier."
-- **Live product moments to feature**: the chat console reasoning and streaming an answer; the image studio rendering luminous art; the multilingual line (39 languages, Sanskrit to English); answers that cite Upanishadic and Ayurvedic sources beside Western literature.
-- **Real founder story**: one developer, Aditya Menon, building India's sovereign-feeling AI. (Note: "India's fastest LLM" is not a claim the site makes, so the ad script frames it as ambition/energy, not a measured fact.)
+1. **Keep the UPI/Google Pay button** already live in the Contact section as the India payment rail.
+2. **Payments, pick one:**
+   - **Razorpay (recommended)** — Indian merchant account, supports UPI plus international cards once enabled. You create the account and give me the key; I wire a full checkout (order creation, payment verification, success page) into the site.
+   - **Your own Stripe account** — you sign up at stripe.com, then I open the key form and wire checkout. Global cards, but onboarding takes longer.
+3. **Hosting** — stay deployed from Lovable; finish the two DNS records at Hostinger and publish. The app is already deployment-ready as-is (accounts, saved chats, image studio all working).
+4. **Zero-fault launch pass** — before publishing, I drive the live preview end to end (every section, the chat console, the image studio, sign-in with email and Google, thread open/switch/delete, gallery, contact links) at desktop and mobile widths, fix anything found, and re-check until clean: no visual glitches, no console errors, no broken flows.
+5. **Launch checklist** once a payment choice lands: checkout page, success/failure handling, then publish and verify svarga.digital.
 
-## The prompt to be delivered
+## What I need from you
 
-Drafted exactly in the requested template — Subject / Camera & Movement / Lighting & Environment / Mood & Atmosphere / Native Audio & Sound — with shot beats covering: multi-device hero (phone, tablet, desktop) on the cream-and-ink interface, the saffron-ringed ॐ resolving into UI, the solo developer coding at night under warm saffron desk light, micro-to-macro zooms from Sanskrit glyphs into streaming console text, and a final luminous render from the image studio.
+- One decision: Razorpay or your own Stripe account.
+- The Hostinger business email address you want listed on the site (optional).
 
 ## Technical notes
 
-- Deliverable is a text prompt only; no video is generated in this step.
-- Tone of claims: the ad copy stays inside what the site shows, so the reel will not contradict the landing page people visit after clicking.
-
-## Optional next step (not in this plan)
-
-A 5–10 second 9:16 vertical teaser can be generated here with the built-in video tool using the approved prompt as the first frame of the reel ad — say the word after the prompt is approved.
+- Checkout wiring: server-side order/checkout creation, signature verification on the callback, UPI intent for India plus card support, all server-side so keys never touch the browser.
+- No database changes needed for checkout; a `payments` table can be added later to record orders once a provider is chosen.
