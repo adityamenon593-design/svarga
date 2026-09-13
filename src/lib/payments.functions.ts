@@ -64,7 +64,12 @@ export const TIERS = [
     name: "Sādhaka",
     tagline: "Start free",
     price: { INR: { monthly: 0, yearly: 0 }, USD: { monthly: 0, yearly: 0 } },
-    features: ["25 questions a day", "5 images a month", "Balanced mode", "Saved chat history"],
+    features: [
+      "100 questions a day",
+      "15 images a month",
+      "Balanced + Reasoning modes",
+      "Saved chat history",
+    ],
   },
   {
     id: "starter",
