@@ -48,6 +48,9 @@ const money = (value: number, currency: Currency) =>
 /** Live payments only run on domains registered with Razorpay. */
 const PAYMENT_HOSTS = new Set(["svarga.digital", "www.svarga.digital"]);
 
+/** The ₹1 live-rail test is visible to the founder account only. */
+const OWNER_EMAIL = "adityamenon593@gmail.com";
+
 function paymentHostRegistered(): boolean {
   try {
     return PAYMENT_HOSTS.has(window.location.hostname);
