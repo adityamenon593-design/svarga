@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
 
-import { ChatConsole } from "@/components/svarga/chat-console";
 import { DocumentLibrary } from "@/components/svarga/document-library";
 import { ImageStudio } from "@/components/svarga/image-studio";
 import { PrivacyInvitePanel } from "@/components/svarga/privacy-invite-panel";
