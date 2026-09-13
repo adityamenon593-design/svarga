@@ -291,9 +291,12 @@ function Index() {
               <p className="truncate font-display text-xl font-semibold tracking-tight sm:text-2xl">
                 Svarga
               </p>
-              <p className="truncate font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
-                Made in India
-              </p>
+              <div className="flex items-center gap-1.5">
+                <IndianFlag className="h-2.5 w-auto rounded-[1px]" />
+                <p className="truncate font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
+                  Made in India
+                </p>
+              </div>
             </div>
           </div>
           <nav className="hidden items-center gap-5 text-sm font-medium text-ink/70 lg:flex xl:gap-8">
