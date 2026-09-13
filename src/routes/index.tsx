@@ -310,6 +310,56 @@ function Index() {
           </ClientOnly>
         </section>
 
+        <section id="professional" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Professional
+          </p>
+          <h2 className="font-display text-4xl font-semibold">Built for professionals who ship.</h2>
+          <p className="mb-8 mt-3 max-w-2xl text-sm text-ink/60">
+            API access, fastest rendering queue, and direct support from the founder. For studios,
+            researchers, and teams scaling Bharat-made AI in production.
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "API-first",
+                body: "Integrate Svarga into your own products and workflows with server-side access.",
+              },
+              {
+                title: "Fastest queue",
+                body: "Your generation and reasoning jobs skip ahead with dedicated Ācārya priority.",
+              },
+              {
+                title: "1,500 images / mo",
+                body: "Enough render volume for agencies, content teams and product catalogues.",
+              },
+              {
+                title: "Founder support",
+                body: "Email and WhatsApp access to Aditya Mohan Menon for setup and scaling advice.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+                <h3 className="font-display text-xl font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#pricing"
+              className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream"
+            >
+              See the Ācārya plan
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold"
+            >
+              Talk to the founder
+            </a>
+          </div>
+        </section>
+
         <section id="contact" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
             Contact
