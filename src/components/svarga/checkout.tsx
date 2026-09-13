@@ -34,7 +34,19 @@ function loadRazorpayScript(): Promise<void> {
   return razorpayScriptPromise;
 }
 
-const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
+const money = (value: number, currency: Currency) =>
+  currency === "INR"
+    ? `₹${value.toLocaleString("en-IN")}`
+    : `$${value.toLocaleString("en-US")}`;
+
+function detectCurrency(): Currency {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
+    return tz.startsWith("Asia/Calcutta") || tz.startsWith("Asia/Kolkata") ? "INR" : "USD";
+  } catch {
+    return "INR";
+  }
+}
 
 export function Checkout() {
   const { user } = useAuth();
@@ -42,6 +54,12 @@ export function Checkout() {
   const runVerifyPayment = useServerFn(verifyPayment);
   const [busy, setBusy] = useState<PlanId | null>(null);
   const [yearly, setYearly] = useState(false);
+  const [currency, setCurrency] = useState<Currency>("INR");
+
+  useEffect(() => {
+    setCurrency(detectCurrency());
+  }, []);
+
 
   async function pay(planId: PlanId) {
     if (!user || busy) return;
