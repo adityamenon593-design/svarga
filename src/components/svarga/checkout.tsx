@@ -255,6 +255,24 @@ export function Checkout() {
         wallets all accepted, inclusive of applicable taxes. Every paid feature unlocks the moment
         your payment is confirmed. Cancel any time — no lock-in.
       </p>
+      {liveTest && user ? (
+        <div className="mx-auto max-w-md rounded-2xl border border-dashed border-crimson/40 bg-sand/40 p-5 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Owner only · live rail check
+          </p>
+          <p className="mt-2 text-sm text-ink/70">
+            Runs a genuine ₹1 payment through the same live path as a real plan.
+          </p>
+          <button
+            type="button"
+            onClick={() => void pay("free_livetest")}
+            disabled={busy !== null}
+            className="mt-4 rounded-full bg-crimson px-5 py-3 text-sm font-semibold text-cream disabled:opacity-50"
+          >
+            {busy === "free_livetest" ? "Opening secure checkout…" : "Pay ₹1 live test"}
+          </button>
+        </div>
+      ) : null}
       <p className="text-center text-xs text-ink/55">
         Card or UPI window not working? Just send the amount on GPay, PhonePe or Paytm to{" "}
         <strong className="text-ink/80">8139012237</strong> (Aditya Mohan Menon) and message us on
