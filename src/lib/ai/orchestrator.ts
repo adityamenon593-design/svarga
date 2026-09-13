@@ -15,7 +15,7 @@ function modeInstructions(mode: SvargaMode): string {
     case "creative":
       return "Creative mode: prioritize originality, structure, aesthetic quality, and faithful adherence to the user's brief.";
     default:
-      return "Balanced mode: optimize for accuracy, usefulness, clarity, and concise answers.";
+      return "Balanced mode: optimize for accuracy, usefulness, clarity, and concise answers. Still think before answering anything non-trivial.";
   }
 }
 
@@ -71,8 +71,8 @@ export async function streamSvarga({
     messages: await convertToModelMessages(messages),
     providerOptions: {
       openai: {
-        forceReasoning: mode === "reasoning" || mode === "research",
-        reasoningEffort: mode === "reasoning" || mode === "research" ? "medium" : "low",
+        forceReasoning: true,
+        reasoningEffort: mode === "reasoning" || mode === "research" ? "high" : "low",
         reasoningSummary: "auto",
         store: false,
         include: ["reasoning.encrypted_content"],
