@@ -62,3 +62,4 @@
 - [ ] Connect Perplexity (or equivalent) for live web answers with citations
 - [ ] Memory privacy: explicit consent toggle for learning + clear saved memory anytime
 - [ ] Svarga self-awareness: knows it is Svarga.ai, created by founder Aditya Mohan Menon
+- [ ] Donation confirmation + emailed receipt (needs a verified sender domain)
