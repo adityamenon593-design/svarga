@@ -220,7 +220,7 @@ export function ChatConsole() {
 
   const send = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || busy) return;
+    if ((!trimmed && !attachment) || busy) return;
     setInput("");
     if (mode === "image") {
       lastPrompt.current = "";
@@ -228,7 +228,118 @@ export function ChatConsole() {
       return;
     }
     lastPrompt.current = trimmed;
-    void sendMessage({ text: trimmed });
+    const files = attachment
+      ? [
+          {
+            type: "file" as const,
+            mediaType: attachment.mediaType,
+            filename: attachment.name,
+            url: attachment.url,
+          },
+        ]
+      : undefined;
+    setAttachment(null);
+    void sendMessage({ text: trimmed || "Please look at this and help me.", files });
+  };
+
+  const attach = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file.");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      toast.error("That image is too large. Keep it under 8 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () =>
+      setAttachment({ name: file.name, mediaType: file.type, url: String(reader.result) });
+    reader.readAsDataURL(file);
+  };
+
+  const stopRecording = () => {
+    recorder.current?.stop();
+    recorder.current?.stream.getTracks().forEach((track) => track.stop());
+    recorder.current = null;
+    setRecording(false);
+  };
+
+  const toggleMic = async () => {
+    if (recording) {
+      stopRecording();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const media = new MediaRecorder(stream);
+      chunks.current = [];
+      media.ondataavailable = (event) => {
+        if (event.data.size > 0) chunks.current.push(event.data);
+      };
+      media.onstop = async () => {
+        const blob = new Blob(chunks.current, { type: media.mimeType || "audio/webm" });
+        if (blob.size < 2048) {
+          toast.error("That recording was empty — please try again.");
+          return;
+        }
+        setTranscribing(true);
+        try {
+          const form = new FormData();
+          form.append("audio", blob, "recording.webm");
+          const response = await fetch("/api/voice/transcribe", {
+            method: "POST",
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+            body: form,
+          });
+          if (!response.ok) throw new Error(await response.text());
+          const data = (await response.json()) as { text?: string };
+          const heard = (data.text ?? "").trim();
+          if (!heard) {
+            toast.error("Svarga did not catch that. Please try again.");
+            return;
+          }
+          setInput((current) => (current ? `${current} ${heard}` : heard));
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : "Voice input failed.");
+        } finally {
+          setTranscribing(false);
+        }
+      };
+      media.start();
+      recorder.current = media;
+      setRecording(true);
+    } catch {
+      toast.error("Microphone access is needed to speak to Svarga.");
+    }
+  };
+
+  const speak = async (id: string, text: string) => {
+    if (speakingId === id) {
+      audioRef.current?.pause();
+      audioRef.current = null;
+      setSpeakingId(null);
+      return;
+    }
+    audioRef.current?.pause();
+    setSpeakingId(id);
+    try {
+      const response = await fetch("/api/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ text: text.slice(0, 3000) }),
+      });
+      if (!response.ok) throw new Error(await response.text());
+      const audio = new Audio(URL.createObjectURL(await response.blob()));
+      audioRef.current = audio;
+      audio.onended = () => setSpeakingId(null);
+      await audio.play();
+    } catch (error) {
+      setSpeakingId(null);
+      toast.error(error instanceof Error ? error.message : "Svarga could not speak that.");
+    }
   };
 
   const openThread = async (thread: Thread) => {
