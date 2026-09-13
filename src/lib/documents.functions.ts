@@ -27,7 +27,7 @@ export const listDocuments = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .select("*")
       .eq("user_id", context.userId)
       .order("created_at", { ascending: false })
@@ -44,7 +44,7 @@ export const createDocument = createServerFn({ method: "POST" })
     const filePath = `${context.userId}/${crypto.randomUUID()}`;
 
     const { data: row, error: insertError } = await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .insert({
         user_id: context.userId,
         title: data.title,
@@ -87,7 +87,7 @@ export const deleteDocument = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: doc, error: fetchError } = await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .select("file_path")
       .eq("id", data.id)
       .eq("user_id", context.userId)
@@ -97,7 +97,7 @@ export const deleteDocument = createServerFn({ method: "POST" })
     }
 
     await supabaseAdmin
-      .from("documents" as "documents")
+      .from("documents" as const)
       .delete()
       .eq("id", data.id);
     await supabaseAdmin.storage.from("documents").remove([doc.file_path]);
