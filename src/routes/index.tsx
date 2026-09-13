@@ -1,9 +1,44 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ClientOnly } from "@tanstack/react-router";
+import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+
+import { useAuth } from "@/hooks/use-auth";
 
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { ImageStudio } from "@/components/svarga/image-studio";
 import { SettingsPanel } from "@/components/svarga/settings-panel";
+
+function AccountNav() {
+  const { user, signOut } = useAuth();
+
+  if (!user) {
+    return (
+      <div className="flex items-center gap-3">
+        <Link to="/auth" className="hidden text-sm font-medium sm:block">
+          Sign in
+        </Link>
+        <Link
+          to="/auth"
+          className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream"
+        >
+          Get started
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      <span className="hidden max-w-[12rem] truncate text-sm text-ink/60 sm:block">
+        {user.email}
+      </span>
+      <button
+        onClick={() => void signOut()}
+        className="rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold transition-colors hover:border-ink/40"
+      >
+        Sign out
+      </button>
+    </div>
+  );
+}
 
 function ConsoleSkeleton() {
   return (
