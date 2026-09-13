@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { streamSvarga } from "@/lib/ai/orchestrator";
+import { gatewayFailure } from "@/lib/ai/guardrails";
 import type { UIMessage } from "ai";
 
 export const Route = createFileRoute("/api/svarga-chat")({
