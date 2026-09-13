@@ -44,6 +44,17 @@ function loadRazorpayScript(): Promise<void> {
 const money = (value: number, currency: Currency) =>
   currency === "INR" ? `₹${value.toLocaleString("en-IN")}` : `$${value.toLocaleString("en-US")}`;
 
+/** Live payments only run on domains registered with Razorpay. */
+const PAYMENT_HOSTS = new Set(["svarga.digital", "www.svarga.digital"]);
+
+function paymentHostRegistered(): boolean {
+  try {
+    return PAYMENT_HOSTS.has(window.location.hostname);
+  } catch {
+    return false;
+  }
+}
+
 function detectCurrency(): Currency {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
