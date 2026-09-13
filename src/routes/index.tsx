@@ -430,7 +430,23 @@ function Index() {
               </a>
             </div>
           </div>
-          <p className="mt-8 text-xs text-ink/40">
+
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/10 pt-6 text-sm text-ink/60">
+            <Link to="/terms" className="transition-colors hover:text-crimson">
+              Terms & Conditions
+            </Link>
+            <Link to="/privacy" className="transition-colors hover:text-crimson">
+              Privacy Policy
+            </Link>
+            <Link to="/refunds" className="transition-colors hover:text-crimson">
+              Refund / Cancellation Policy
+            </Link>
+            <Link to="/contact" className="transition-colors hover:text-crimson">
+              Contact Us
+            </Link>
+          </div>
+
+          <p className="mt-6 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.
           </p>
         </div>
