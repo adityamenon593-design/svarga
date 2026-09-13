@@ -19,6 +19,8 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiSvargaChatRouteImport } from './routes/api/svarga-chat'
 import { Route as ApiPublicRazorpayWebhookRouteImport } from './routes/api/public/razorpay-webhook'
+import { Route as ApiVoiceSpeakRouteImport } from './routes/api/voice/speak'
+import { Route as ApiVoiceTranscribeRouteImport } from './routes/api/voice/transcribe'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -72,6 +74,16 @@ const ApiPublicRazorpayWebhookRoute =
     path: '/api/public/razorpay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiVoiceSpeakRoute = ApiVoiceSpeakRouteImport.update({
+  id: '/api/voice/speak',
+  path: '/api/voice/speak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVoiceTranscribeRoute = ApiVoiceTranscribeRouteImport.update({
+  id: '/api/voice/transcribe',
+  path: '/api/voice/transcribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -90,6 +102,8 @@ export interface FileRoutesByFullPath {
   '/api/health': typeof ApiHealthRoute
   '/api/svarga-chat': typeof ApiSvargaChatRoute
   '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/voice/speak': typeof ApiVoiceSpeakRoute
+  '/api/voice/transcribe': typeof ApiVoiceTranscribeRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -103,6 +117,8 @@ export interface FileRoutesByTo {
   '/api/health': typeof ApiHealthRoute
   '/api/svarga-chat': typeof ApiSvargaChatRoute
   '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/voice/speak': typeof ApiVoiceSpeakRoute
+  '/api/voice/transcribe': typeof ApiVoiceTranscribeRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -117,6 +133,8 @@ export interface FileRoutesById {
   '/api/health': typeof ApiHealthRoute
   '/api/svarga-chat': typeof ApiSvargaChatRoute
   '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/voice/speak': typeof ApiVoiceSpeakRoute
+  '/api/voice/transcribe': typeof ApiVoiceTranscribeRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -132,6 +150,8 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/svarga-chat'
     | '/api/public/razorpay-webhook'
+    | '/api/voice/speak'
+    | '/api/voice/transcribe'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -145,6 +165,8 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/svarga-chat'
     | '/api/public/razorpay-webhook'
+    | '/api/voice/speak'
+    | '/api/voice/transcribe'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -158,6 +180,8 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/svarga-chat'
     | '/api/public/razorpay-webhook'
+    | '/api/voice/speak'
+    | '/api/voice/transcribe'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -172,6 +196,8 @@ export interface RootRouteChildren {
   ApiHealthRoute: typeof ApiHealthRoute
   ApiSvargaChatRoute: typeof ApiSvargaChatRoute
   ApiPublicRazorpayWebhookRoute: typeof ApiPublicRazorpayWebhookRoute
+  ApiVoiceSpeakRoute: typeof ApiVoiceSpeakRoute
+  ApiVoiceTranscribeRoute: typeof ApiVoiceTranscribeRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -247,6 +273,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicRazorpayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/voice/speak': {
+      id: '/api/voice/speak'
+      path: '/api/voice/speak'
+      fullPath: '/api/voice/speak'
+      preLoaderRoute: typeof ApiVoiceSpeakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/voice/transcribe': {
+      id: '/api/voice/transcribe'
+      path: '/api/voice/transcribe'
+      fullPath: '/api/voice/transcribe'
+      preLoaderRoute: typeof ApiVoiceTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -268,6 +308,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHealthRoute: ApiHealthRoute,
   ApiSvargaChatRoute: ApiSvargaChatRoute,
   ApiPublicRazorpayWebhookRoute: ApiPublicRazorpayWebhookRoute,
+  ApiVoiceSpeakRoute: ApiVoiceSpeakRoute,
+  ApiVoiceTranscribeRoute: ApiVoiceTranscribeRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
