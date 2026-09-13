@@ -393,13 +393,24 @@ function Index() {
                 <p className="mt-1 text-xs text-ink/50">Languages</p>
               </div>
             </div>
-            <div className="mt-8">
+          <div className="mt-8">
               <TrustStrip />
             </div>
           </div>
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
             <div className="relative">
+              <div className="mb-4 flex items-center gap-3 rounded-2xl border border-ink/10 bg-white/60 p-3 shadow-lg shadow-ink/5 backdrop-blur">
+                <IndianFlag className="h-16 w-auto rounded-md shadow-sm" />
+                <div>
+                  <p className="font-display text-lg font-semibold leading-tight">
+                    Made in India
+                  </p>
+                  <p className="text-xs text-ink/60">
+                    Hosted in Bharat · Built for Viksit Bharat
+                  </p>
+                </div>
+              </div>
               <HeroPreview />
             </div>
           </div>
