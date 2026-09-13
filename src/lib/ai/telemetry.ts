@@ -5,15 +5,15 @@ export interface AiEvent {
   durationMs: number;
   userId?: string | null | undefined;
   /** Prompt/input tokens billed for the call, when the provider reports them. */
-  inputTokens?: number;
+  inputTokens?: number | undefined;
   /** Completion/output tokens billed for the call, when the provider reports them. */
-  outputTokens?: number;
+  outputTokens?: number | undefined;
   /** Characters in the user's last message — length signal without storing content. */
-  promptChars?: number;
+  promptChars?: number | undefined;
   /** HTTP status when a gateway call fails. */
-  status?: number;
+  status?: number | undefined;
   /** Short, non-sensitive failure reason. */
-  reason?: string;
+  reason?: string | undefined;
 }
 
 export function recordAiEvent(event: AiEvent): void {
