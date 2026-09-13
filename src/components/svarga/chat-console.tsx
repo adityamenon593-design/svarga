@@ -310,7 +310,7 @@ export function ChatConsole() {
           >
             + New
           </button>
-          {threads.map((thread) => (
+          {(threads ?? []).map((thread) => (
             <span
               key={thread.id}
               className={`group flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-[11px] ${conversationId === thread.id ? "border-saffron/60 text-saffron" : "border-cream/10 text-cream/60"}`}
@@ -331,7 +331,7 @@ export function ChatConsole() {
       ) : null}
       <Conversation className="h-[340px]">
         <ConversationContent className="gap-4 p-0">
-          {messages.length === 0 ? (
+          {(messages ?? []).length === 0 ? (
             <div className="space-y-4">
               <p className="pt-1 text-sm leading-relaxed text-cream/70">
                 Ask across both traditions — Svarga answers with the Vedic concept, its modern
