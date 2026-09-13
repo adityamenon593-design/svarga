@@ -7,6 +7,9 @@
 - [ ] If rebrand approved: dark terminal aesthetic (#090d16 bg, #111827 panels, #10b981 accent), scrollable terminal log output, EXECUTE bar.
 - [ ] If approved: system prompt tuned to direct, no-filler, production-ready code output.
 - [ ] If approved: "EXPORT CODE" action to download project structure.
+- [ ] Connect GitHub repo sync (user action: + menu → GitHub → Connect project). Private repo is fine — does not affect Lovable hosting.
+- [ ] Add Hostinger business email to contact section (waiting on address).
+- [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows).
 
 ## Done
 - [x] Fixed chat/studio crash by rendering them client-side only.
@@ -14,6 +17,8 @@
 - [x] Own tab icon; all external branding removed.
 - [x] Interactive pass: chat modes, mobile menu, all buttons wired.
 - [x] One console for everything: chat modes + image generation in the same window.
+- [x] Razorpay checkout (cards + UPI): keys saved, server functions, payments table, checkout UI wired.
+- [x] Runtime error sweep: no current console or request failures on home / auth.
 
 - [ ] Connect GitHub repo sync (user action: + menu -> GitHub -> Connect project)
 - [ ] Add Hostinger business email to contact section (waiting on address)
