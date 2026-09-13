@@ -334,9 +334,9 @@ function Index() {
             <div>
               <p className="font-display text-lg font-semibold">Svarga</p>
               <p className="mt-1 max-w-sm text-sm text-ink/60">
-                A solo project by{" "}
-                <span className="font-medium text-ink">Aditya Mohan Menon</span>. Built in India,
-                priced in rupees.
+                A solo project by <span className="font-medium text-ink">Aditya Mohan Menon</span>.
+                <br />
+                Built in India, priced in rupees.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-sm">
