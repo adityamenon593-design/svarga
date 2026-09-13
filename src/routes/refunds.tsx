@@ -6,8 +6,7 @@ export const Route = createFileRoute("/refunds")({
       { title: "Refund & Cancellation Policy — Svarga.ai" },
       {
         name: "description",
-        content:
-          "Refund and cancellation terms for Svarga.ai subscriptions.",
+        content: "Refund and cancellation terms for Svarga.ai subscriptions.",
       },
       { property: "og:title", content: "Refund & Cancellation Policy — Svarga.ai" },
       {
@@ -47,8 +46,8 @@ function RefundsPage() {
           <h2 className="font-display text-2xl font-semibold text-ink">1. Cancellation</h2>
           <p>
             You can cancel your subscription at any time from your account settings. Cancellation
-            takes effect at the end of your current billing period. You will continue to have
-            access until then.
+            takes effect at the end of your current billing period. You will continue to have access
+            until then.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">2. Refund eligibility</h2>
@@ -58,7 +57,9 @@ function RefundsPage() {
             requests after 7 days, or for renewals, are reviewed on a case-by-case basis.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">3. How to request a refund</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            3. How to request a refund
+          </h2>
           <p>
             Email us at{" "}
             <a href="mailto:adityamenon593@gmail.com" className="underline underline-offset-4">
@@ -71,7 +72,8 @@ function RefundsPage() {
           <h2 className="font-display text-2xl font-semibold text-ink">4. Exceptions</h2>
           <p>
             Refunds are not provided for account misuse, terms-of-service violations, or promotional
-            credits. Transaction fees charged by payment processors may be deducted where applicable.
+            credits. Transaction fees charged by payment processors may be deducted where
+            applicable.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">5. Changes</h2>

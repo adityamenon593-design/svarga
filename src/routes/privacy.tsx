@@ -6,8 +6,7 @@ export const Route = createFileRoute("/privacy")({
       { title: "Privacy Policy — Svarga.ai" },
       {
         name: "description",
-        content:
-          "How Svarga.ai collects, uses, and protects your personal information.",
+        content: "How Svarga.ai collects, uses, and protects your personal information.",
       },
       { property: "og:title", content: "Privacy Policy — Svarga.ai" },
       {
@@ -33,9 +32,7 @@ function PrivacyPage() {
         >
           ← Back to Svarga
         </Link>
-        <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-          Privacy Policy
-        </h1>
+        <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">Privacy Policy</h1>
         <p className="mt-2 text-sm text-ink/60">Last updated: 13 September 2026</p>
 
         <div className="mt-10 space-y-6 text-ink/80">
@@ -44,15 +41,17 @@ function PrivacyPage() {
             collect, how we use it, and the choices you have.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">1. Information we collect</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            1. Information we collect
+          </h2>
           <ul className="list-disc space-y-2 pl-6">
             <li>
               <strong>Account information:</strong> email address and authentication details
               provided when you sign in.
             </li>
             <li>
-              <strong>Usage data:</strong> questions, prompts, and generated outputs used to
-              provide and improve the Services.
+              <strong>Usage data:</strong> questions, prompts, and generated outputs used to provide
+              and improve the Services.
             </li>
             <li>
               <strong>Uploaded files:</strong> documents you upload to your private library. These
@@ -60,23 +59,25 @@ function PrivacyPage() {
             </li>
           </ul>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">2. How we use information</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            2. How we use information
+          </h2>
           <p>
-            We use your information to operate the Services, authenticate you, enforce usage
-            limits, respond to support requests, and improve product quality. We do not sell your
-            personal data.
+            We use your information to operate the Services, authenticate you, enforce usage limits,
+            respond to support requests, and improve product quality. We do not sell your personal
+            data.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">3. Data storage</h2>
           <p>
-            Data is stored with secure cloud providers. Uploaded documents are kept private to
-            your account and processed only to power your own searches.
+            Data is stored with secure cloud providers. Uploaded documents are kept private to your
+            account and processed only to power your own searches.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">4. Cookies and analytics</h2>
           <p>
-            We use essential cookies for authentication and may use analytics to understand how
-            the product is used. You can disable non-essential cookies in your browser.
+            We use essential cookies for authentication and may use analytics to understand how the
+            product is used. You can disable non-essential cookies in your browser.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">5. Your rights</h2>
