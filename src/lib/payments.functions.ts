@@ -3,55 +3,53 @@ import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-/** Paid tiers, priced in Indian rupees. Yearly plans bill two months free. */
+/** Supported billing currencies. Amounts are always in minor units (paise / cents). */
+export const CURRENCIES = ["INR", "USD"] as const;
+export type Currency = (typeof CURRENCIES)[number];
+
+/** Paid tiers. Yearly plans bill two months free. */
 export const PLANS = {
   starter_monthly: {
     id: "starter_monthly",
     tier: "starter",
-    name: "Svarga Starter — Monthly",
-    amountPaise: 14900,
-    currency: "INR",
+    name: "Svarga Jijñāsu — Monthly",
     interval: "month",
+    amounts: { INR: 14900, USD: 700 },
   },
   starter_yearly: {
     id: "starter_yearly",
     tier: "starter",
-    name: "Svarga Starter — Yearly",
-    amountPaise: 149000,
-    currency: "INR",
+    name: "Svarga Jijñāsu — Yearly",
     interval: "year",
+    amounts: { INR: 149000, USD: 7000 },
   },
   pro_monthly: {
     id: "pro_monthly",
     tier: "pro",
     name: "Svarga Pro — Monthly",
-    amountPaise: 49900,
-    currency: "INR",
     interval: "month",
+    amounts: { INR: 49900, USD: 1900 },
   },
   pro_yearly: {
     id: "pro_yearly",
     tier: "pro",
     name: "Svarga Pro — Yearly",
-    amountPaise: 499000,
-    currency: "INR",
     interval: "year",
+    amounts: { INR: 499000, USD: 19000 },
   },
   acharya_monthly: {
     id: "acharya_monthly",
     tier: "acharya",
     name: "Svarga Ācārya — Monthly",
-    amountPaise: 149900,
-    currency: "INR",
     interval: "month",
+    amounts: { INR: 149900, USD: 4900 },
   },
   acharya_yearly: {
     id: "acharya_yearly",
     tier: "acharya",
     name: "Svarga Ācārya — Yearly",
-    amountPaise: 1499000,
-    currency: "INR",
     interval: "year",
+    amounts: { INR: 1499000, USD: 49000 },
   },
 } as const;
 
@@ -65,16 +63,14 @@ export const TIERS = [
     id: "free",
     name: "Sādhaka",
     tagline: "Start free",
-    monthly: 0,
-    yearly: 0,
+    price: { INR: { monthly: 0, yearly: 0 }, USD: { monthly: 0, yearly: 0 } },
     features: ["25 questions a day", "5 images a month", "Balanced mode", "Saved chat history"],
   },
   {
     id: "starter",
     name: "Jijñāsu",
     tagline: "For daily curiosity",
-    monthly: 149,
-    yearly: 1490,
+    price: { INR: { monthly: 149, yearly: 1490 }, USD: { monthly: 7, yearly: 70 } },
     features: [
       "300 questions a month",
       "50 images a month",
@@ -86,8 +82,7 @@ export const TIERS = [
     id: "pro",
     name: "Pro",
     tagline: "Most popular",
-    monthly: 499,
-    yearly: 4990,
+    price: { INR: { monthly: 499, yearly: 4990 }, USD: { monthly: 19, yearly: 190 } },
     popular: true,
     features: [
       "Unlimited questions (fair use)",
@@ -100,8 +95,7 @@ export const TIERS = [
     id: "acharya",
     name: "Ācārya",
     tagline: "For teams and builders",
-    monthly: 1499,
-    yearly: 14990,
+    price: { INR: { monthly: 1499, yearly: 14990 }, USD: { monthly: 49, yearly: 490 } },
     features: [
       "Everything in Pro, unlimited",
       "1,500 images a month",
@@ -110,6 +104,7 @@ export const TIERS = [
     ],
   },
 ] as const;
+
 
 async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
   const key = await crypto.subtle.importKey(
