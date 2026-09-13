@@ -120,10 +120,7 @@ function chunkText(text: string, chunkSize = 1200, overlap = 200): string[] {
   while (start < cleaned.length) {
     const end = Math.min(start + chunkSize, cleaned.length);
     const fallback = start + Math.floor(chunkSize * 0.6);
-    const boundary =
-      end < cleaned.length
-        ? Math.max(cleaned.lastIndexOf(" ", end), fallback)
-        : end;
+    const boundary = end < cleaned.length ? Math.max(cleaned.lastIndexOf(" ", end), fallback) : end;
     const splitAt = end < cleaned.length && boundary > start ? boundary : end;
     chunks.push(cleaned.slice(start, splitAt).trim());
     const next = splitAt - overlap;

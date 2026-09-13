@@ -96,7 +96,10 @@ export const deleteDocument = createServerFn({ method: "POST" })
       throw new Error(fetchError?.message ?? "Not found");
     }
 
-    await supabaseAdmin.from("documents" as "documents").delete().eq("id", data.id);
+    await supabaseAdmin
+      .from("documents" as "documents")
+      .delete()
+      .eq("id", data.id);
     await supabaseAdmin.storage.from("documents").remove([doc.file_path]);
     return { ok: true };
   });

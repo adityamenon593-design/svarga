@@ -47,16 +47,14 @@ class PerplexityProvider implements WebSearchProvider {
     };
 
     const citations = json.citations ?? [];
-    return citations
-      .slice(0, limit)
-      .map((url, index) => ({
-        id: `web-${index}`,
-        title: url,
-        kind: "web" as const,
-        authority: "secondary" as const,
-        locator: url,
-        excerpt: json.choices?.[0]?.message?.content ?? "",
-      }));
+    return citations.slice(0, limit).map((url, index) => ({
+      id: `web-${index}`,
+      title: url,
+      kind: "web" as const,
+      authority: "secondary" as const,
+      locator: url,
+      excerpt: json.choices?.[0]?.message?.content ?? "",
+    }));
   }
 }
 

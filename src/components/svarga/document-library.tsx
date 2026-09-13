@@ -98,8 +98,14 @@ export function DocumentLibrary() {
 
   const statusBadge = (status: string, error: string | null) => {
     if (status === "ready") return <span className="text-[10px] font-medium text-leaf">Ready</span>;
-    if (status === "processing") return <span className="text-[10px] font-medium text-saffron">Indexing…</span>;
-    if (status === "error") return <span className="text-[10px] font-medium text-crimson" title={error ?? ""}>Error</span>;
+    if (status === "processing")
+      return <span className="text-[10px] font-medium text-saffron">Indexing…</span>;
+    if (status === "error")
+      return (
+        <span className="text-[10px] font-medium text-crimson" title={error ?? ""}>
+          Error
+        </span>
+      );
     return <span className="text-[10px] font-medium text-cream/40">Pending</span>;
   };
 
