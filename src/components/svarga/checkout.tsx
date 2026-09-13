@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
-import { createOrder, verifyPayment, PLANS } from "@/lib/payments.functions";
+import { createOrder, verifyPayment, PLANS, TIERS, type PlanId } from "@/lib/payments.functions";
 
 declare global {
   interface Window {
@@ -34,19 +34,21 @@ function loadRazorpayScript(): Promise<void> {
   return razorpayScriptPromise;
 }
 
+const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
+
 export function Checkout() {
   const { user } = useAuth();
   const runCreateOrder = useServerFn(createOrder);
   const runVerifyPayment = useServerFn(verifyPayment);
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<PlanId | null>(null);
+  const [yearly, setYearly] = useState(false);
 
-  const plan = PLANS.pro;
-
-  async function pay() {
+  async function pay(planId: PlanId) {
     if (!user || busy) return;
-    setBusy(true);
+    setBusy(planId);
+    const plan = PLANS[planId];
     try {
-      const order = await runCreateOrder({ data: { plan: "pro" } });
+      const order = await runCreateOrder({ data: { plan: planId } });
       await loadRazorpayScript();
       if (!window.Razorpay) throw new Error("Payment window unavailable.");
 
@@ -72,70 +74,107 @@ export function Checkout() {
                 signature: resp.razorpay_signature,
               },
             });
-            toast.success("Payment confirmed. Welcome to Svarga Pro.");
+            toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
           } finally {
-            setBusy(false);
+            setBusy(null);
           }
         },
       });
       rzp.on("payment.failed", () => {
         toast.error("Payment failed. No amount was captured — please try again.");
-        setBusy(false);
+        setBusy(null);
       });
-      rzp.on("modal.ondismiss", () => setBusy(false));
+      rzp.on("modal.ondismiss", () => setBusy(null));
       rzp.open();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not start the payment.");
-      setBusy(false);
+      setBusy(null);
     }
   }
 
   return (
-    <div className="grid gap-5 md:grid-cols-2">
-      <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
-          {plan.name}
-        </p>
-        <p className="mt-3 font-display text-5xl font-semibold">
-          ₹499
-          <span className="text-lg font-normal text-ink/50"> / month</span>
-        </p>
-        <ul className="mt-4 space-y-2 text-sm text-ink/70">
-          <li>Unlimited frontier reasoning with Parameshvara 1.0</li>
-          <li>Full image studio with saved render gallery</li>
-          <li>Priority answers across 39 languages</li>
-        </ul>
-        {user ? (
-          <button
-            type="button"
-            onClick={() => void pay()}
-            disabled={busy}
-            className="mt-6 rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {busy ? "Opening secure checkout…" : "Subscribe with Razorpay"}
-          </button>
-        ) : (
-          <Link
-            to="/auth"
-            className="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-cream"
-          >
-            Sign in to subscribe
-          </Link>
-        )}
+    <div className="space-y-6">
+      <div className="flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => setYearly(false)}
+          aria-pressed={!yearly}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${!yearly ? "border-crimson bg-crimson/10 text-crimson" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          Monthly
+        </button>
+        <button
+          type="button"
+          onClick={() => setYearly(true)}
+          aria-pressed={yearly}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${yearly ? "border-crimson bg-crimson/10 text-crimson" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          Yearly · 2 months free
+        </button>
       </div>
-      <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-        <h3 className="font-display text-2xl font-semibold">Cards and UPI, worldwide.</h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink/60">
-          Checkout is handled by Razorpay: international Visa, Mastercard, RuPay and Amex cards,
-          plus UPI and Google Pay for India. Payments are verified on our servers before your plan
-          activates — nothing card-related ever touches your browser storage.
-        </p>
-        <p className="mt-4 font-mono text-xs text-ink/50">
-          Secure 256-bit encrypted checkout · Cancel anytime
-        </p>
+
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {TIERS.map((tier) => {
+          const price = yearly ? tier.yearly : tier.monthly;
+          const planId =
+            tier.id === "free" ? null : (`${tier.id}_${yearly ? "yearly" : "monthly"}` as PlanId);
+          const popular = "popular" in tier && tier.popular;
+          return (
+            <div
+              key={tier.id}
+              className={`flex flex-col rounded-2xl border p-6 ${popular ? "border-crimson/40 bg-sand/70 shadow-lg shadow-ink/5" : "border-ink/5 bg-sand/40"}`}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+                {tier.tagline}
+              </p>
+              <h3 className="mt-2 font-display text-2xl font-semibold">{tier.name}</h3>
+              <p className="mt-3 font-display text-4xl font-semibold">
+                {price === 0 ? "Free" : inr(price)}
+                {price === 0 ? null : (
+                  <span className="text-base font-normal text-ink/50">
+                    {yearly ? " / year" : " / month"}
+                  </span>
+                )}
+              </p>
+              <ul className="mt-4 flex-1 space-y-2 text-sm text-ink/70">
+                {tier.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              {planId === null ? (
+                <Link
+                  to="/auth"
+                  className="mt-6 rounded-full border border-ink/15 px-5 py-3 text-center text-sm font-semibold text-ink/70 transition-colors hover:border-crimson hover:text-crimson"
+                >
+                  Start free
+                </Link>
+              ) : user ? (
+                <button
+                  type="button"
+                  onClick={() => void pay(planId)}
+                  disabled={busy !== null}
+                  className={`mt-6 rounded-full px-5 py-3 text-sm font-semibold transition-opacity disabled:cursor-not-allowed disabled:opacity-50 ${popular ? "bg-crimson text-cream" : "border border-crimson/40 text-crimson"}`}
+                >
+                  {busy === planId ? "Opening secure checkout…" : `Choose ${tier.name}`}
+                </button>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="mt-6 rounded-full border border-crimson/40 px-5 py-3 text-center text-sm font-semibold text-crimson"
+                >
+                  Sign in to subscribe
+                </Link>
+              )}
+            </div>
+          );
+        })}
       </div>
+      <p className="text-center text-xs text-ink/45">
+        All prices in Indian rupees, inclusive of applicable taxes. Cards, UPI, net banking and
+        wallets accepted through Razorpay. Cancel any time — no lock-in.
+      </p>
     </div>
   );
 }
