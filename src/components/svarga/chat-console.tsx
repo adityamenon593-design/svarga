@@ -40,9 +40,12 @@ export function ChatConsole() {
   const lastPrompt = useRef("");
   const savedFor = useRef<string | null>(null);
 
+  const [rendering, setRendering] = useState(false);
   const fetchThreads = useServerFn(listConversations);
   const fetchMessages = useServerFn(listMessages);
   const persistTurn = useServerFn(saveTurn);
+  const persistImage = useServerFn(saveImage);
+  const renderImage = useServerFn(generateSvargaImage);
   const removeThread = useServerFn(deleteConversation);
   const transport = useMemo(
     () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode } }),
