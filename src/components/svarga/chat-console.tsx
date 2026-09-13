@@ -27,6 +27,7 @@ import {
   saveTurn,
 } from "@/lib/history.functions";
 import { generateSvargaImage } from "@/lib/image.functions";
+import { learnFromTurn, listMemory } from "@/lib/memory.functions";
 
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
@@ -56,6 +57,9 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  const [memory, setMemory] = useState<string[]>([]);
+  const fetchMemory = useServerFn(listMemory);
+  const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
   const fetchMessages = useServerFn(listMessages);
   const persistTurn = useServerFn(saveTurn);
