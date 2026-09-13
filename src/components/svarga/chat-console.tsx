@@ -18,11 +18,21 @@ const SEEDS = [
   "Compare the doṣa model with systems biology.",
 ];
 
+const MODES = [
+  { id: "balanced", label: "Balanced" },
+  { id: "reasoning", label: "Reasoning" },
+  { id: "research", label: "Research" },
+  { id: "creative", label: "Creative" },
+] as const;
+
+type Mode = (typeof MODES)[number]["id"];
+
 type Thread = { id: string; title: string; updated_at: string };
 
 export function ChatConsole() {
   const { user } = useAuth();
   const [input, setInput] = useState("");
+  const [mode, setMode] = useState<Mode>("balanced");
   const [threads, setThreads] = useState<Thread[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const lastPrompt = useRef("");
@@ -32,7 +42,10 @@ export function ChatConsole() {
   const fetchMessages = useServerFn(listMessages);
   const persistTurn = useServerFn(saveTurn);
   const removeThread = useServerFn(deleteConversation);
-  const transport = useMemo(() => new DefaultChatTransport({ api: "/api/svarga-chat" }), []);
+  const transport = useMemo(
+    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode } }),
+    [mode],
+  );
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     transport,
     onError: (error) => toast.error(error.message || "Svarga could not answer just now."),
