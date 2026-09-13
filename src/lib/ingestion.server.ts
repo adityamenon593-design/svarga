@@ -58,7 +58,9 @@ export async function runIngestion({
 
     const { error: insertError } = await supabaseAdmin
       .from("document_chunks" as const)
-      .insert(rows as { document_id: string; chunk_index: number; content: string; embedding: string }[]);
+      .insert(
+        rows as { document_id: string; chunk_index: number; content: string; embedding: string }[],
+      );
     if (insertError) {
       throw new Error(insertError.message);
     }
