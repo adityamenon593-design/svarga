@@ -78,6 +78,12 @@ export function Checkout() {
 
   async function pay(planId: PlanId) {
     if (!user || busy) return;
+    if (!paymentHostRegistered()) {
+      toast.info(
+        "Live payments run only on svarga.digital while Razorpay approves this website. Please complete your purchase at svarga.digital.",
+      );
+      return;
+    }
     setBusy(planId);
     const plan = PLANS[planId];
     try {
