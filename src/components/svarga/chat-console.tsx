@@ -356,8 +356,8 @@ export function ChatConsole() {
               ) : null}
             </div>
           ) : null}
-          {messages.map((message) => {
-            const text = message.parts
+          {(messages ?? []).map((message) => {
+            const text = (message.parts ?? [])
               .map((part) => (part.type === "text" ? part.text : ""))
               .join("");
             if (!text) return null;
