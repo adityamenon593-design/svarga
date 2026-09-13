@@ -41,7 +41,7 @@ export function ContactPanel() {
           href={LINKEDIN_URL}
           target="_blank"
           rel="noreferrer"
-          className="mt-5 inline-flex rounded-full bg-[#0A66C2] px-5 py-2.5 text-sm font-semibold text-cream"
+          className="mt-5 inline-flex rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-cream"
         >
           LinkedIn — Aditya Mohan Menon
         </a>
