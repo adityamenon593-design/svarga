@@ -122,6 +122,34 @@ function HeroPreview() {
   );
 }
 
+const TRUST_ITEMS = [
+  { icon: "🔒", label: "https://svarga.digital — Secured connection" },
+  { icon: "🛡", label: "Payments secured by Razorpay" },
+  { icon: "₹", label: "UPI / GPay accepted" },
+  { icon: "◈", label: "Your data stays private" },
+];
+
+function TrustStrip({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-2 ${compact ? "" : "gap-x-3 gap-y-2"}`}
+      aria-label="Security and trust"
+    >
+      {TRUST_ITEMS.map((item) => (
+        <span
+          key={item.label}
+          className="inline-flex items-center gap-1.5 rounded-full border border-leaf/25 bg-leaf/10 px-3 py-1 text-[11px] font-medium text-ink/70"
+        >
+          <span aria-hidden className="text-leaf">
+            {item.icon}
+          </span>
+          {item.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
