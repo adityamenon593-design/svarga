@@ -162,7 +162,9 @@ export function ChatConsole() {
     if (!user || busy || messages.length === 0) return;
     const last = messages[messages.length - 1];
     if (!last || last.role !== "assistant" || savedFor.current === last.id) return;
-    const answer = last.parts.map((part) => (part.type === "text" ? part.text : "")).join("");
+    const answer = (last.parts ?? [])
+      .map((part) => (part.type === "text" ? part.text : ""))
+      .join("");
     if (!answer.trim() || !lastPrompt.current) return;
     savedFor.current = last.id;
     const prompt = lastPrompt.current;
