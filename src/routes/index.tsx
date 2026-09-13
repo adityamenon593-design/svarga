@@ -87,6 +87,7 @@ const NAV = [
   { href: "#benchmarks", label: "Benchmarks" },
   { href: "#capacities", label: "Capacities" },
   { href: "#studio", label: "Studio" },
+  { href: "#library", label: "Library" },
   { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
   { href: "#settings", label: "Settings" },
