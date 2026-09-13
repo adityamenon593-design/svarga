@@ -47,15 +47,18 @@ export const Route = createFileRoute("/api/svarga-chat")({
           return result.toUIMessageStreamResponse({
             sendReasoning: true,
             originalMessages: body.messages as UIMessage[],
+            // A failure mid-stream must reach the user as readable text, not a dead spinner.
+            onError: (error) => gatewayFailure(error).message,
           });
         } catch (error) {
           if (error instanceof Error && error.name === "AbortError")
             return new Response("Cancelled", { status: 499 });
+          const failure = gatewayFailure(error);
           const message =
-            error instanceof Error && error.message.length < 240
+            error instanceof Error && error.message.length < 240 && failure.status === 500
               ? error.message
-              : "Svarga could not complete that request.";
-          return new Response(message, { status: 500 });
+              : failure.message;
+          return new Response(message, { status: failure.status });
         }
       },
     },
