@@ -52,6 +52,39 @@ function StudioSkeleton() {
   );
 }
 
+function IndianFlag({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-label="Indian flag"
+      viewBox="0 0 180 120"
+      className={className}
+      role="img"
+    >
+      <title>Indian flag</title>
+      <rect width="180" height="40" className="fill-saffron" />
+      <rect y="40" width="180" height="40" className="fill-white" />
+      <rect y="80" width="180" height="40" className="fill-leaf" />
+      <g className="fill-ink" transform="translate(90, 60)">
+        <circle r="12" fill="none" strokeWidth="1.2" className="stroke-ink" />
+        {Array.from({ length: 24 }).map((_, i) => {
+          const a = (i * 15 * Math.PI) / 180;
+          return (
+            <line
+              key={i}
+              x1={Math.cos(a) * 12}
+              y1={Math.sin(a) * 12}
+              x2={Math.cos(a) * 3}
+              y2={Math.sin(a) * 3}
+              strokeWidth="1.2"
+              className="stroke-ink"
+            />
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
 function HeroPreview() {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-sand/50 p-6 shadow-2xl shadow-ink/10 backdrop-blur sm:p-8">
