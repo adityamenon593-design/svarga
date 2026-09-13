@@ -184,17 +184,17 @@ function Index() {
               console.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/chat"
+                className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-crimson/90"
+              >
+                Chat now
+              </Link>
               <a
                 href="#studio"
-                className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream"
+                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold transition-colors hover:border-ink/40"
               >
                 Open the image studio
-              </a>
-              <a
-                href="#capacities"
-                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold"
-              >
-                See the capacities
               </a>
             </div>
             <div className="mt-8 flex gap-8">
