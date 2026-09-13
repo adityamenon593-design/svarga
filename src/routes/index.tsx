@@ -72,17 +72,9 @@ function Index() {
           <a href="#studio">Studio</a>
           <a href="#settings">Settings</a>
         </nav>
-        <div className="flex items-center gap-3">
-          <a href="#console" className="hidden text-sm font-medium sm:block">
-            Sign in
-          </a>
-          <a
-            href="#console"
-            className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream"
-          >
-            Console
-          </a>
-        </div>
+        <ClientOnly fallback={<div className="h-9 w-24" />}>
+          <AccountNav />
+        </ClientOnly>
       </header>
 
       <main className="mx-auto max-w-6xl px-6 lg:px-8">
