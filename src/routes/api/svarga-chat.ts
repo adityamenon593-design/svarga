@@ -40,7 +40,7 @@ export const Route = createFileRoute("/api/svarga-chat")({
             messages: body.messages as UIMessage[],
             mode,
             memory,
-            userId: userId ?? undefined,
+            userId,
           });
           return result.toUIMessageStreamResponse({
             sendReasoning: true,
