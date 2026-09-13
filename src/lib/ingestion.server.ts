@@ -84,9 +84,8 @@ async function extractText(buffer: ArrayBuffer, kind: string): Promise<string> {
   if (kind === "pdf") {
     const loadingTask = pdfjs.getDocument({
       data: new Uint8Array(buffer),
-      isEvalSupported: false,
       useSystemFonts: true,
-    });
+    } as any);
     const pdf = await loadingTask.promise;
     let text = "";
     for (let i = 1; i <= pdf.numPages; i++) {
