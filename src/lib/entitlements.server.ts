@@ -205,7 +205,9 @@ export async function checkRateLimit(
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const now = new Date();
-  const windowStart = new Date(Math.floor(now.getTime() / (windowSeconds * 1000)) * (windowSeconds * 1000));
+  const windowStart = new Date(
+    Math.floor(now.getTime() / (windowSeconds * 1000)) * (windowSeconds * 1000),
+  );
 
   const { data, error } = await supabaseAdmin
     .from("rate_limits")
@@ -218,7 +220,8 @@ export async function checkRateLimit(
     return { ok: true };
   }
 
-  const currentCount = data && new Date(data.window_start).getTime() >= windowStart.getTime() ? data.count : 0;
+  const currentCount =
+    data && new Date(data.window_start).getTime() >= windowStart.getTime() ? data.count : 0;
   if (currentCount >= maxRequests) {
     const retryAfter = windowSeconds - Math.floor((now.getTime() - windowStart.getTime()) / 1000);
     return {

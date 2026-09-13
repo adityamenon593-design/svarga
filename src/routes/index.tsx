@@ -85,7 +85,8 @@ function HeroPreview() {
               ॐ
             </div>
             <p className="rounded-2xl rounded-tl-sm bg-ink px-4 py-2 text-sm leading-relaxed text-cream/90">
-              Karma yoga is doing your duty without clinging to results — like a lotus leaf in water.
+              Karma yoga is doing your duty without clinging to results — like a lotus leaf in
+              water.
             </p>
           </div>
           <div className="flex gap-3">
