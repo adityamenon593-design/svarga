@@ -24,9 +24,18 @@ export const Route = createFileRoute("/api/svarga-chat")({
             ? body.memory.filter((item): item is string => typeof item === "string").slice(0, 20)
             : [];
 
-          const { userIdFromRequest, checkQuota, recordUsage } =
+          const { userIdFromRequest, checkQuota, recordUsage, checkRateLimit } =
             await import("@/lib/entitlements.server");
           const userId = await userIdFromRequest(request);
+
+          const rateLimit = await checkRateLimit(request, userId);
+          if (!rateLimit.ok) {
+            return new Response(rateLimit.message, {
+              status: 429,
+              headers: { "Retry-After": String(rateLimit.retryAfter) },
+            });
+          }
+
           if (!userId) {
             if (mode !== "balanced")
               return new Response("Sign in to use this mode — it is part of the paid plans.", {
