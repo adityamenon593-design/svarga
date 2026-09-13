@@ -21,6 +21,7 @@
 - [x] Document library: upload books, PDFs, scripture files; Svarga searches them for answers.
 - [x] Citations: show source links for web-search and uploaded-knowledge answers.
 - [x] Background ingestion/indexing: uploaded documents become searchable quickly and reliably.
+- [ ] Legal/compliance footer links: Terms & Conditions, Privacy Policy, Refund / Cancellation Policy, Contact Us with email/phone/physical address.
 
 
 
