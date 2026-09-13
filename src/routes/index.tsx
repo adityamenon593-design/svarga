@@ -299,6 +299,16 @@ function Index() {
           </ClientOnly>
         </section>
 
+        <section id="library" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Library
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Upload your own knowledge.</h2>
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <DocumentLibrary />
+          </ClientOnly>
+        </section>
+
         <section id="pricing" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
             Pricing · Made in India 🇮🇳
