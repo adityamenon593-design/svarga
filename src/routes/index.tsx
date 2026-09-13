@@ -371,7 +371,7 @@ function Index() {
             A gentle companion who answers from Krishna's principles — karma yoga, dharma, devotion,
             a steady mind — like a loving friend, not a lecture.
           </p>
-          <ClientOnly fallback={<ConsoleSkeleton />}>
+          <ClientOnly fallback={<div className="h-[400px] animate-pulse rounded-3xl bg-ink/5" />}>
             <BuddyKrishna />
           </ClientOnly>
         </section>
