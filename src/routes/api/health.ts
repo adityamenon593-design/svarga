@@ -1,7 +1,7 @@
 import { SVARGA_VERSION } from "@/lib/ai/config";
 
 export function GET() {
-  const hasProviderKey = Boolean(process.env.LOVABLE_API_KEY);
+  const hasProviderKey = Boolean(process.env["LOVABLE_API_KEY"]);
   return new Response(JSON.stringify({
     ok: hasProviderKey,
     service: "svarga",
@@ -9,7 +9,7 @@ export function GET() {
     timestamp: new Date().toISOString(),
     dependencies: {
       ai: hasProviderKey ? "configured" : "missing",
-      rag: process.env.SVARGA_RAG_ENABLED === "true" ? "configured" : "not-configured",
+      rag: process.env["SVARGA_RAG_ENABLED"] === "true" ? "configured" : "not-configured",
     },
   }), {
     status: hasProviderKey ? 200 : 503,

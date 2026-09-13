@@ -1,7 +1,7 @@
 export interface ConversationMemory {
-  summary?: string;
-  preferences?: string[];
-  facts?: string[];
+  summary?: string | undefined;
+  preferences?: string[] | undefined;
+  facts?: string[] | undefined;
 }
 
 /** Memory is deliberately opt-in and server-owned. Never store secrets or hidden reasoning. */

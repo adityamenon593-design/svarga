@@ -3,9 +3,9 @@ import type { SvargaMode } from "./types";
 export const SVARGA_VERSION = "2.0.0";
 
 export const MODEL_CONFIG = {
-  fast: process.env.SVARGA_FAST_MODEL ?? "openai/gpt-6-astra",
-  reasoning: process.env.SVARGA_REASONING_MODEL ?? "openai/gpt-6-astra",
-  creative: process.env.SVARGA_CREATIVE_MODEL ?? "openai/gpt-6-astra",
+  fast: process.env["SVARGA_FAST_MODEL"] ?? "openai/gpt-6-astra",
+  reasoning: process.env["SVARGA_REASONING_MODEL"] ?? "openai/gpt-6-astra",
+  creative: process.env["SVARGA_CREATIVE_MODEL"] ?? "openai/gpt-6-astra",
 } as const;
 
 export function modelForMode(mode: SvargaMode): string {
