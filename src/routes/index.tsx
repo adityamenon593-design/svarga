@@ -11,6 +11,7 @@ import { SettingsPanel } from "@/components/svarga/settings-panel";
 import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
 import { DonatePanel } from "@/components/svarga/donate";
+import { BuddyKrishna } from "@/components/svarga/buddy-krishna";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
@@ -88,6 +89,7 @@ const NAV = [
   { href: "#console", label: "Console" },
   { href: "#benchmarks", label: "Benchmarks" },
   { href: "#capacities", label: "Capacities" },
+  { href: "#buddies", label: "Buddies" },
   { href: "#studio", label: "Studio" },
   { href: "#library", label: "Library" },
   { href: "#pricing", label: "Pricing" },
@@ -296,6 +298,20 @@ function Index() {
               </p>
             </div>
           </div>
+        </section>
+
+        <section id="buddies" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Buddies
+          </p>
+          <h2 className="mb-2 font-display text-4xl font-semibold">Talk to Baby Krishna.</h2>
+          <p className="mb-8 max-w-2xl text-sm text-ink/60">
+            A gentle companion who answers from Krishna's principles — karma yoga, dharma, devotion,
+            a steady mind — like a loving friend, not a lecture.
+          </p>
+          <ClientOnly fallback={<ConsoleSkeleton />}>
+            <BuddyKrishna />
+          </ClientOnly>
         </section>
 
         <section id="studio" className="border-t border-ink/10 py-14">

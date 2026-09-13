@@ -11,6 +11,7 @@ export const Route = createFileRoute("/api/svarga-chat")({
             messages?: unknown;
             mode?: unknown;
             memory?: unknown;
+            persona?: unknown;
           };
           if (!Array.isArray(body.messages))
             return new Response("Messages are required", { status: 400 });
@@ -41,6 +42,7 @@ export const Route = createFileRoute("/api/svarga-chat")({
             mode,
             memory,
             userId,
+            persona: body.persona === "krishna" ? "krishna" : undefined,
           });
           return result.toUIMessageStreamResponse({
             sendReasoning: true,
