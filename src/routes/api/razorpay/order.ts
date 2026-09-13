@@ -6,9 +6,11 @@ export async function POST({ request }: { request: Request }) {
   if (!razorpayConfigured()) return json({ error: "Razorpay is not configured" }, 503);
   const body = await request.json().catch(() => null) as { amount?: unknown; receipt?: unknown; plan?: unknown } | null;
   const amount = Number(body?.amount);
+  const allowed = (process.env["RAZORPAY_ALLOWED_AMOUNTS_PAISE"] ?? "").split(",").map((value) => Number(value.trim())).filter((value) => Number.isInteger(value) && value > 0);
   const receipt = typeof body?.receipt === "string" ? body.receipt.slice(0, 40) : `svarga_${Date.now()}`;
   const plan = typeof body?.plan === "string" ? body.plan.slice(0, 40) : "default";
   if (!Number.isInteger(amount) || amount <= 0) return json({ error: "amount must be a positive integer in paise" }, 400);
+  if (allowed.length === 0 || !allowed.includes(amount)) return json({ error: "This payment amount is not enabled" }, 400);
   try {
     const order = await createRazorpayOrder({ amount, receipt, notes: { plan } });
     return json({ order, keyId: getRazorpayKeyId() });
