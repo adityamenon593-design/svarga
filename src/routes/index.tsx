@@ -81,7 +81,7 @@ const BENCHMARKS = [
 ];
 
 const NAV = [
-  { href: "#console", label: "Console" },
+  { href: "/chat", label: "Chat" },
   { href: "#benchmarks", label: "Benchmarks" },
   { href: "#capacities", label: "Capacities" },
   { href: "#buddies", label: "Buddies" },
