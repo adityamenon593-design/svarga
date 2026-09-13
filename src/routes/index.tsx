@@ -174,7 +174,6 @@ function Index() {
               Built in India. Svarga reasons across the Vedic sciences and the Western canon in a
               single grounded answer — and renders what it describes. Ask it anything in the
               console.
-
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
