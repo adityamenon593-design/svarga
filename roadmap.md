@@ -59,3 +59,4 @@
 
 - [ ] Razorpay webhook + payment status checker: confirm success/failure and auto-unlock the right plan
 - [ ] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
+- [ ] Connect Perplexity (or equivalent) for live web answers with citations
