@@ -122,7 +122,9 @@ export function Checkout() {
         },
       });
       rzp.on("payment.failed", () => {
-        toast.error("Payment failed. No amount was captured — please try again.");
+        toast.error(
+          "Payment failed. No amount was captured — you can also pay directly on GPay to 8139012237.",
+        );
         setBusy(null);
       });
       rzp.on("modal.ondismiss", () => setBusy(null));
@@ -233,6 +235,11 @@ export function Checkout() {
         Pay in rupees from India or in US dollars from anywhere else — cards, UPI, net banking and
         wallets all accepted, inclusive of applicable taxes. Every paid feature unlocks the moment
         your payment is confirmed. Cancel any time — no lock-in.
+      </p>
+      <p className="text-center text-xs text-ink/55">
+        Card or UPI window not working? Just send the amount on GPay, PhonePe or Paytm to{" "}
+        <strong className="text-ink/80">8139012237</strong> (Aditya Mohan Menon) and message us on
+        WhatsApp — we will activate your plan manually.
       </p>
     </div>
   );
