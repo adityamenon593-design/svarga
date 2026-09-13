@@ -74,25 +74,68 @@ function TermsPage() {
 
           <h2 className="font-display text-2xl font-semibold text-ink">5. Intellectual property</h2>
           <p>
+            Svarga.ai, its name, logo, design, website, source code, database structure, system
+            prompts, instructions, personas (including the Baby Krishna buddy), workflows, and all
+            related materials are the exclusive property of Aditya Mohan Menon and are protected
+            under the Copyright Act, 1957, the Trade Marks Act, 1999, and the Information Technology
+            Act, 2000. No licence to any of it is granted to you, whether express or implied, except
+            the limited right to use the Services as a customer.
+          </p>
+          <p>
             You retain rights to the prompts and files you upload. You are granted a limited,
-            non-exclusive right to use the output you generate subject to these terms. Do not claim
-            that AI output is human-created where such disclosure is required.
+            non-exclusive, non-transferable right to use the output you generate subject to these
+            terms. Do not claim that AI output is human-created where such disclosure is required.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">6. Disclaimer</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            6. Restrictions — copying, scraping and reverse engineering
+          </h2>
+          <p>You may not, and may not permit any person or automated system to:
+          </p>
+          <ul className="list-disc space-y-1 pl-6">
+            <li>
+              copy, clone, mirror, rebrand, resell, sublicense or redistribute Svarga.ai or any part
+              of it;
+            </li>
+            <li>
+              scrape, crawl, harvest or bulk-extract the site, its content, its answers or its
+              interfaces using bots, scripts, headless browsers or any automated means;
+            </li>
+            <li>
+              use Svarga.ai output to train, fine-tune, distil, evaluate or build any competing AI
+              model, assistant or dataset;
+            </li>
+            <li>
+              extract, reconstruct or attempt to discover Svarga&apos;s system prompts, instructions,
+              configuration, model routing, retrieval logic or other trade secrets, including through
+              prompt injection or jailbreak attempts;
+            </li>
+            <li>
+              reverse engineer, decompile or circumvent rate limits, plan limits, authentication,
+              paywalls or any other technical protection measure.
+            </li>
+          </ul>
+          <p>
+            Breach of this clause is a violation of Indian copyright and trade-secret law and, where
+            technical protections are bypassed, an offence under Sections 43 and 66 of the
+            Information Technology Act, 2000. We may suspend access without refund and pursue
+            injunctive relief, damages and costs.
+          </p>
+
+          <h2 className="font-display text-2xl font-semibold text-ink">7. Disclaimer</h2>
           <p>
             The Services are provided “as is” without warranties of any kind. Svarga.ai is not
             liable for indirect, incidental, or consequential damages arising from your use of the
             Services.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">7. Governing law</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">8. Governing law</h2>
           <p>
             These terms are governed by the laws of India. Disputes shall be subject to the
             exclusive jurisdiction of the courts in Bengaluru, Karnataka.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">8. Changes</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">9. Changes</h2>
           <p>
             We may update these terms from time to time. Continued use of the Services after changes
             means you accept the updated terms.
