@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createOpenAI } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { gatewayFailure, trimHistory } from "@/lib/ai/guardrails";
 
 const SYSTEM_PROMPT = `You are Svarga (Parameshvara 1.0), a reasoning assistant that answers by holding two knowledge traditions side by side:
 
@@ -58,13 +59,14 @@ export const Route = createFileRoute("/api/chat")({
           return result.toUIMessageStreamResponse({
             sendReasoning: true,
             originalMessages: body.messages as UIMessage[],
+            onError: (error) => gatewayFailure(error).message,
           });
         } catch (error) {
           if (error instanceof Error && error.name === "AbortError") {
             return new Response("Cancelled", { status: 499 });
           }
-          const message = error instanceof Error ? error.message : "Unknown error";
-          return new Response(message, { status: 500 });
+          const failure = gatewayFailure(error);
+          return new Response(failure.message, { status: failure.status });
         }
       },
     },
