@@ -59,7 +59,7 @@ export function DonationReceipt({
 export const template = {
   component: DonationReceipt,
   displayName: "Donation receipt",
-  subject: (data: Record<string, any>) =>
+  subject: (data: Record<string, unknown>) =>
     `Your Svarga.ai donation receipt (${data["amount"] ?? ""})`.trim(),
   previewData: {
     donorName: "Aditya",
