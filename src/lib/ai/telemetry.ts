@@ -3,7 +3,17 @@ export interface AiEvent {
   mode: string;
   model: string;
   durationMs: number;
-  userId?: string;
+  userId?: string | null;
+  /** Prompt/input tokens billed for the call, when the provider reports them. */
+  inputTokens?: number;
+  /** Completion/output tokens billed for the call, when the provider reports them. */
+  outputTokens?: number;
+  /** Characters in the user's last message — length signal without storing content. */
+  promptChars?: number;
+  /** HTTP status when a gateway call fails. */
+  status?: number;
+  /** Short, non-sensitive failure reason. */
+  reason?: string;
 }
 
 export function recordAiEvent(event: AiEvent): void {
