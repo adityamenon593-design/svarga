@@ -69,5 +69,6 @@ export const generateSvargaImage = createServerFn({ method: "POST" })
       (json.data?.[0]?.b64_json ? `data:image/png;base64,${json.data[0].b64_json}` : undefined);
 
     if (!url) throw new Error("The model returned no image. Try rephrasing the prompt.");
+    await recordUsage(context.userId, "image");
     return { url };
   });
