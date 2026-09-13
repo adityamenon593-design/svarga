@@ -150,6 +150,11 @@ export const createOrder = createServerFn({ method: "POST" })
     if (!keyId || !keySecret) throw new Error("Payments are not configured yet.");
 
     const plan = PLANS[data.plan as PlanId];
+    // The ₹1 live-rail test belongs to the founder account only.
+    if (plan.id === "free_livetest") {
+      const email = String(context.claims?.["email"] ?? "").toLowerCase();
+      if (email !== "adityamenon593@gmail.com") throw new Error("That plan is not available.");
+    }
     const currency = data.currency as Currency;
     const amount = plan.amounts[currency];
     const res = await fetch("https://api.razorpay.com/v1/orders", {
