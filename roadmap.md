@@ -2,6 +2,8 @@
 
 ## Open
 
+- [ ] Svarga should practically help with everyday Indian problems: govt schemes, farming, health access, jobs/exams, legal/consumer rights, money, local languages.
+
 - [ ] Donate button (Razorpay + GPay/UPI 8139012237) visible on the site, with "if payment fails, pay directly on GPay" fallback note.
 - [ ] Free plan: more daily messages until paid users arrive.
 - [ ] LLM quality upgrade: match top-model behaviour (deep reasoning, structure, code/math).
