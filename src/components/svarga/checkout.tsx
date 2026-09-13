@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import {
   createOrder,
+  checkOrderStatus,
   verifyPayment,
   PLANS,
   TIERS,
@@ -68,6 +69,7 @@ export function Checkout() {
   const { user } = useAuth();
   const runCreateOrder = useServerFn(createOrder);
   const runVerifyPayment = useServerFn(verifyPayment);
+  const runCheckStatus = useServerFn(checkOrderStatus);
   const [busy, setBusy] = useState<PlanId | null>(null);
   const [yearly, setYearly] = useState(false);
   const [currency, setCurrency] = useState<Currency>("INR");
@@ -127,7 +129,18 @@ export function Checkout() {
         );
         setBusy(null);
       });
-      rzp.on("modal.ondismiss", () => setBusy(null));
+      // If the window is closed after paying, confirm with Razorpay directly so the
+      // plan still unlocks.
+      rzp.on("modal.ondismiss", () => {
+        setBusy(null);
+        void runCheckStatus({ data: { orderId: order.orderId } })
+          .then((result) => {
+            if (result.status === "paid") {
+              toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
+            }
+          })
+          .catch(() => undefined);
+      });
       rzp.open();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not start the payment.");
