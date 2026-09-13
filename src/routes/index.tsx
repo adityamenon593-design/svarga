@@ -619,7 +619,10 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div>
-              <p className="font-display text-lg font-semibold">Svarga</p>
+              <div className="flex items-center gap-2">
+                <IndianFlag className="h-4 w-auto rounded-[1px]" />
+                <p className="font-display text-lg font-semibold">Svarga</p>
+              </div>
               <p className="mt-1 max-w-sm text-sm text-ink/60">
                 A solo project by <span className="font-medium text-ink">Aditya Mohan Menon</span>.
                 <br />
