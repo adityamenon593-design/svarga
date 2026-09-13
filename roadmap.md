@@ -21,3 +21,6 @@
 - [x] One console for everything: chat modes + image generation in the same window.
 - [x] Razorpay checkout (cards + UPI): keys saved, server functions, payments table, checkout UI wired.
 - [x] Runtime error sweep: no current console or request failures on home / auth.
+
+- Legal/compliance: assistant refuses unlawful requests, gives no binding legal/medical/financial advice, respects privacy and IP, and states limitations.
+- Learning memory: remember user preferences and facts across conversations for signed-in users.
