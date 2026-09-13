@@ -26,8 +26,7 @@ const errorMiddleware = createMiddleware().server(async ({ next, request }) => {
 // from cross-site requests.
 const csrfMiddleware = createCsrfMiddleware({
   filter: (ctx) =>
-    ctx.handlerType === "serverFn" &&
-    !new URL(ctx.request.url).pathname.startsWith("/lovable/"),
+    ctx.handlerType === "serverFn" && !new URL(ctx.request.url).pathname.startsWith("/lovable/"),
 });
 
 export const startInstance = createStart(() => ({
