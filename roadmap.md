@@ -15,6 +15,11 @@
 - [x] Global pricing: INR + USD currency switch on checkout (India-affordable rupee prices kept).
 - [x] Enforce plan limits server-side: paid tiers unlock their stated features only after payment.
 - [x] Hide the "Edit with Lovable" badge on the published site.
+- [ ] Live web search: Svarga can pull current web info during chat.
+- [ ] Uncertainty guardrails: detect low-confidence answers and ask a follow-up or flag uncertainty.
+- [ ] Document library: upload books, PDFs, scripture files; Svarga searches them for answers.
+- [ ] Citations: show source links for web-search and uploaded-knowledge answers.
+- [ ] Background ingestion/indexing: uploaded documents become searchable quickly and reliably.
 
 
 
