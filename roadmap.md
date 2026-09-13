@@ -74,4 +74,4 @@
 
 - [x] Payment button on preview now redirects to svarga.digital (live payments only work there)
 - [x] Viral Seedance 2.5 reel prompt + video (done)
-- [ ] 3 more reel prompts + 3 post prompts for Svarga.ai launch pack
+- [x] 3 more reel prompts + 3 post prompts for Svarga.ai launch pack
