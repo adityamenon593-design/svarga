@@ -225,6 +225,16 @@ function Index() {
             <ImageStudio />
           </ClientOnly>
         </section>
+
+        <section id="settings" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Settings
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Keys and connections.</h2>
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <SettingsPanel />
+          </ClientOnly>
+        </section>
       </main>
 
       <footer className="mt-6 border-t border-ink/10">
