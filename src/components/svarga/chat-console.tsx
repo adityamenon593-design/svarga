@@ -520,7 +520,7 @@ export function ChatConsole() {
                 </div>
                 <MessageContent className="rounded-2xl rounded-tl-sm border border-ink/10 bg-sand/40 p-4 text-sm leading-relaxed text-ink/90">
                   {answer.uncertain && (
-                    <div className="mb-3 rounded-lg border border-saffron/30 bg-saffron/10 px-3 py-2 text-xs text-saffron-dark">
+                    <div className="mb-3 rounded-lg border border-saffron/30 bg-saffron/10 px-3 py-2 text-xs text-ink/90">
                       I&apos;m not fully confident about this. Could you clarify?
                     </div>
                   )}
