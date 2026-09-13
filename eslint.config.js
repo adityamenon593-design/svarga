@@ -36,5 +36,18 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  {
+    // These modules intentionally export variants, contexts and helpers next to
+    // their components; the rule only affects dev-time fast refresh.
+    files: [
+      "src/components/ui/**/*.{ts,tsx}",
+      "src/components/ai-elements/**/*.{ts,tsx}",
+      "src/components/svarga/languages.tsx",
+      "src/lib/email-templates/**/*.{ts,tsx}",
+    ],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
   eslintPluginPrettier,
 );
