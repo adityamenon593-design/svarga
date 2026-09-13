@@ -6,8 +6,7 @@ export const Route = createFileRoute("/terms")({
       { title: "Terms & Conditions — Svarga.ai" },
       {
         name: "description",
-        content:
-          "Terms and conditions for using Svarga.ai, the Indian-made AI assistant.",
+        content: "Terms and conditions for using Svarga.ai, the Indian-made AI assistant.",
       },
       { property: "og:title", content: "Terms & Conditions — Svarga.ai" },
       {
@@ -41,8 +40,8 @@ function TermsPage() {
         <div className="mt-10 space-y-6 text-ink/80">
           <p>
             Welcome to Svarga.ai. These Terms & Conditions govern your access to and use of
-            Svarga.ai’s website, chat console, image studio, and related services (“Services”).
-            By using the Services, you agree to these terms.
+            Svarga.ai’s website, chat console, image studio, and related services (“Services”). By
+            using the Services, you agree to these terms.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">1. Services</h2>
@@ -55,8 +54,8 @@ function TermsPage() {
 
           <h2 className="font-display text-2xl font-semibold text-ink">2. Accounts</h2>
           <p>
-            You are responsible for keeping your account credentials secure. You must be at least
-            13 years old, or the minimum age of digital consent in your jurisdiction, to use the
+            You are responsible for keeping your account credentials secure. You must be at least 13
+            years old, or the minimum age of digital consent in your jurisdiction, to use the
             Services.
           </p>
 
@@ -76,8 +75,8 @@ function TermsPage() {
           <h2 className="font-display text-2xl font-semibold text-ink">5. Intellectual property</h2>
           <p>
             You retain rights to the prompts and files you upload. You are granted a limited,
-            non-exclusive right to use the output you generate subject to these terms. Do not
-            claim that AI output is human-created where such disclosure is required.
+            non-exclusive right to use the output you generate subject to these terms. Do not claim
+            that AI output is human-created where such disclosure is required.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">6. Disclaimer</h2>
@@ -95,8 +94,8 @@ function TermsPage() {
 
           <h2 className="font-display text-2xl font-semibold text-ink">8. Changes</h2>
           <p>
-            We may update these terms from time to time. Continued use of the Services after
-            changes means you accept the updated terms.
+            We may update these terms from time to time. Continued use of the Services after changes
+            means you accept the updated terms.
           </p>
 
           <p className="pt-6 text-sm text-ink/60">
