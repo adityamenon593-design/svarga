@@ -132,7 +132,7 @@ async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
 
 export const createOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ plan: z.enum(["pro"]) }).parse(input))
+  .inputValidator((input: unknown) => z.object({ plan: z.enum(PLAN_IDS) }).parse(input))
   .handler(async ({ data, context }) => {
     const keyId = process.env["RAZORPAY_KEY_ID"];
     const keySecret = process.env["RAZORPAY_KEY_SECRET"];
