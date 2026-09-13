@@ -40,8 +40,9 @@ async function retrieveLibrary(userId: string, query: string, limit: number): Pr
   }
 }
 
-export async function retrieveContext(query: string, userId?: string): Promise<SvargaSource[]> {
+export async function retrieveContext(query: string, userId?: string | null): Promise<SvargaSource[]> {
   const limit = Math.max(1, Math.min(Number(process.env["SVARGA_RAG_TOP_K"] ?? 6), 12));
+  const effectiveUserId = userId ?? undefined;
   const [web, library] = await Promise.allSettled([
     webSearchProvider
       ? webSearchProvider.search(query, limit).catch((error) => {
@@ -49,7 +50,7 @@ export async function retrieveContext(query: string, userId?: string): Promise<S
           return [];
         })
       : [],
-    userId ? retrieveLibrary(userId, query, limit) : [],
+    effectiveUserId ? retrieveLibrary(effectiveUserId, query, limit) : [],
   ]);
 
   const webSources = web.status === "fulfilled" ? web.value : [];
