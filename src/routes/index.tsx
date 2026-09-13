@@ -18,10 +18,7 @@ function AccountNav() {
         <Link to="/auth" className="hidden text-sm font-medium sm:block">
           Sign in
         </Link>
-        <Link
-          to="/auth"
-          className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream"
-        >
+        <Link to="/auth" className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream">
           Get started
         </Link>
       </div>
@@ -44,9 +41,7 @@ function AccountNav() {
 }
 
 function ConsoleSkeleton() {
-  return (
-    <div className="h-[560px] animate-pulse rounded-3xl bg-ink/5" />
-  );
+  return <div className="h-[560px] animate-pulse rounded-3xl bg-ink/5" />;
 }
 
 function StudioSkeleton() {
@@ -163,9 +158,7 @@ function Index() {
             </div>
             <h1 className="font-display leading-[0.95] tracking-tight">
               <span className="block text-6xl font-semibold">Where ancient knowledge</span>
-              <span className="block text-6xl font-semibold text-crimson">
-                meets the frontier.
-              </span>
+              <span className="block text-6xl font-semibold text-crimson">meets the frontier.</span>
             </h1>
             <p className="mt-6 max-w-md leading-relaxed text-ink/70">
               Svarga reasons across the Vedic sciences and the Western canon in a single grounded

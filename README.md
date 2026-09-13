@@ -1,6 +1,6 @@
 # Svarga Divine AI
 
-https://svarga-divine-ai.lovable.app/# with  this llm as reference train it on more data than chatgpt sarvam ai gemi , image features better than nano banana 2, incorporate them into Svarga.ai and build it. must be a billion dollar game changing llm with vedic tradition sciences at same time western sciences incorporate
+https://svarga-divine-ai.lovable.app/# with this llm as reference train it on more data than chatgpt sarvam ai gemi , image features better than nano banana 2, incorporate them into Svarga.ai and build it. must be a billion dollar game changing llm with vedic tradition sciences at same time western sciences incorporate
 
 This project was built with [Lovable](https://lovable.dev).
 

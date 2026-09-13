@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Open
+
 - [ ] svarga.digital: user is adding the A + TXT records manually (blocked on their DNS provider; must then press Check status in Project Settings → Domains). Note: the domain currently has no working name servers — records must be added where its DNS is actually hosted.
 - [ ] Publish: user declined the publish prompt; they can publish via the Publish button when ready. Domain serves only after publishing.
 - [ ] Decide scope of the email brief: rebrand to SVARNA.DIGITAL dark terminal UI, or keep current Svarga design.
@@ -12,6 +13,7 @@
 - [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows).
 
 ## Done
+
 - [x] Fixed chat/studio crash by rendering them client-side only.
 - [x] Verified landing page renders and chat streams answers.
 - [x] Own tab icon; all external branding removed.
@@ -19,4 +21,3 @@
 - [x] One console for everything: chat modes + image generation in the same window.
 - [x] Razorpay checkout (cards + UPI): keys saved, server functions, payments table, checkout UI wired.
 - [x] Runtime error sweep: no current console or request failures on home / auth.
-

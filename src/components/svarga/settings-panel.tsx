@@ -30,9 +30,7 @@ export function SettingsPanel() {
       <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-leaf" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/50">
-            AI engine
-          </p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/50">AI engine</p>
         </div>
         <h3 className="mt-3 font-display text-2xl font-semibold">Connected</h3>
         <p className="mt-2 text-sm leading-relaxed text-ink/60">
@@ -66,8 +64,8 @@ export function SettingsPanel() {
           {saved ? "Held for this session" : "Not set"}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-ink/60">
-          Paste a token to use repository actions while this tab is open. It is kept in memory
-          only — closing or refreshing the tab clears it, and it is never stored or sent anywhere.
+          Paste a token to use repository actions while this tab is open. It is kept in memory only
+          — closing or refreshing the tab clears it, and it is never stored or sent anywhere.
         </p>
         <label
           htmlFor="github-token"

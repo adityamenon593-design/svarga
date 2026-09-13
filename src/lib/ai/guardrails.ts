@@ -9,8 +9,10 @@ const BLOCKED_PATTERNS = [
 
 export function validateChatInput(text: string, messageCount: number): void {
   if (!text.trim()) throw new Error("Message cannot be empty.");
-  if (text.length > MAX_INPUT_CHARS) throw new Error("Message is too long. Please shorten it and try again.");
-  if (messageCount > MAX_MESSAGES) throw new Error("Conversation is too long. Start a new conversation to continue.");
+  if (text.length > MAX_INPUT_CHARS)
+    throw new Error("Message is too long. Please shorten it and try again.");
+  if (messageCount > MAX_MESSAGES)
+    throw new Error("Conversation is too long. Start a new conversation to continue.");
 }
 
 export function containsPromptInjection(text: string): boolean {
