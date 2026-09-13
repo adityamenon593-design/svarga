@@ -193,3 +193,57 @@ export async function checkQuota(
 
   return { ok: true, tier };
 }
+
+/** Ad-hoc per-user / per-IP request rate limiting. Returns seconds until retry if blocked. */
+export async function checkRateLimit(
+  request: Request,
+  userId: string | null,
+): Promise<{ ok: true } | { ok: false; status: 429; retryAfter: number; message: string }> {
+  const key = userId ? `user:${userId}` : `ip:${getClientIp(request)}`;
+  const windowSeconds = 60;
+  const maxRequests = userId ? 30 : 10; // 30/min for signed-in users, 10/min for guests
+
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const now = new Date();
+  const windowStart = new Date(
+    Math.floor(now.getTime() / (windowSeconds * 1000)) * (windowSeconds * 1000),
+  );
+
+  const { data, error } = await supabaseAdmin
+    .from("rate_limits")
+    .select("window_start, count")
+    .eq("key", key)
+    .maybeSingle();
+
+  if (error) {
+    // Fail open on database errors so a broken rate-limit table does not kill chat.
+    return { ok: true };
+  }
+
+  const currentCount =
+    data && new Date(data.window_start).getTime() >= windowStart.getTime() ? data.count : 0;
+  if (currentCount >= maxRequests) {
+    const retryAfter = windowSeconds - Math.floor((now.getTime() - windowStart.getTime()) / 1000);
+    return {
+      ok: false,
+      status: 429,
+      retryAfter: Math.max(1, retryAfter),
+      message: `Too many messages. Please wait ${Math.max(1, retryAfter)} second${retryAfter === 1 ? "" : "s"} and try again.`,
+    };
+  }
+
+  await supabaseAdmin
+    .from("rate_limits")
+    .upsert(
+      { key, window_start: windowStart.toISOString(), count: currentCount + 1 },
+      { onConflict: "key" },
+    );
+
+  return { ok: true };
+}
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0]?.trim() ?? "unknown";
+  return request.headers.get("cf-connecting-ip") ?? "unknown";
+}

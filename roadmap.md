@@ -66,3 +66,6 @@
 - [x] Buddies section: Baby Krishna buddy with Krishna's principles (karma yoga, dharma, bhakti, equanimity, etc.), baby Krishna face, live chat — free for everyone.
 - [x] Security scan: 4 warnings fixed — payments, donations, usage and referral tables now explicitly server-write-only.
 - [x] Secure /api/chat: removed the unused unauthenticated endpoint; all chat now goes through the quota-gated route.
+- [x] Homepage: professional "Chat now" CTA button leading to dedicated /chat page; embedded chat removed from homepage and replaced with a Svarga Console preview card.
+- [x] Dedicated /chat page: full-screen chat console, works for guests (balanced mode only) and signed-in users (all unlocked modes), with clear back-to-home navigation.
+- [x] Per-user / per-IP rate limiting on /api/svarga-chat: 30 requests/minute for signed-in users, 10/minute for guests; returns 429 with Retry-After header when exceeded. Verified abusive traffic is blocked.

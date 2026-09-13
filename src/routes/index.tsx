@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
 
-import { ChatConsole } from "@/components/svarga/chat-console";
 import { DocumentLibrary } from "@/components/svarga/document-library";
 import { ImageStudio } from "@/components/svarga/image-studio";
 import { PrivacyInvitePanel } from "@/components/svarga/privacy-invite-panel";
@@ -44,15 +43,81 @@ function AccountNav() {
   );
 }
 
-function ConsoleSkeleton() {
-  return <div className="h-[560px] animate-pulse rounded-3xl bg-ink/5" />;
-}
-
 function StudioSkeleton() {
   return (
     <div className="grid gap-5 md:grid-cols-2">
       <div className="h-[260px] animate-pulse rounded-2xl bg-ink/5" />
       <div className="aspect-[16/11] animate-pulse rounded-2xl bg-ink/5" />
+    </div>
+  );
+}
+
+function HeroPreview() {
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-sand/50 p-6 shadow-2xl shadow-ink/10 backdrop-blur sm:p-8">
+      <div className="absolute -right-10 -top-10 size-40 rounded-full bg-saffron/10 blur-2xl" />
+      <div className="absolute -bottom-10 -left-10 size-40 rounded-full bg-crimson/10 blur-2xl" />
+      <div className="relative">
+        <div className="mb-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="grid size-8 place-items-center rounded-full bg-ink font-display text-sm text-cream">
+              ॐ
+            </div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/50">
+              Svarga Console
+            </span>
+          </div>
+          <span className="rounded-full bg-leaf/15 px-2 py-0.5 text-[10px] font-semibold text-leaf">
+            Live
+          </span>
+        </div>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <div className="grid size-7 shrink-0 place-items-center rounded-full bg-ink/10 font-display text-xs text-ink/70">
+              U
+            </div>
+            <p className="rounded-2xl rounded-tl-sm border border-ink/10 bg-white/70 px-4 py-2 text-sm text-ink/80">
+              Explain karma yoga in simple words.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <div className="grid size-7 shrink-0 place-items-center rounded-full bg-saffron font-display text-xs text-ink">
+              ॐ
+            </div>
+            <p className="rounded-2xl rounded-tl-sm bg-ink px-4 py-2 text-sm leading-relaxed text-cream/90">
+              Karma yoga is doing your duty without clinging to results — like a lotus leaf in
+              water.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <div className="grid size-7 shrink-0 place-items-center rounded-full bg-ink/10 font-display text-xs text-ink/70">
+              U
+            </div>
+            <p className="rounded-2xl rounded-tl-sm border border-ink/10 bg-white/70 px-4 py-2 text-sm text-ink/80">
+              Now connect it to modern psychology.
+            </p>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {["Reasoning", "Research", "Image", "Creative"].map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-ink/10 bg-white/50 px-3 py-1 text-[11px] font-medium text-ink/70"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="mt-6">
+          <Link
+            to="/chat"
+            className="inline-flex items-center gap-2 rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-crimson/90"
+          >
+            Chat now
+            <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
@@ -86,7 +151,7 @@ const BENCHMARKS = [
 ];
 
 const NAV = [
-  { href: "#console", label: "Console" },
+  { href: "/chat", label: "Chat" },
   { href: "#benchmarks", label: "Benchmarks" },
   { href: "#capacities", label: "Capacities" },
   { href: "#buddies", label: "Buddies" },
@@ -189,17 +254,17 @@ function Index() {
               console.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/chat"
+                className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-crimson/90"
+              >
+                Chat now
+              </Link>
               <a
                 href="#studio"
-                className="rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream"
+                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold transition-colors hover:border-ink/40"
               >
                 Open the image studio
-              </a>
-              <a
-                href="#capacities"
-                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-semibold"
-              >
-                See the capacities
               </a>
             </div>
             <div className="mt-8 flex gap-8">
@@ -220,9 +285,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
             <div className="relative">
-              <ClientOnly fallback={<ConsoleSkeleton />}>
-                <ChatConsole />
-              </ClientOnly>
+              <HeroPreview />
             </div>
           </div>
         </section>
@@ -309,7 +372,7 @@ function Index() {
             A gentle companion who answers from Krishna's principles — karma yoga, dharma, devotion,
             a steady mind — like a loving friend, not a lecture.
           </p>
-          <ClientOnly fallback={<ConsoleSkeleton />}>
+          <ClientOnly fallback={<div className="h-[400px] animate-pulse rounded-3xl bg-ink/5" />}>
             <BuddyKrishna />
           </ClientOnly>
         </section>

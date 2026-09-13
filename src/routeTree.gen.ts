@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RefundsRouteImport } from './routes/refunds'
@@ -28,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -76,6 +82,7 @@ const LovableEmailTransactionalPreviewRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/chat'
     | '/contact'
     | '/privacy'
     | '/refunds'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/chat'
     | '/contact'
     | '/privacy'
     | '/refunds'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/chat'
     | '/contact'
     | '/privacy'
     | '/refunds'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ChatRoute: typeof ChatRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundsRoute: typeof RefundsRoute
@@ -176,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -240,6 +260,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ChatRoute: ChatRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
   RefundsRoute: RefundsRoute,
