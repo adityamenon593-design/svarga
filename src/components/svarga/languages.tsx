@@ -28,10 +28,7 @@ export const LANGUAGES: Language[] = [
     name: "Bengali",
     native: "বাংলা",
     greeting: "নমস্কার! আমি স্বর্গ।",
-    prompts: [
-      "রেশন কার্ডের জন্য কী কী নথি লাগে?",
-      "আমার ছোট ব্যবসার জন্য একটি বাজেট তৈরি করো।",
-    ],
+    prompts: ["রেশন কার্ডের জন্য কী কী নথি লাগে?", "আমার ছোট ব্যবসার জন্য একটি বাজেট তৈরি করো।"],
   },
   {
     code: "mr",
@@ -114,7 +111,12 @@ export const LANGUAGES: Language[] = [
   { code: "mni", name: "Manipuri", native: "ꯃꯤꯇꯩꯂꯣꯟ", greeting: "খুরুমজরি! ঐহাক্না স্বর্গনি।" },
   { code: "brx", name: "Bodo", native: "बर'", greeting: "खुलुमबाइ! आं स्वर्ग।" },
   { code: "tcy", name: "Tulu", native: "ತುಳು", greeting: "ನಮಸ್ಕಾರ! ಯಾನ್ ಸ್ವರ್ಗ." },
-  { code: "raj", name: "Rajasthani", native: "राजस्थानी", greeting: "खम्मा घणी! म्हैं स्वर्ग हूँ।" },
+  {
+    code: "raj",
+    name: "Rajasthani",
+    native: "राजस्थानी",
+    greeting: "खम्मा घणी! म्हैं स्वर्ग हूँ।",
+  },
   { code: "mag", name: "Magahi", native: "मगही", greeting: "प्रणाम! हम स्वर्ग हियै।" },
   { code: "awa", name: "Awadhi", native: "अवधी", greeting: "प्रणाम! हम स्वर्ग अहइ।" },
   { code: "gom", name: "Marwari", native: "मारवाड़ी", greeting: "राम राम! म्हैं स्वर्ग हूँ।" },
