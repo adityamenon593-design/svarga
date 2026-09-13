@@ -95,9 +95,29 @@ export const verifyDonation = createServerFn({ method: "POST" })
       throw new Error("Donation could not be verified. If money was debited, please contact us.");
     }
 
-    await supabaseAdmin
+    const { data: donation } = await supabaseAdmin
       .from("donations")
       .update({ status: "paid", payment_id: data.paymentId })
-      .eq("order_id", data.orderId);
+      .eq("order_id", data.orderId)
+      .select("donor_name, donor_email, amount_paise")
+      .maybeSingle();
+
+    if (donation?.donor_email) {
+      try {
+        const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
+        await sendTemplateEmail("donation-receipt", donation.donor_email, {
+          idempotencyKey: `donation-receipt-${data.paymentId}`,
+          templateData: {
+            donorName: donation.donor_name ?? "Friend",
+            amount: `₹${(donation.amount_paise / 100).toLocaleString("en-IN")}`,
+            paymentId: data.paymentId,
+            date: new Date().toLocaleDateString("en-IN", { dateStyle: "long" }),
+          },
+        });
+      } catch (error) {
+        console.error("Donation receipt email failed", error);
+      }
+    }
+
     return { ok: true };
   });
