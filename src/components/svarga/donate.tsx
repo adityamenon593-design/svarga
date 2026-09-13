@@ -47,6 +47,12 @@ export function DonatePanel() {
   const [amount, setAmount] = useState<number>(251);
   const [custom, setCustom] = useState("");
   const [busy, setBusy] = useState(false);
+  const [receipt, setReceipt] = useState<{
+    paymentId: string;
+    orderId: string;
+    amount: number;
+    date: string;
+  } | null>(null);
 
   const chosen = custom.trim() ? Math.max(10, Math.floor(Number(custom) || 0)) : amount;
 
@@ -83,6 +89,12 @@ export function DonatePanel() {
                 signature: resp.razorpay_signature,
               },
             });
+            setReceipt({
+              paymentId: resp.razorpay_payment_id,
+              orderId: resp.razorpay_order_id,
+              amount: chosen,
+              date: new Date().toLocaleString("en-IN"),
+            });
             toast.success("Thank you — your gift keeps Svarga running.");
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
@@ -105,6 +117,71 @@ export function DonatePanel() {
       );
       setBusy(false);
     }
+  }
+
+  if (receipt) {
+    return (
+      <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6 print:border-0">
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">Receipt</p>
+        <h3 className="mt-3 font-display text-3xl font-semibold">Thank you.</h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink/60">
+          Your gift keeps Svarga running. Keep this receipt for your records.
+        </p>
+        <dl className="mt-5 space-y-2 font-mono text-xs text-ink/70">
+          <div className="flex justify-between border-b border-ink/10 pb-2">
+            <dt>Paid to</dt>
+            <dd>Svarga.ai — {DONATE_NAME}</dd>
+          </div>
+          <div className="flex justify-between border-b border-ink/10 pb-2">
+            <dt>Amount</dt>
+            <dd>₹{receipt.amount.toLocaleString("en-IN")}</dd>
+          </div>
+          <div className="flex justify-between border-b border-ink/10 pb-2">
+            <dt>Date</dt>
+            <dd>{receipt.date}</dd>
+          </div>
+          <div className="flex justify-between border-b border-ink/10 pb-2">
+            <dt>Payment ID</dt>
+            <dd>{receipt.paymentId}</dd>
+          </div>
+          <div className="flex justify-between">
+            <dt>Order ID</dt>
+            <dd>{receipt.orderId}</dd>
+          </div>
+        </dl>
+        <p className="mt-4 text-xs text-ink/50">
+          This is a voluntary gift, not a tax-deductible donation.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3 print:hidden">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="rounded-full bg-crimson px-5 py-2.5 text-sm font-semibold text-cream"
+          >
+            Print / save as PDF
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              void navigator.clipboard.writeText(
+                `Svarga.ai donation receipt\nPaid to: ${DONATE_NAME}\nAmount: Rs ${receipt.amount}\nDate: ${receipt.date}\nPayment ID: ${receipt.paymentId}\nOrder ID: ${receipt.orderId}`,
+              );
+              toast.success("Receipt copied.");
+            }}
+            className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink/70"
+          >
+            Copy receipt
+          </button>
+          <button
+            type="button"
+            onClick={() => setReceipt(null)}
+            className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink/70"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
