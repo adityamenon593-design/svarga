@@ -17,3 +17,5 @@
 - [ ] Global card payments (Razorpay/Stripe with own keys - built-in unavailable for IN)
 - [ ] Publish + verify svarga.digital DNS at Hostinger
 - [ ] Write requested prompt (awaiting purpose)
+- [ ] Razorpay checkout (cards + UPI): keys, server fns, payments table, checkout UI
+- [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows)
