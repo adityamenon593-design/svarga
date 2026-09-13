@@ -10,6 +10,7 @@
 - [ ] If approved: "EXPORT CODE" action to download project structure.
 - [ ] Connect GitHub repo sync (user action: + menu → GitHub → Connect project). Private repo is fine — does not affect Lovable hosting.
 - [ ] Add Hostinger business email to contact section (waiting on address).
+- [ ] Razorpay payout flow: explain how customer payments reach the user's account, and options for splitting/forwarding payouts to another UPI id (RazorpayX).
 - [x] Add Professional nav item between Settings and account area, with a matching section on the page.
 - [ ] Zero-fault pre-launch QA pass (desktop + mobile, all flows).
 - [x] Global pricing: INR + USD currency switch on checkout (India-affordable rupee prices kept).
