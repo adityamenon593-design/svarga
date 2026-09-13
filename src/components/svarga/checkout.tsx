@@ -141,6 +141,26 @@ export function Checkout() {
         </button>
       </div>
 
+      <div className="flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => setCurrency("INR")}
+          aria-pressed={currency === "INR"}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${currency === "INR" ? "border-leaf bg-leaf/10 text-leaf" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          India · ₹ INR
+        </button>
+        <button
+          type="button"
+          onClick={() => setCurrency("USD")}
+          aria-pressed={currency === "USD"}
+          className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${currency === "USD" ? "border-leaf bg-leaf/10 text-leaf" : "border-ink/10 text-ink/50 hover:border-ink/30"}`}
+        >
+          Global · $ USD
+        </button>
+      </div>
+
+
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {TIERS.map((tier) => {
           const price = tier.price[currency][yearly ? "yearly" : "monthly"];
@@ -198,8 +218,9 @@ export function Checkout() {
         })}
       </div>
       <p className="text-center text-xs text-ink/45">
-        All prices in Indian rupees, inclusive of applicable taxes. Cards, UPI, net banking and
-        wallets accepted through Razorpay. Cancel any time — no lock-in.
+        Pay in rupees from India or in US dollars from anywhere else — cards, UPI, net banking and
+        wallets all accepted, inclusive of applicable taxes. Every paid feature unlocks the moment
+        your payment is confirmed. Cancel any time — no lock-in.
       </p>
     </div>
   );
