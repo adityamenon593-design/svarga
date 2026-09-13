@@ -3,6 +3,7 @@ import { ClientOnly } from "@tanstack/react-router";
 
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { ImageStudio } from "@/components/svarga/image-studio";
+import { SettingsPanel } from "@/components/svarga/settings-panel";
 
 function ConsoleSkeleton() {
   return (
@@ -69,6 +70,7 @@ function Index() {
           <a href="#benchmarks">Benchmarks</a>
           <a href="#capacities">Capacities</a>
           <a href="#studio">Studio</a>
+          <a href="#settings">Settings</a>
         </nav>
         <div className="flex items-center gap-3">
           <a href="#console" className="hidden text-sm font-medium sm:block">
@@ -221,6 +223,16 @@ function Index() {
           <h2 className="mb-8 font-display text-4xl font-semibold">Render what it describes.</h2>
           <ClientOnly fallback={<StudioSkeleton />}>
             <ImageStudio />
+          </ClientOnly>
+        </section>
+
+        <section id="settings" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Settings
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Keys and connections.</h2>
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <SettingsPanel />
           </ClientOnly>
         </section>
       </main>
