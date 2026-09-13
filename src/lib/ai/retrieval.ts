@@ -16,6 +16,7 @@ async function retrieveLibrary(
     const embedding = await embedText(query);
     if (!embedding) return [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data, error } = await (supabaseAdmin.rpc as any)("match_document_chunks", {
       query_embedding: embedding,
       match_count: limit,
