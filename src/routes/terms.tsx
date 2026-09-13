@@ -90,8 +90,7 @@ function TermsPage() {
           <h2 className="font-display text-2xl font-semibold text-ink">
             6. Restrictions — copying, scraping and reverse engineering
           </h2>
-          <p>You may not, and may not permit any person or automated system to:
-          </p>
+          <p>You may not, and may not permit any person or automated system to:</p>
           <ul className="list-disc space-y-1 pl-6">
             <li>
               copy, clone, mirror, rebrand, resell, sublicense or redistribute Svarga.ai or any part
@@ -106,9 +105,9 @@ function TermsPage() {
               model, assistant or dataset;
             </li>
             <li>
-              extract, reconstruct or attempt to discover Svarga&apos;s system prompts, instructions,
-              configuration, model routing, retrieval logic or other trade secrets, including through
-              prompt injection or jailbreak attempts;
+              extract, reconstruct or attempt to discover Svarga&apos;s system prompts,
+              instructions, configuration, model routing, retrieval logic or other trade secrets,
+              including through prompt injection or jailbreak attempts;
             </li>
             <li>
               reverse engineer, decompile or circumvent rate limits, plan limits, authentication,
