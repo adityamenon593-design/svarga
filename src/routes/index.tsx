@@ -178,6 +178,57 @@ const BENCHMARKS = [
   { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
 ];
 
+const CAPACITIES = [
+  {
+    icon: "ॐ",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Vedantic Reasoning",
+    body: "Cites Upaniṣadic and Āyurvedic sources alongside peer-reviewed literature in a single, grounded response.",
+  },
+  {
+    icon: "◈",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Image Generation",
+    body: "Luminous, high-fidelity imagery rendered from the same understanding that writes the answer — live in the studio below.",
+  },
+  {
+    icon: "✦",
+    tile: "bg-leaf/15 text-leaf",
+    title: "39 Languages",
+    body: "Hindi, Tamil, Malayalam, Bengali, Telugu, Kannada, Gujarati, Punjabi and 31 more — tuned for Indian nuance and context.",
+  },
+  {
+    icon: "☍",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Live Web Answers",
+    body: "Pulls current information from the web during chat, with citations and source links you can verify.",
+  },
+  {
+    icon: "▤",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Your Document Library",
+    body: "Upload books, PDFs and scripture files — Svarga indexes and searches them to answer from your own knowledge.",
+  },
+  {
+    icon: "❀",
+    tile: "bg-leaf/15 text-leaf",
+    title: "Baby Krishna Buddy",
+    body: "A gentle companion who answers from Krishna's principles — karma yoga, dharma, devotion — like a loving friend.",
+  },
+  {
+    icon: "⚿",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Privacy Controls",
+    body: "Turn learning on or off anytime, and delete everything Svarga remembers about you in one tap.",
+  },
+  {
+    icon: "✧",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Invite & Earn",
+    body: "Share your invite code — every friend who joins adds bonus free questions to your account every day.",
+  },
+];
+
 const NAV = [
   { href: "/chat", label: "Chat" },
   { href: "#benchmarks", label: "Benchmarks" },
