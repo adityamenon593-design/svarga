@@ -122,6 +122,34 @@ function HeroPreview() {
   );
 }
 
+const TRUST_ITEMS = [
+  { icon: "🔒", label: "https://svarga.digital — Secured connection" },
+  { icon: "🛡", label: "Payments secured by Razorpay" },
+  { icon: "₹", label: "UPI / GPay accepted" },
+  { icon: "◈", label: "Your data stays private" },
+];
+
+function TrustStrip({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-2 ${compact ? "" : "gap-x-3 gap-y-2"}`}
+      aria-label="Security and trust"
+    >
+      {TRUST_ITEMS.map((item) => (
+        <span
+          key={item.label}
+          className="inline-flex items-center gap-1.5 rounded-full border border-leaf/25 bg-leaf/10 px-3 py-1 text-[11px] font-medium text-ink/70"
+        >
+          <span aria-hidden className="text-leaf">
+            {item.icon}
+          </span>
+          {item.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -148,6 +176,57 @@ const BENCHMARKS = [
   { name: "Parameshvara 2.0", score: 96.8, tone: "bg-crimson", muted: false },
   { name: "Frontier Model A", score: 88.1, tone: "bg-saffron", muted: true },
   { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
+];
+
+const CAPACITIES = [
+  {
+    icon: "ॐ",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Vedantic Reasoning",
+    body: "Cites Upaniṣadic and Āyurvedic sources alongside peer-reviewed literature in a single, grounded response.",
+  },
+  {
+    icon: "◈",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Image Generation",
+    body: "Luminous, high-fidelity imagery rendered from the same understanding that writes the answer — live in the studio below.",
+  },
+  {
+    icon: "✦",
+    tile: "bg-leaf/15 text-leaf",
+    title: "39 Languages",
+    body: "Hindi, Tamil, Malayalam, Bengali, Telugu, Kannada, Gujarati, Punjabi and 31 more — tuned for Indian nuance and context.",
+  },
+  {
+    icon: "☍",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Live Web Answers",
+    body: "Pulls current information from the web during chat, with citations and source links you can verify.",
+  },
+  {
+    icon: "▤",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Your Document Library",
+    body: "Upload books, PDFs and scripture files — Svarga indexes and searches them to answer from your own knowledge.",
+  },
+  {
+    icon: "❀",
+    tile: "bg-leaf/15 text-leaf",
+    title: "Baby Krishna Buddy",
+    body: "A gentle companion who answers from Krishna's principles — karma yoga, dharma, devotion — like a loving friend.",
+  },
+  {
+    icon: "⚿",
+    tile: "bg-crimson/10 text-crimson",
+    title: "Privacy Controls",
+    body: "Turn learning on or off anytime, and delete everything Svarga remembers about you in one tap.",
+  },
+  {
+    icon: "✧",
+    tile: "bg-saffron/20 text-marigold",
+    title: "Invite & Earn",
+    body: "Share your invite code — every friend who joins adds bonus free questions to your account every day.",
+  },
 ];
 
 const NAV = [
@@ -281,6 +360,9 @@ function Index() {
                 <p className="mt-1 text-xs text-ink/50">Languages</p>
               </div>
             </div>
+            <div className="mt-8">
+              <TrustStrip />
+            </div>
           </div>
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
@@ -329,37 +411,21 @@ function Index() {
             Capacities
           </p>
           <h2 className="mb-8 font-display text-4xl font-semibold">One model, every discipline.</h2>
-          <div className="grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-crimson/10 font-display text-xl text-crimson">
-                ॐ
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {CAPACITIES.map((cap) => (
+              <div
+                key={cap.title}
+                className="rounded-2xl border border-ink/5 bg-sand/50 p-6 transition-all hover:-translate-y-0.5 hover:border-saffron/40 hover:shadow-lg hover:shadow-ink/5"
+              >
+                <div
+                  className={`grid size-10 place-items-center rounded-xl font-display text-xl ${cap.tile}`}
+                >
+                  {cap.icon}
+                </div>
+                <h3 className="mt-4 font-display text-xl font-semibold">{cap.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{cap.body}</p>
               </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Vedantic Reasoning</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Cites Upaniṣadic and Āyurvedic sources alongside peer-reviewed literature in a
-                single, grounded response.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-saffron/20 font-display text-xl text-marigold">
-                ◈
-              </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Image Generation</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Luminous, high-fidelity imagery rendered from the same understanding that writes the
-                answer — live in the studio below.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-leaf/15 font-display text-xl text-leaf">
-                ✦
-              </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Multilingual · 39</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Fluent across Sanskrit, Hindi, English and 36 more, tuned for nuance and cultural
-                context.
-              </p>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -408,6 +474,9 @@ function Index() {
             Built in Bharat, billed in ₹ — no dollar pricing, no hidden conversion fees. Start free,
             upgrade when Svarga earns it.
           </p>
+          <div className="mb-6">
+            <TrustStrip compact />
+          </div>
           <ClientOnly fallback={<StudioSkeleton />}>
             <Checkout />
           </ClientOnly>
