@@ -1,6 +1,8 @@
 # Roadmap
 
 ## Open
+- [ ] Replace tab icon with Svarga mark and remove all Lovable-related branding (badge hidden, favicon swapped).
+- [ ] Full interactive pass: every button wired frontend + backend (chat modes, mobile nav, Razorpay).
 - [ ] svarga.digital: user is adding the A + TXT records manually (blocked on their DNS provider; must then press Check status in Project Settings → Domains). Note: the domain currently has no working name servers — records must be added where its DNS is actually hosted.
 - [ ] Publish: user declined the publish prompt; they can publish via the Publish button when ready. Domain serves only after publishing.
 - [ ] Decide scope of the email brief: rebrand to SVARNA.DIGITAL dark terminal UI, or keep current Svarga design.
