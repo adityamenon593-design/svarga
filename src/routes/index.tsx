@@ -43,10 +43,6 @@ function AccountNav() {
   );
 }
 
-function ConsoleSkeleton() {
-  return <div className="h-[560px] animate-pulse rounded-3xl bg-ink/5" />;
-}
-
 function StudioSkeleton() {
   return (
     <div className="grid gap-5 md:grid-cols-2">
