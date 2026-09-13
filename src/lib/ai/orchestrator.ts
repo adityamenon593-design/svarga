@@ -8,14 +8,24 @@ import type { SvargaMode } from "./types";
 
 function modeInstructions(mode: SvargaMode): string {
   switch (mode) {
-    case "research": return "Research mode: synthesize evidence carefully, prioritize source quality, identify uncertainty, and never invent citations. Do not claim live web access unless a research tool is actually configured.";
-    case "reasoning": return "Reasoning mode: solve methodically, verify assumptions, show concise key steps without exposing private chain-of-thought.";
-    case "creative": return "Creative mode: prioritize originality, structure, aesthetic quality, and faithful adherence to the user's brief.";
-    default: return "Balanced mode: optimize for accuracy, usefulness, clarity, and concise answers.";
+    case "research":
+      return "Research mode: synthesize evidence carefully, prioritize source quality, identify uncertainty, and never invent citations. Do not claim live web access unless a research tool is actually configured.";
+    case "reasoning":
+      return "Reasoning mode: solve methodically, verify assumptions, show concise key steps without exposing private chain-of-thought.";
+    case "creative":
+      return "Creative mode: prioritize originality, structure, aesthetic quality, and faithful adherence to the user's brief.";
+    default:
+      return "Balanced mode: optimize for accuracy, usefulness, clarity, and concise answers.";
   }
 }
 
-export async function streamSvarga({ messages, mode = "balanced" }: { messages: UIMessage[]; mode?: SvargaMode }) {
+export async function streamSvarga({
+  messages,
+  mode = "balanced",
+}: {
+  messages: UIMessage[];
+  mode?: SvargaMode;
+}) {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) {
     throw new Error("LOVABLE_API_KEY is not configured");
@@ -31,7 +41,11 @@ export async function streamSvarga({ messages, mode = "balanced" }: { messages: 
   });
 
   const last = messages.at(-1);
-  const lastText = last?.parts?.filter((part) => part.type === "text").map((part) => part.text).join(" ") ?? "";
+  const lastText =
+    last?.parts
+      ?.filter((part) => part.type === "text")
+      .map((part) => part.text)
+      .join(" ") ?? "";
   validateChatInput(lastText, messages.length);
   const injection = containsPromptInjection(lastText);
   const sources = await retrieveContext(lastText);
