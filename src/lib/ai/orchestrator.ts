@@ -8,8 +8,14 @@ import {
   SYSTEM_PROMPT,
   modelForMode,
 } from "./config";
-import { containsPromptInjection, uncertaintyInstructions, validateChatInput } from "./guardrails";
+import {
+  containsPromptInjection,
+  trimHistory,
+  uncertaintyInstructions,
+  validateChatInput,
+} from "./guardrails";
 import { retrieveContext } from "./retrieval";
+import { recordAiEvent } from "./telemetry";
 import type { SvargaMode } from "./types";
 
 function modeInstructions(mode: SvargaMode): string {
