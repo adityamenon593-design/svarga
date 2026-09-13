@@ -150,6 +150,12 @@ function Index() {
       <main className="mx-auto max-w-6xl px-6 lg:px-8">
         <section id="console" className="grid items-center gap-12 pt-16 pb-10 lg:grid-cols-2">
           <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-saffron/60 bg-saffron/15 px-3 py-1">
+              <span className="text-sm leading-none">🇮🇳</span>
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-crimson">
+                Made in India · Viksit Bharat
+              </span>
+            </div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-saffron/40 bg-sand/60 px-3 py-1">
               <span className="size-1.5 animate-sv-pulse rounded-full bg-crimson" />
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">
@@ -157,12 +163,13 @@ function Index() {
               </span>
             </div>
             <h1 className="font-display leading-[0.95] tracking-tight">
-              <span className="block text-6xl font-semibold">Where ancient knowledge</span>
+              <span className="block text-6xl font-semibold">India&rsquo;s own AI, where</span>
+              <span className="block text-6xl font-semibold">ancient knowledge</span>
               <span className="block text-6xl font-semibold text-crimson">meets the frontier.</span>
             </h1>
             <p className="mt-6 max-w-md leading-relaxed text-ink/70">
-              Svarga reasons across the Vedic sciences and the Western canon in a single grounded
-              answer — and renders what it describes. Ask it something on the right.
+              Built in India. Svarga reasons across the Vedic sciences and the Western canon in a
+              single grounded answer — and renders what it describes. Ask it something on the right.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -288,9 +295,15 @@ function Index() {
 
         <section id="pricing" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
-            Pricing
+            Pricing · Made in India 🇮🇳
           </p>
-          <h2 className="mb-8 font-display text-4xl font-semibold">One plan. Everything on.</h2>
+          <h2 className="font-display text-4xl font-semibold">
+            Indian-made intelligence, priced in rupees.
+          </h2>
+          <p className="mb-8 mt-3 max-w-2xl text-sm text-ink/60">
+            Built in Bharat, billed in ₹ — no dollar pricing, no hidden conversion fees. Start free,
+            upgrade when Svarga earns it.
+          </p>
           <ClientOnly fallback={<StudioSkeleton />}>
             <Checkout />
           </ClientOnly>

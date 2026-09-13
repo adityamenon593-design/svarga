@@ -3,11 +3,113 @@ import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
+/** Paid tiers, priced in Indian rupees. Yearly plans bill two months free. */
 export const PLANS = {
-  pro: { id: "pro", name: "Svarga Pro — Monthly", amountPaise: 49900, currency: "INR" },
+  starter_monthly: {
+    id: "starter_monthly",
+    tier: "starter",
+    name: "Svarga Starter — Monthly",
+    amountPaise: 14900,
+    currency: "INR",
+    interval: "month",
+  },
+  starter_yearly: {
+    id: "starter_yearly",
+    tier: "starter",
+    name: "Svarga Starter — Yearly",
+    amountPaise: 149000,
+    currency: "INR",
+    interval: "year",
+  },
+  pro_monthly: {
+    id: "pro_monthly",
+    tier: "pro",
+    name: "Svarga Pro — Monthly",
+    amountPaise: 49900,
+    currency: "INR",
+    interval: "month",
+  },
+  pro_yearly: {
+    id: "pro_yearly",
+    tier: "pro",
+    name: "Svarga Pro — Yearly",
+    amountPaise: 499000,
+    currency: "INR",
+    interval: "year",
+  },
+  acharya_monthly: {
+    id: "acharya_monthly",
+    tier: "acharya",
+    name: "Svarga Ācārya — Monthly",
+    amountPaise: 149900,
+    currency: "INR",
+    interval: "month",
+  },
+  acharya_yearly: {
+    id: "acharya_yearly",
+    tier: "acharya",
+    name: "Svarga Ācārya — Yearly",
+    amountPaise: 1499000,
+    currency: "INR",
+    interval: "year",
+  },
 } as const;
 
-type PlanId = keyof typeof PLANS;
+export type PlanId = keyof typeof PLANS;
+
+const PLAN_IDS = Object.keys(PLANS) as [PlanId, ...PlanId[]];
+
+/** What each tier includes. Free tier is not purchasable, so it has no plan entry. */
+export const TIERS = [
+  {
+    id: "free",
+    name: "Sādhaka",
+    tagline: "Start free",
+    monthly: 0,
+    yearly: 0,
+    features: ["25 questions a day", "5 images a month", "Balanced mode", "Saved chat history"],
+  },
+  {
+    id: "starter",
+    name: "Jijñāsu",
+    tagline: "For daily curiosity",
+    monthly: 149,
+    yearly: 1490,
+    features: [
+      "300 questions a month",
+      "50 images a month",
+      "Reasoning + Research modes",
+      "Svarga remembers your preferences",
+    ],
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    tagline: "Most popular",
+    monthly: 499,
+    yearly: 4990,
+    popular: true,
+    features: [
+      "Unlimited questions (fair use)",
+      "300 images a month",
+      "Every mode, including Creative",
+      "Long-term memory and priority answers",
+    ],
+  },
+  {
+    id: "acharya",
+    name: "Ācārya",
+    tagline: "For teams and builders",
+    monthly: 1499,
+    yearly: 14990,
+    features: [
+      "Everything in Pro, unlimited",
+      "1,500 images a month",
+      "Fastest queue and longest context",
+      "Early features and email support",
+    ],
+  },
+] as const;
 
 async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
   const key = await crypto.subtle.importKey(
@@ -25,7 +127,7 @@ async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
 
 export const createOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ plan: z.enum(["pro"]) }).parse(input))
+  .inputValidator((input: unknown) => z.object({ plan: z.enum(PLAN_IDS) }).parse(input))
   .handler(async ({ data, context }) => {
     const keyId = process.env["RAZORPAY_KEY_ID"];
     const keySecret = process.env["RAZORPAY_KEY_SECRET"];
