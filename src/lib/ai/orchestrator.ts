@@ -9,6 +9,7 @@ import {
   modelForMode,
 } from "./config";
 import {
+  confidentialityPolicy,
   containsPromptInjection,
   trimHistory,
   uncertaintyInstructions,
