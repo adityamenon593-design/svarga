@@ -80,7 +80,7 @@ export const Route = createFileRoute("/")({
 });
 
 const BENCHMARKS = [
-  { name: "Parameshvara 1.0", score: 96.8, tone: "bg-crimson", muted: false },
+  { name: "Parameshvara 2.0", score: 96.8, tone: "bg-crimson", muted: false },
   { name: "Frontier Model A", score: 88.1, tone: "bg-saffron", muted: true },
   { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
 ];
@@ -122,7 +122,7 @@ function Index() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-saffron/40 bg-sand/60 px-3 py-1">
               <span className="size-1.5 animate-sv-pulse rounded-full bg-crimson" />
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">
-                Parameshvara 1.0 · v1.0.4
+                Parameshvara 2.0 · v2.0.0
               </span>
             </div>
             <h1 className="font-display leading-[0.95] tracking-tight">

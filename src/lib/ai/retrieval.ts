@@ -18,6 +18,6 @@ class EmptyRetrievalProvider implements RetrievalProvider {
 export const retrievalProvider: RetrievalProvider = new EmptyRetrievalProvider();
 
 export async function retrieveContext(query: string): Promise<SvargaSource[]> {
-  const limit = Math.max(1, Math.min(Number(process.env.SVARGA_RAG_TOP_K ?? 6), 12));
+  const limit = Math.max(1, Math.min(Number(process.env["SVARGA_RAG_TOP_K"] ?? 6), 12));
   return retrievalProvider.search(query, limit);
 }
