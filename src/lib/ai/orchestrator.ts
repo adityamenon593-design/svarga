@@ -22,9 +22,11 @@ function modeInstructions(mode: SvargaMode): string {
 export async function streamSvarga({
   messages,
   mode = "balanced",
+  memory = [],
 }: {
   messages: UIMessage[];
   mode?: SvargaMode;
+  memory?: string[];
 }) {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) {
