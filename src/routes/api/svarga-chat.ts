@@ -21,6 +21,22 @@ export const Route = createFileRoute("/api/svarga-chat")({
           const memory = Array.isArray(body.memory)
             ? body.memory.filter((item): item is string => typeof item === "string").slice(0, 20)
             : [];
+
+          const { userIdFromRequest, checkQuota, recordUsage } = await import(
+            "@/lib/entitlements.server"
+          );
+          const userId = await userIdFromRequest(request);
+          if (!userId) {
+            if (mode !== "balanced")
+              return new Response("Sign in to use this mode — it is part of the paid plans.", {
+                status: 401,
+              });
+          } else {
+            const gate = await checkQuota(userId, "question", mode);
+            if (!gate.ok) return new Response(gate.message, { status: gate.status });
+            await recordUsage(userId, "question");
+          }
+
           const { result } = await streamSvarga({
             messages: body.messages as UIMessage[],
             mode,
@@ -30,6 +46,7 @@ export const Route = createFileRoute("/api/svarga-chat")({
             sendReasoning: true,
             originalMessages: body.messages as UIMessage[],
           });
+
         } catch (error) {
           if (error instanceof Error && error.name === "AbortError")
             return new Response("Cancelled", { status: 499 });
