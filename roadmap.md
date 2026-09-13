@@ -69,3 +69,5 @@
 - [x] Homepage: professional "Chat now" CTA button leading to dedicated /chat page; embedded chat removed from homepage and replaced with a Svarga Console preview card.
 - [x] Dedicated /chat page: full-screen chat console, works for guests (balanced mode only) and signed-in users (all unlocked modes), with clear back-to-home navigation.
 - [x] Per-user / per-IP rate limiting on /api/svarga-chat: 30 requests/minute for signed-in users, 10/minute for guests; returns 429 with Retry-After header when exceeded. Verified abusive traffic is blocked.
+
+- [ ] Live ₹1 transaction test on svarga.digital (user pays, I verify capture + records)
