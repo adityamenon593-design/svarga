@@ -143,7 +143,7 @@ export function Checkout() {
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {TIERS.map((tier) => {
-          const price = yearly ? tier.yearly : tier.monthly;
+          const price = tier.price[currency][yearly ? "yearly" : "monthly"];
           const planId =
             tier.id === "free" ? null : (`${tier.id}_${yearly ? "yearly" : "monthly"}` as PlanId);
           const popular = "popular" in tier && tier.popular;
@@ -157,7 +157,7 @@ export function Checkout() {
               </p>
               <h3 className="mt-2 font-display text-2xl font-semibold">{tier.name}</h3>
               <p className="mt-3 font-display text-4xl font-semibold">
-                {price === 0 ? "Free" : inr(price)}
+                {price === 0 ? "Free" : money(price, currency)}
                 {price === 0 ? null : (
                   <span className="text-base font-normal text-ink/50">
                     {yearly ? " / year" : " / month"}
