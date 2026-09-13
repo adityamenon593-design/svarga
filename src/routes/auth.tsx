@@ -35,6 +35,7 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [googleBusy, setGoogleBusy] = useState(false);
 
   useEffect(() => {
     if (!loading && user) void navigate({ to: "/" });
@@ -42,20 +43,24 @@ function AuthPage() {
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (busy) return;
+    if (busy || googleBusy) return;
     setBusy(true);
     try {
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
-          email,
+          email: email.trim(),
           password,
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
         toast.success("Check your inbox to confirm your address.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
         if (error) throw error;
+        toast.success("Signed in successfully.");
         void navigate({ to: "/" });
       }
     } catch (error) {
@@ -66,15 +71,23 @@ function AuthPage() {
   };
 
   const google = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      toast.error(result.error.message || "Google sign-in failed.");
-      return;
+    if (busy || googleBusy) return;
+    setGoogleBusy(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) {
+        toast.error(result.error.message || "Google sign-in failed.");
+        return;
+      }
+      if (result.redirected) return;
+      void navigate({ to: "/" });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Google sign-in failed.");
+    } finally {
+      setGoogleBusy(false);
     }
-    if (result.redirected) return;
-    void navigate({ to: "/" });
   };
 
   return (
@@ -95,10 +108,12 @@ function AuthPage() {
         </p>
 
         <button
+          type="button"
           onClick={() => void google()}
-          className="mt-7 w-full rounded-full border border-ink/15 px-5 py-3 text-sm font-semibold transition-colors hover:border-ink/40"
+          disabled={busy || googleBusy}
+          className="mt-7 w-full rounded-full border border-ink/15 px-5 py-3 text-sm font-semibold transition-colors hover:border-ink/40 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Continue with Google
+          {googleBusy ? "Connecting to Google…" : "Continue with Google"}
         </button>
 
         <div className="my-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-ink/35">
@@ -129,16 +144,18 @@ function AuthPage() {
           />
           <button
             type="submit"
-            disabled={busy}
-            className="w-full rounded-full bg-crimson px-5 py-3 text-sm font-semibold text-cream transition-opacity disabled:opacity-60"
+            disabled={busy || googleBusy}
+            className="w-full rounded-full bg-crimson px-5 py-3 text-sm font-semibold text-cream transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
           >
             {busy ? "Working…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
         </form>
 
         <button
+          type="button"
+          disabled={busy || googleBusy}
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-5 w-full text-sm text-ink/60 hover:text-crimson"
+          className="mt-5 w-full text-sm text-ink/60 hover:text-crimson disabled:cursor-not-allowed disabled:opacity-60"
         >
           {mode === "signin"
             ? "New to Svarga? Create an account"
