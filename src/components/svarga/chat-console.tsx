@@ -99,7 +99,20 @@ export function ChatConsole() {
 
   return (
     <div className="relative rounded-3xl bg-ink p-6 shadow-2xl shadow-ink/20">
-      <div className="mb-4 flex items-center gap-2"><span className="size-2.5 rounded-full bg-saffron" /><span className="size-2.5 rounded-full bg-crimson" /><span className="size-2.5 rounded-full bg-leaf" /><span className="ml-auto font-mono text-[10px] text-cream/40">svarga · live</span></div>
+      <div className="mb-4 flex items-center gap-2"><span className="size-2.5 rounded-full bg-saffron" /><span className="size-2.5 rounded-full bg-crimson" /><span className="size-2.5 rounded-full bg-leaf" /><span className="ml-auto font-mono text-[10px] text-cream/40">svarga · made in india · live</span></div>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {MODES.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setMode(item.id)}
+            aria-pressed={mode === item.id}
+            className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${mode === item.id ? "border-saffron bg-saffron/15 text-saffron" : "border-cream/10 text-cream/55 hover:border-cream/30 hover:text-cream/80"}`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
       {user ? <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1">
         <button onClick={startNew} className="shrink-0 rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70 hover:border-saffron/60 hover:text-saffron">+ New</button>
         {threads.map((thread) => <span key={thread.id} className={`group flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-[11px] ${conversationId === thread.id ? "border-saffron/60 text-saffron" : "border-cream/10 text-cream/60"}`}><button onClick={() => void openThread(thread)} className="max-w-[9rem] truncate">{thread.title}</button><button onClick={() => void drop(thread.id)} aria-label="Delete conversation" className="opacity-0 transition-opacity group-hover:opacity-100">×</button></span>)}
