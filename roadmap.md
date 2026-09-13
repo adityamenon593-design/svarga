@@ -33,3 +33,4 @@
 - Make the published site private until launch (needs Business plan; Lite cannot).
 - Make "Made in India" the visual highlight across the page, especially pricing.
 - [ ] Responsive polish for phone/tablet/desktop; installable home-screen app on Android + iOS.
+- [ ] Discuss "train on all the data in the world": training a model from scratch is not possible here; options are broader live web research + a knowledge library Svarga can search.
