@@ -58,3 +58,4 @@
 - [x] Diagnosed live Razorpay failure: business/website mismatch — user must register svarga.digital + www in Razorpay dashboard; checkout now shows a note on unregistered hosts.
 
 - [ ] Razorpay webhook + payment status checker: confirm success/failure and auto-unlock the right plan
+- [ ] Referral/invite system: invite codes give bonus Free-plan messages to grow paid conversions
