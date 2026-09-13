@@ -89,6 +89,16 @@ export function ChatConsole() {
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [usage, setUsage] = useState<UsageInfo | null>(null);
+  const [attachment, setAttachment] = useState<{ name: string; mediaType: string; url: string } | null>(
+    null,
+  );
+  const [recording, setRecording] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const recorder = useRef<MediaRecorder | null>(null);
+  const chunks = useRef<Blob[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fileInput = useRef<HTMLInputElement | null>(null);
   const fetchMemory = useServerFn(listMemory);
   const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
