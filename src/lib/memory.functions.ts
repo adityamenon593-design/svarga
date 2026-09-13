@@ -15,7 +15,7 @@ const IdInput = z.object({ id: z.string().uuid() });
 const MemorySchema = z.object({
   memories: z.array(
     z.object({
-      kind: z.enum(["preference", "fact"]),
+      kind: z.enum(["preference", "fact", "goal", "skill"]),
       content: z.string(),
     }),
   ),
@@ -61,20 +61,21 @@ export const learnFromTurn = createServerFn({ method: "POST" })
       headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
     });
 
-    let memories: Array<{ kind: "preference" | "fact"; content: string }> = [];
+    let memories: Array<{ kind: "preference" | "fact" | "goal" | "skill"; content: string }> = [];
     try {
       const result = streamText({
         model: gateway.responses("openai/gpt-6-astra"),
         system:
-          "Extract durable memories about the user from one exchange. Return at most 3 items, each under 200 characters. " +
+          "Extract durable memories about the user from one exchange. Return at most 5 items, each under 200 characters. " +
           "A 'preference' is how the user wants answers (language, tone, depth, format). A 'fact' is a stable detail the user stated about themselves (role, location, domain, project). " +
+          "A 'goal' is something the user is working towards over time. A 'skill' is their expertise level in a subject, so answers can be pitched correctly. " +
           "Never store passwords, keys, payment details, health or other sensitive personal data, one-off task details, or anything the assistant said about itself. Return an empty list when nothing durable was stated.",
         prompt: `User said:\n${data.prompt}\n\nAssistant replied:\n${data.answer.slice(0, 4000)}`,
         output: Output.object({ schema: MemorySchema }),
         providerOptions: { openai: { store: false } },
       });
       const parsed = await result.output;
-      memories = parsed.memories.slice(0, 3);
+      memories = parsed.memories.slice(0, 5);
     } catch (error) {
       if (!NoObjectGeneratedError.isInstance(error)) throw error;
       return { learned: 0 };
