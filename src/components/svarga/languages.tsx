@@ -147,69 +147,67 @@ export function LanguageSelector() {
   ];
 
   return (
-    <section id="languages" className="border-t border-ink/10 bg-cream py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/40">
-          39 languages · one intelligence
-        </p>
-        <h2 className="mt-3 font-display text-3xl text-ink sm:text-4xl">
-          Svarga speaks the language you think in
-        </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/70">
-          Pick a language to see how Svarga greets you and what you can ask. Bharat first — and the
-          world after.
-        </p>
+    <section id="languages" className="border-t border-ink/10 py-14">
+      <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+        39 languages · one intelligence
+      </p>
+      <h2 className="mb-2 font-display text-4xl font-semibold">
+        Svarga speaks the language you think in.
+      </h2>
+      <p className="mb-8 max-w-2xl text-sm text-ink/60">
+        Pick a language to see how Svarga greets you and what you can ask. Bharat first — and the
+        world right after.
+      </p>
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {LANGUAGES.map((language) => (
-            <button
-              key={language.code}
-              type="button"
-              onClick={() => setActive(language)}
-              aria-pressed={active.code === language.code}
-              className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                active.code === language.code
-                  ? "border-saffron bg-saffron/15 text-ink"
-                  : "border-ink/10 text-ink/60 hover:border-saffron/60 hover:text-ink"
-              }`}
-            >
-              {language.native}
-            </button>
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-2">
+        {LANGUAGES.map((language) => (
+          <button
+            key={language.code}
+            type="button"
+            onClick={() => setActive(language)}
+            aria-pressed={active.code === language.code}
+            className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
+              active.code === language.code
+                ? "border-saffron bg-saffron/15 text-ink"
+                : "border-ink/10 text-ink/60 hover:border-saffron/60 hover:text-ink"
+            }`}
+          >
+            {language.native}
+          </button>
+        ))}
+      </div>
 
-        <div className="mt-8 grid gap-6 rounded-3xl border border-ink/10 bg-white p-6 sm:p-8 lg:grid-cols-2">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/40">
-              {active.name}
-            </p>
-            <p className="mt-3 font-display text-2xl leading-snug text-ink">{active.greeting}</p>
-            <ul className="mt-5 space-y-2">
-              {prompts.map((prompt) => (
-                <li
-                  key={prompt}
-                  className="rounded-xl border border-ink/10 px-3 py-2 text-sm text-ink/75"
-                >
-                  {prompt}
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/chat"
-              className="mt-6 inline-flex rounded-full bg-crimson px-5 py-2.5 text-sm text-cream transition-opacity hover:opacity-90"
-            >
-              Chat in {active.native}
-            </Link>
-          </div>
-          <ul className="space-y-3 border-ink/10 lg:border-l lg:pl-8">
-            {FEATURES.map((feature) => (
-              <li key={feature} className="flex gap-3 text-sm text-ink/75">
-                <span className="mt-1 size-1.5 shrink-0 rounded-full bg-saffron" />
-                {feature}
+      <div className="mt-8 grid gap-6 rounded-3xl border border-ink/5 bg-sand/50 p-6 sm:p-8 lg:grid-cols-2">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/40">
+            {active.name}
+          </p>
+          <p className="mt-3 font-display text-2xl leading-snug">{active.greeting}</p>
+          <ul className="mt-5 space-y-2">
+            {prompts.map((prompt) => (
+              <li
+                key={prompt}
+                className="rounded-xl border border-ink/10 bg-cream px-3 py-2 text-sm text-ink/75"
+              >
+                {prompt}
               </li>
             ))}
           </ul>
+          <Link
+            to="/chat"
+            className="mt-6 inline-flex rounded-full bg-crimson px-5 py-2.5 text-sm text-cream transition-opacity hover:opacity-90"
+          >
+            Chat in {active.native}
+          </Link>
         </div>
+        <ul className="space-y-3 border-ink/10 lg:border-l lg:pl-8">
+          {FEATURES.map((feature) => (
+            <li key={feature} className="flex gap-3 text-sm text-ink/70">
+              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-saffron" />
+              {feature}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
