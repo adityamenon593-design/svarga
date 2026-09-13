@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { DocumentLibrary } from "@/components/svarga/document-library";
 import { ImageStudio } from "@/components/svarga/image-studio";
+import { PrivacyInvitePanel } from "@/components/svarga/privacy-invite-panel";
 import { SettingsPanel } from "@/components/svarga/settings-panel";
 import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
@@ -361,6 +362,11 @@ function Index() {
           <ClientOnly fallback={<StudioSkeleton />}>
             <SettingsPanel />
           </ClientOnly>
+          <div className="mt-6">
+            <ClientOnly fallback={<StudioSkeleton />}>
+              <PrivacyInvitePanel />
+            </ClientOnly>
+          </div>
         </section>
 
         <section id="professional" className="border-t border-ink/10 py-14">

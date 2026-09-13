@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
+import { useAuth } from "@/hooks/use-auth";
+
 import { applyReferralCode, getMyReferral } from "@/lib/referrals.functions";
 import { clearAllMemory, getPrivacySettings, setMemoryEnabled } from "@/lib/settings.functions";
 
@@ -16,7 +18,9 @@ type Referral = {
 };
 
 /** Memory consent controls plus the invite code that earns bonus free messages. */
-export function PrivacyInvitePanel({ signedIn }: { signedIn: boolean }) {
+export function PrivacyInvitePanel() {
+  const { user } = useAuth();
+  const signedIn = Boolean(user);
   const loadPrivacy = useServerFn(getPrivacySettings);
   const savePrivacy = useServerFn(setMemoryEnabled);
   const wipeMemory = useServerFn(clearAllMemory);
