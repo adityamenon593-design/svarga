@@ -329,9 +329,42 @@ function Index() {
       </main>
 
       <footer className="mt-6 border-t border-ink/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 sm:flex-row lg:px-8">
-          <p className="font-display text-lg font-semibold">Svarga</p>
-          <p className="text-xs text-ink/50">
+        <div className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
+          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+            <div>
+              <p className="font-display text-lg font-semibold">Svarga</p>
+              <p className="mt-1 max-w-sm text-sm text-ink/60">
+                A solo project by{" "}
+                <span className="font-medium text-ink">Aditya Mohan Menon</span>. Built in India,
+                priced in rupees.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <a
+                href="tel:+918139012237"
+                className="rounded-full border border-ink/15 px-4 py-2 font-medium transition-colors hover:border-ink/30"
+              >
+                +91 81390 12237
+              </a>
+              <a
+                href="https://wa.me/918139012237"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-ink/15 px-4 py-2 font-medium transition-colors hover:border-ink/30"
+              >
+                WhatsApp
+              </a>
+              <a
+                href="https://www.linkedin.com/in/aditya-mohan-menon"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-[#0A66C2] px-4 py-2 font-semibold text-cream"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+          <p className="mt-8 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.
           </p>
         </div>
