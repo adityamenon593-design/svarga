@@ -55,7 +55,9 @@ export const Route = createFileRoute("/api/svarga-chat")({
             persona: body.persona === "krishna" ? "krishna" : undefined,
           });
           return result.toUIMessageStreamResponse({
-            sendReasoning: true,
+            // Internal reasoning stays server-side so Svarga's instructions and
+            // private logic can never be extracted from the response stream.
+            sendReasoning: false,
             originalMessages: body.messages as UIMessage[],
             // A failure mid-stream must reach the user as readable text, not a dead spinner.
             onError: (error) => gatewayFailure(error).message,
