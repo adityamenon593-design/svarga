@@ -1,4 +1,5 @@
 import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
 
@@ -85,35 +86,70 @@ const BENCHMARKS = [
   { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
 ];
 
+const NAV = [
+  { href: "#console", label: "Console" },
+  { href: "#benchmarks", label: "Benchmarks" },
+  { href: "#capacities", label: "Capacities" },
+  { href: "#studio", label: "Studio" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#contact", label: "Contact" },
+  { href: "#settings", label: "Settings" },
+];
+
 function Index() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-cream font-sans text-ink antialiased">
-      <header className="flex h-16 items-center justify-between border-b border-ink/10 px-8">
-        <div className="flex items-center gap-3">
-          <div className="grid size-9 place-items-center rounded-full border-2 border-saffron/50 font-display text-lg font-semibold text-saffron">
-            ॐ
+      <header className="sticky top-0 z-30 border-b border-ink/10 bg-cream/90 backdrop-blur">
+        <div className="flex h-16 items-center justify-between px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="grid size-9 place-items-center rounded-full border-2 border-saffron/50 font-display text-lg font-semibold text-saffron">
+              ॐ
+            </div>
+            <div className="leading-none">
+              <p className="font-display text-2xl font-semibold tracking-tight">Svarga</p>
+              <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
+                Made in India
+              </p>
+            </div>
           </div>
-          <div className="leading-none">
-            <p className="font-display text-2xl font-semibold tracking-tight">Svarga</p>
-            <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-ink/40">
-              Divine Intelligence
-            </p>
+          <nav className="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
+            {NAV.map((item) => (
+              <a key={item.href} href={item.href} className="transition-colors hover:text-crimson">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            <ClientOnly fallback={<div className="h-9 w-24" />}>
+              <AccountNav />
+            </ClientOnly>
+            <button
+              type="button"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+              className="grid size-9 place-items-center rounded-full border border-ink/15 md:hidden"
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
           </div>
         </div>
-        <nav className="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
-          <a href="#console" className="text-ink">
-            Console
-          </a>
-          <a href="#benchmarks">Benchmarks</a>
-          <a href="#capacities">Capacities</a>
-          <a href="#studio">Studio</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#contact">Contact</a>
-          <a href="#settings">Settings</a>
-        </nav>
-        <ClientOnly fallback={<div className="h-9 w-24" />}>
-          <AccountNav />
-        </ClientOnly>
+        {menuOpen ? (
+          <nav className="grid gap-1 border-t border-ink/10 px-6 py-3 text-sm font-medium text-ink/70 md:hidden">
+            {NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-lg px-2 py-2 hover:bg-sand/70"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        ) : null}
       </header>
 
       <main className="mx-auto max-w-6xl px-6 lg:px-8">
