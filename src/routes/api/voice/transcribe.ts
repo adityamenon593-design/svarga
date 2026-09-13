@@ -28,14 +28,16 @@ export const Route = createFileRoute("/api/voice/transcribe")({
 
         const type = audio.type.split(";")[0] ?? "";
         const ext =
-          ({
-            "audio/webm": "webm",
-            "audio/ogg": "ogg",
-            "audio/mp4": "mp4",
-            "audio/mpeg": "mp3",
-            "audio/wav": "wav",
-            "audio/x-wav": "wav",
-          } as Record<string, string>)[type] ?? "webm";
+          (
+            {
+              "audio/webm": "webm",
+              "audio/ogg": "ogg",
+              "audio/mp4": "mp4",
+              "audio/mpeg": "mp3",
+              "audio/wav": "wav",
+              "audio/x-wav": "wav",
+            } as Record<string, string>
+          )[type] ?? "webm";
 
         const upstream = new FormData();
         upstream.append("model", "google/gemini-3.5-transcribe");

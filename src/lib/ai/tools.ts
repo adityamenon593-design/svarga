@@ -20,7 +20,11 @@ export function svargaTools(userId?: string | null) {
       }),
       execute: async ({ query }) => {
         if (!webSearchProvider)
-          return { available: false, results: [] as SvargaSource[], note: "Live web search is not configured on this deployment. Answer from your own knowledge and say it may not be current." };
+          return {
+            available: false,
+            results: [] as SvargaSource[],
+            note: "Live web search is not configured on this deployment. Answer from your own knowledge and say it may not be current.",
+          };
         try {
           const results = await webSearchProvider.search(query, 6);
           return {
@@ -48,7 +52,11 @@ export function svargaTools(userId?: string | null) {
         query: z.string().describe("What to look for inside the user's documents."),
       }),
       execute: async ({ query }) => {
-        if (!userId) return { results: [], note: "The user is not signed in, so no private library is available." };
+        if (!userId)
+          return {
+            results: [],
+            note: "The user is not signed in, so no private library is available.",
+          };
         try {
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
           const embedding = await embedText(query);
@@ -61,13 +69,13 @@ export function svargaTools(userId?: string | null) {
           });
           if (error || !data) return { results: [], note: "No matching passages found." };
           return {
-            results: (
-              data as Array<{ content: string; title: string; document_id: string }>
-            ).map((row) => ({
-              title: row.title,
-              documentId: row.document_id,
-              excerpt: row.content.slice(0, 1200),
-            })),
+            results: (data as Array<{ content: string; title: string; document_id: string }>).map(
+              (row) => ({
+                title: row.title,
+                documentId: row.document_id,
+                excerpt: row.content.slice(0, 1200),
+              }),
+            ),
           };
         } catch {
           return { results: [], note: "Library search failed." };
@@ -85,7 +93,6 @@ export function svargaTools(userId?: string | null) {
         const safe = expression.replace(/[^0-9+\-*/%.()e ]/gi, "");
         if (!safe.trim()) return { error: "Empty expression." };
         try {
-          // eslint-disable-next-line no-new-func
           const value = Function(`"use strict";return (${safe});`)() as unknown;
           if (typeof value !== "number" || !Number.isFinite(value))
             return { error: "Not a finite number." };

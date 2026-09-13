@@ -89,9 +89,11 @@ export function ChatConsole() {
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [usage, setUsage] = useState<UsageInfo | null>(null);
-  const [attachment, setAttachment] = useState<{ name: string; mediaType: string; url: string } | null>(
-    null,
-  );
+  const [attachment, setAttachment] = useState<{
+    name: string;
+    mediaType: string;
+    url: string;
+  } | null>(null);
   const [recording, setRecording] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
   const [speakingId, setSpeakingId] = useState<string | null>(null);
@@ -503,9 +505,7 @@ export function ChatConsole() {
                         className="max-h-40 rounded-xl border border-cream/10"
                       />
                     ))}
-                    {text ? (
-                      <p className="text-sm leading-relaxed text-cream/90">{text}</p>
-                    ) : null}
+                    {text ? <p className="text-sm leading-relaxed text-cream/90">{text}</p> : null}
                   </div>
                 </div>
               );
