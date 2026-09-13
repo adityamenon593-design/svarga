@@ -28,7 +28,8 @@ export function trimHistory<T>(messages: T[], limit = MAX_HISTORY_MESSAGES): T[]
 export function gatewayFailure(error: unknown): { status: number; message: string } {
   const raw = error instanceof Error ? error.message : String(error ?? "");
   const status = (() => {
-    const candidate = (error as { statusCode?: unknown; status?: unknown } | null)?.statusCode ??
+    const candidate =
+      (error as { statusCode?: unknown; status?: unknown } | null)?.statusCode ??
       (error as { status?: unknown } | null)?.status;
     if (typeof candidate === "number") return candidate;
     const match = raw.match(/\b(4\d{2}|5\d{2})\b/);
