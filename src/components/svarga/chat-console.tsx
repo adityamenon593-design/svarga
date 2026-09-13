@@ -532,6 +532,13 @@ export function ChatConsole() {
                       </ul>
                     </div>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => void speak(message.id, answer.body)}
+                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-cream/40 transition-colors hover:text-saffron"
+                  >
+                    {speakingId === message.id ? "■ Stop" : "▶ Listen"}
+                  </button>
                 </MessageContent>
               </Message>
             );
