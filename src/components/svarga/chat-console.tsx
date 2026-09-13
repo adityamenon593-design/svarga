@@ -10,7 +10,8 @@ import { Message, MessageContent, MessageResponse } from "@/components/ai-elemen
 import { PromptInput, PromptInputFooter, PromptInputSubmit, PromptInputTextarea } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import { useAuth } from "@/hooks/use-auth";
-import { deleteConversation, listConversations, listMessages, saveTurn } from "@/lib/history.functions";
+import { deleteConversation, listConversations, listMessages, saveImage, saveTurn } from "@/lib/history.functions";
+import { generateSvargaImage } from "@/lib/image.functions";
 
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
@@ -23,6 +24,7 @@ const MODES = [
   { id: "reasoning", label: "Reasoning" },
   { id: "research", label: "Research" },
   { id: "creative", label: "Creative" },
+  { id: "image", label: "Image" },
 ] as const;
 
 type Mode = (typeof MODES)[number]["id"];
