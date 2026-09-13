@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatConsole } from "@/components/svarga/chat-console";
 import { ImageStudio } from "@/components/svarga/image-studio";
 import { SettingsPanel } from "@/components/svarga/settings-panel";
+import { ContactPanel } from "@/components/svarga/contact-panel";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
@@ -105,6 +106,7 @@ function Index() {
           <a href="#benchmarks">Benchmarks</a>
           <a href="#capacities">Capacities</a>
           <a href="#studio">Studio</a>
+          <a href="#contact">Contact</a>
           <a href="#settings">Settings</a>
         </nav>
         <ClientOnly fallback={<div className="h-9 w-24" />}>
@@ -251,6 +253,14 @@ function Index() {
           <ClientOnly fallback={<StudioSkeleton />}>
             <ImageStudio />
           </ClientOnly>
+        </section>
+
+        <section id="contact" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Contact
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">Reach us. Pay us.</h2>
+          <ContactPanel />
         </section>
 
         <section id="settings" className="border-t border-ink/10 py-14">
