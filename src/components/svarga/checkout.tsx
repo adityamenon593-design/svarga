@@ -13,7 +13,6 @@ import {
   type Currency,
 } from "@/lib/payments.functions";
 
-
 declare global {
   interface Window {
     Razorpay?: new (options: Record<string, unknown>) => {
@@ -43,9 +42,7 @@ function loadRazorpayScript(): Promise<void> {
 }
 
 const money = (value: number, currency: Currency) =>
-  currency === "INR"
-    ? `₹${value.toLocaleString("en-IN")}`
-    : `$${value.toLocaleString("en-US")}`;
+  currency === "INR" ? `₹${value.toLocaleString("en-IN")}` : `$${value.toLocaleString("en-US")}`;
 
 function detectCurrency(): Currency {
   try {
@@ -67,7 +64,6 @@ export function Checkout() {
   useEffect(() => {
     setCurrency(detectCurrency());
   }, []);
-
 
   async function pay(planId: PlanId) {
     if (!user || busy) return;
@@ -159,7 +155,6 @@ export function Checkout() {
           Global · $ USD
         </button>
       </div>
-
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {TIERS.map((tier) => {

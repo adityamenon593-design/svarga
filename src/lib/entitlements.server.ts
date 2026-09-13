@@ -163,7 +163,11 @@ export async function checkQuota(
   if (used >= allowed) {
     const unit = kind === "question" ? "questions" : "images";
     const window =
-      kind === "question" ? (limits.questionWindow === "day" ? "today" : "this month") : "this month";
+      kind === "question"
+        ? limits.questionWindow === "day"
+          ? "today"
+          : "this month"
+        : "this month";
     return {
       ok: false,
       status: 402,

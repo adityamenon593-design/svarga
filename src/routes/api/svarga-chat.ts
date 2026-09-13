@@ -22,9 +22,8 @@ export const Route = createFileRoute("/api/svarga-chat")({
             ? body.memory.filter((item): item is string => typeof item === "string").slice(0, 20)
             : [];
 
-          const { userIdFromRequest, checkQuota, recordUsage } = await import(
-            "@/lib/entitlements.server"
-          );
+          const { userIdFromRequest, checkQuota, recordUsage } =
+            await import("@/lib/entitlements.server");
           const userId = await userIdFromRequest(request);
           if (!userId) {
             if (mode !== "balanced")
@@ -46,7 +45,6 @@ export const Route = createFileRoute("/api/svarga-chat")({
             sendReasoning: true,
             originalMessages: body.messages as UIMessage[],
           });
-
         } catch (error) {
           if (error instanceof Error && error.name === "AbortError")
             return new Response("Cancelled", { status: 499 });

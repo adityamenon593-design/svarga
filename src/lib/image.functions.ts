@@ -29,7 +29,6 @@ export const generateSvargaImage = createServerFn({ method: "POST" })
     const gate = await checkQuota(context.userId, "image");
     if (!gate.ok) throw new Error(gate.message);
 
-
     const res = await fetch("https://ai.gateway.lovable.dev/v1/images/generations", {
       method: "POST",
       headers: {

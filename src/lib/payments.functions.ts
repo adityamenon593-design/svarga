@@ -105,7 +105,6 @@ export const TIERS = [
   },
 ] as const;
 
-
 async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
   const key = await crypto.subtle.importKey(
     "raw",
@@ -165,7 +164,6 @@ export const createOrder = createServerFn({ method: "POST" })
 
     return { orderId: order.id, amountPaise: amount, currency, keyId };
   });
-
 
 export const verifyPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

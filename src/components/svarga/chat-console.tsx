@@ -41,7 +41,6 @@ type UsageInfo = {
   modes: readonly string[];
 };
 
-
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
   "How does Āryabhaṭa's sine table relate to Taylor series?",
@@ -110,7 +109,6 @@ export function ChatConsole() {
     transport,
     onError: (error) => toast.error(error.message || "Svarga could not answer just now."),
   });
-
 
   const refreshThreads = useCallback(async () => {
     if (!user) {
