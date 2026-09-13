@@ -24,3 +24,4 @@
 
 - Legal/compliance: assistant refuses unlawful requests, gives no binding legal/medical/financial advice, respects privacy and IP, and states limitations.
 - Learning memory: remember user preferences and facts across conversations for signed-in users.
+- Make the published site private until launch (needs Business plan; Lite cannot).
