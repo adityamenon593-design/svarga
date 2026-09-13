@@ -1,5 +1,7 @@
 import { createOpenAI } from "@ai-sdk/openai";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, stepCountIs, streamText, type UIMessage } from "ai";
+
+import { svargaTools } from "./tools";
 
 import {
   KRISHNA_SYSTEM_PROMPT,
