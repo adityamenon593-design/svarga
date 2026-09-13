@@ -27,7 +27,20 @@ import {
   saveTurn,
 } from "@/lib/history.functions";
 import { generateSvargaImage } from "@/lib/image.functions";
+import { getMyUsage } from "@/lib/entitlements.functions";
+import { supabase } from "@/integrations/supabase/client";
 import { learnFromTurn, listMemory } from "@/lib/memory.functions";
+
+type UsageInfo = {
+  label: string;
+  questionsUsed: number;
+  questionsAllowed: number;
+  questionWindow: "day" | "month";
+  imagesUsed: number;
+  imagesAllowed: number;
+  modes: readonly string[];
+};
+
 
 const SEEDS = [
   "Link Vāyu and modern respiratory physiology.",
@@ -58,6 +71,8 @@ export function ChatConsole() {
 
   const [rendering, setRendering] = useState(false);
   const [memory, setMemory] = useState<string[]>([]);
+  const [token, setToken] = useState<string | null>(null);
+  const [usage, setUsage] = useState<UsageInfo | null>(null);
   const fetchMemory = useServerFn(listMemory);
   const learn = useServerFn(learnFromTurn);
   const fetchThreads = useServerFn(listConversations);
@@ -66,14 +81,36 @@ export function ChatConsole() {
   const persistImage = useServerFn(saveImage);
   const renderImage = useServerFn(generateSvargaImage);
   const removeThread = useServerFn(deleteConversation);
+  const fetchUsage = useServerFn(getMyUsage);
+
+  useEffect(() => {
+    if (!user) {
+      setToken(null);
+      setUsage(null);
+      return;
+    }
+    void supabase.auth.getSession().then(({ data }) => {
+      setToken(data.session?.access_token ?? null);
+    });
+    void fetchUsage()
+      .then((info) => setUsage(info as UsageInfo))
+      .catch(() => undefined);
+  }, [user, fetchUsage]);
+
   const transport = useMemo(
-    () => new DefaultChatTransport({ api: "/api/svarga-chat", body: { mode, memory } }),
-    [mode, memory],
+    () =>
+      new DefaultChatTransport({
+        api: "/api/svarga-chat",
+        body: { mode, memory },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }),
+    [mode, memory, token],
   );
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     transport,
     onError: (error) => toast.error(error.message || "Svarga could not answer just now."),
   });
+
 
   const refreshThreads = useCallback(async () => {
     if (!user) {
