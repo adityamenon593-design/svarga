@@ -384,12 +384,12 @@ export function ChatConsole() {
   };
 
   return (
-    <div className="relative rounded-3xl bg-ink p-6 shadow-2xl shadow-ink/20">
+    <div className="relative rounded-3xl border border-ink/10 bg-white p-6 shadow-2xl shadow-ink/10">
       <div className="mb-4 flex items-center gap-2">
         <span className="size-2.5 rounded-full bg-saffron" />
         <span className="size-2.5 rounded-full bg-crimson" />
         <span className="size-2.5 rounded-full bg-leaf" />
-        <span className="ml-auto font-mono text-[10px] text-cream/40">
+        <span className="ml-auto font-mono text-[10px] text-ink/50">
           {usage
             ? `${usage.label} · ${usage.questionsUsed}/${usage.questionsAllowed} questions this ${usage.questionWindow} · ${usage.imagesUsed}/${usage.imagesAllowed} images`
             : "svarga · made in india · live"}
@@ -417,7 +417,7 @@ export function ChatConsole() {
                 setMode(item.id);
               }}
               aria-pressed={mode === item.id}
-              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${mode === item.id ? "border-saffron bg-saffron/15 text-saffron" : "border-cream/10 text-cream/55 hover:border-cream/30 hover:text-cream/80"} ${locked ? "opacity-50" : ""}`}
+              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${mode === item.id ? "border-saffron bg-saffron/15 text-saffron" : "border-ink/15 text-ink/65 hover:border-ink/35 hover:text-ink"} ${locked ? "opacity-50" : ""}`}
             >
               {item.label}
               {locked ? " ·" : ""}
@@ -430,14 +430,14 @@ export function ChatConsole() {
         <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1">
           <button
             onClick={startNew}
-            className="shrink-0 rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70 hover:border-saffron/60 hover:text-saffron"
+            className="shrink-0 rounded-full border border-ink/15 px-3 py-1 text-[11px] text-ink/75 hover:border-saffron/70 hover:text-saffron"
           >
             + New
           </button>
           {(threads ?? []).map((thread) => (
             <span
               key={thread.id}
-              className={`group flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-[11px] ${conversationId === thread.id ? "border-saffron/60 text-saffron" : "border-cream/10 text-cream/60"}`}
+              className={`group flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-[11px] ${conversationId === thread.id ? "border-saffron/70 text-saffron" : "border-ink/15 text-ink/65"}`}
             >
               <button onClick={() => void openThread(thread)} className="max-w-[9rem] truncate">
                 {thread.title}
@@ -457,7 +457,7 @@ export function ChatConsole() {
         <ConversationContent className="gap-4 p-0">
           {(messages ?? []).length === 0 ? (
             <div className="space-y-4">
-              <p className="pt-1 text-sm leading-relaxed text-cream/70">
+              <p className="pt-1 text-sm leading-relaxed text-ink/70">
                 Ask across both traditions — Svarga answers with the Vedic concept, its modern
                 counterpart, and where the two genuinely agree.
               </p>
@@ -466,15 +466,15 @@ export function ChatConsole() {
                   <button
                     key={seed}
                     onClick={() => send(seed)}
-                    className="rounded-full border border-cream/15 px-3 py-1.5 text-left text-xs text-cream/70 transition-colors hover:border-saffron/60 hover:text-saffron"
+                    className="rounded-full border border-ink/15 px-3 py-1.5 text-left text-xs text-ink/70 transition-colors hover:border-saffron/70 hover:text-saffron"
                   >
                     {seed}
                   </button>
                 ))}
               </div>
               {!user ? (
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-cream/40">
-                  <Link to="/auth" className="text-saffron">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/45">
+                  <Link to="/auth" className="text-crimson hover:underline">
                     Sign in
                   </Link>{" "}
                   to keep your conversations
@@ -493,7 +493,7 @@ export function ChatConsole() {
             if (message.role === "user") {
               return (
                 <div key={message.id} className="flex gap-3">
-                  <div className="grid size-7 shrink-0 place-items-center rounded-full bg-cream/15 font-display text-xs text-cream/70">
+                  <div className="grid size-7 shrink-0 place-items-center rounded-full bg-sand font-display text-xs text-ink/80">
                     U
                   </div>
                   <div className="space-y-2 pt-1">
@@ -502,10 +502,10 @@ export function ChatConsole() {
                         key={url}
                         src={url}
                         alt="Attached by the user"
-                        className="max-h-40 rounded-xl border border-cream/10"
+                        className="max-h-40 rounded-xl border border-ink/10"
                       />
                     ))}
-                    {text ? <p className="text-sm leading-relaxed text-cream/90">{text}</p> : null}
+                    {text ? <p className="text-sm leading-relaxed text-ink/90">{text}</p> : null}
                   </div>
                 </div>
               );
@@ -518,18 +518,18 @@ export function ChatConsole() {
                 <div className="grid size-7 shrink-0 place-items-center rounded-full bg-saffron font-display text-xs text-ink">
                   ॐ
                 </div>
-                <MessageContent className="rounded-2xl rounded-tl-sm bg-cream/5 p-4 text-sm leading-relaxed text-cream/85">
+                <MessageContent className="rounded-2xl rounded-tl-sm border border-ink/10 bg-sand/40 p-4 text-sm leading-relaxed text-ink/90">
                   {answer.uncertain && (
-                    <div className="mb-3 rounded-lg border border-saffron/30 bg-saffron/10 px-3 py-2 text-xs text-saffron">
+                    <div className="mb-3 rounded-lg border border-saffron/30 bg-saffron/10 px-3 py-2 text-xs text-saffron-dark">
                       I&apos;m not fully confident about this. Could you clarify?
                     </div>
                   )}
-                  <MessageResponse className="[&_a]:text-saffron [&_strong]:text-cream">
+                  <MessageResponse className="[&_a]:text-crimson [&_strong]:text-ink">
                     {answer.body}
                   </MessageResponse>
                   {answer.sources.length > 0 && (
-                    <div className="mt-4 border-t border-cream/10 pt-3">
-                      <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-cream/40">
+                    <div className="mt-4 border-t border-ink/10 pt-3">
+                      <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-ink/45">
                         Sources
                       </p>
                       <ul className="space-y-1">
@@ -539,7 +539,7 @@ export function ChatConsole() {
                               href={source.url}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-xs text-saffron hover:underline"
+                              className="text-xs text-crimson hover:underline"
                             >
                               {source.title}
                             </a>
@@ -551,7 +551,7 @@ export function ChatConsole() {
                   <button
                     type="button"
                     onClick={() => void speak(message.id, answer.body)}
-                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-cream/40 transition-colors hover:text-saffron"
+                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
                   >
                     {speakingId === message.id ? "■ Stop" : "▶ Listen"}
                   </button>
@@ -568,7 +568,7 @@ export function ChatConsole() {
         <ConversationScrollButton />
       </Conversation>
       <PromptInput
-        className="mt-4 rounded-2xl border-cream/10 bg-cream/5"
+        className="mt-4 rounded-2xl border-ink/10 bg-sand/30"
         onSubmit={(_message, event) => {
           event.preventDefault();
           send(input);
@@ -580,9 +580,9 @@ export function ChatConsole() {
           placeholder={
             mode === "image" ? "Describe the image Svarga should create…" : "Ask Svarga anything…"
           }
-          className="min-h-16 text-cream placeholder:text-cream/40"
+          className="min-h-16 text-ink placeholder:text-ink/45"
         />
-        <PromptInputFooter className="items-center justify-between border-cream/10">
+        <PromptInputFooter className="items-center justify-between border-ink/10">
           <div className="flex items-center gap-2">
             <input
               ref={fileInput}
@@ -598,7 +598,7 @@ export function ChatConsole() {
             <button
               type="button"
               onClick={() => fileInput.current?.click()}
-              className="rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70 transition-colors hover:border-saffron/60 hover:text-saffron"
+              className="rounded-full border border-ink/15 px-3 py-1 text-[11px] text-ink/75 transition-colors hover:border-saffron/70 hover:text-saffron"
               aria-label="Attach an image"
             >
               + Image
@@ -608,12 +608,12 @@ export function ChatConsole() {
               onClick={() => void toggleMic()}
               disabled={transcribing}
               aria-pressed={recording}
-              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${recording ? "border-crimson bg-crimson/20 text-crimson" : "border-cream/15 text-cream/70 hover:border-saffron/60 hover:text-saffron"}`}
+              className={`rounded-full border px-3 py-1 text-[11px] transition-colors ${recording ? "border-crimson bg-crimson/15 text-crimson" : "border-ink/15 text-ink/75 hover:border-saffron/70 hover:text-saffron"}`}
             >
               {transcribing ? "Listening…" : recording ? "Stop ●" : "Speak 🎙"}
             </button>
             {attachment ? (
-              <span className="flex items-center gap-1 rounded-full border border-saffron/40 px-3 py-1 text-[11px] text-saffron">
+              <span className="flex items-center gap-1 rounded-full border border-saffron/50 px-3 py-1 text-[11px] text-saffron">
                 {attachment.name.slice(0, 18)}
                 <button type="button" onClick={() => setAttachment(null)} aria-label="Remove image">
                   ×
