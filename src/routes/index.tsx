@@ -288,9 +288,15 @@ function Index() {
 
         <section id="pricing" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
-            Pricing
+            Pricing · Made in India 🇮🇳
           </p>
-          <h2 className="mb-8 font-display text-4xl font-semibold">One plan. Everything on.</h2>
+          <h2 className="font-display text-4xl font-semibold">
+            Indian-made intelligence, priced in rupees.
+          </h2>
+          <p className="mb-8 mt-3 max-w-2xl text-sm text-ink/60">
+            Built in Bharat, billed in ₹ — no dollar pricing, no hidden conversion fees. Start free,
+            upgrade when Svarga earns it.
+          </p>
           <ClientOnly fallback={<StudioSkeleton />}>
             <Checkout />
           </ClientOnly>
