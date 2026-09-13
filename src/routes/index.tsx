@@ -9,6 +9,7 @@ import { ImageStudio } from "@/components/svarga/image-studio";
 import { SettingsPanel } from "@/components/svarga/settings-panel";
 import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
+import { DonatePanel } from "@/components/svarga/donate";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
@@ -89,6 +90,7 @@ const NAV = [
   { href: "#studio", label: "Studio" },
   { href: "#library", label: "Library" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#donate", label: "Donate" },
   { href: "#contact", label: "Contact" },
   { href: "#settings", label: "Settings" },
   { href: "#professional", label: "Professional" },
@@ -122,6 +124,12 @@ function Index() {
             ))}
           </nav>
           <div className="flex shrink-0 items-center gap-2">
+            <a
+              href="#donate"
+              className="hidden rounded-full bg-saffron/20 px-4 py-2 text-sm font-semibold text-crimson transition-colors hover:bg-saffron/30 sm:block"
+            >
+              ♥ Donate
+            </a>
             <ClientOnly fallback={<div className="h-9 w-24" />}>
               <AccountNav />
             </ClientOnly>
@@ -322,6 +330,18 @@ function Index() {
           </p>
           <ClientOnly fallback={<StudioSkeleton />}>
             <Checkout />
+          </ClientOnly>
+        </section>
+
+        <section id="donate" className="border-t border-ink/10 py-14">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            Donate
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">
+            Keep India&rsquo;s own AI running.
+          </h2>
+          <ClientOnly fallback={<StudioSkeleton />}>
+            <DonatePanel />
           </ClientOnly>
         </section>
 

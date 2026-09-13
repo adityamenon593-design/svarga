@@ -16,7 +16,7 @@ export type TierLimits = {
 };
 
 export const TIER_LIMITS: Record<Tier, TierLimits> = {
-  free: { questions: 25, questionWindow: "day", images: 5, modes: ["balanced"] },
+  free: { questions: 100, questionWindow: "day", images: 15, modes: ["balanced", "reasoning"] },
   starter: {
     questions: 300,
     questionWindow: "month",

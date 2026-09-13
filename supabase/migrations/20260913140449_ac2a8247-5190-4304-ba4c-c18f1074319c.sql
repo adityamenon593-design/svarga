@@ -1,0 +1,2 @@
+ALTER TABLE public.user_memory DROP CONSTRAINT IF EXISTS user_memory_kind_check;
+ALTER TABLE public.user_memory ADD CONSTRAINT user_memory_kind_check CHECK (kind IN ('preference','fact','goal','skill'));

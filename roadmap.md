@@ -2,6 +2,18 @@
 
 ## Open
 
+- [x] Continuous learning: Svarga learns each user's facts/preferences from conversation and applies them in later chats (per-user memory, not model retraining).
+
+- [ ] "Train on Indian + global data": from-scratch training is out of scope; deliver via knowledge library uploads + live web search (needs Perplexity key).
+
+- [x] Position Svarga as an all-in-one assistant: chat, reasoning, research, code, math, writing, images, documents, translation.
+
+- [x] Svarga should practically help with everyday Indian problems: govt schemes, farming, health access, jobs/exams, legal/consumer rights, money, local languages.
+
+- [x] Donate button (Razorpay + GPay/UPI 8139012237) visible on the site, with "if payment fails, pay directly on GPay" fallback note.
+- [x] Free plan: 100 messages/day, 15 images/mo, reasoning mode included until paid users arrive.
+- [x] LLM quality upgrade: match top-model behaviour (deep reasoning, structure, code/math).
+
 - [ ] svarga.digital: user is adding the A + TXT records manually (blocked on their DNS provider; must then press Check status in Project Settings → Domains). Note: the domain currently has no working name servers — records must be added where its DNS is actually hosted.
 - [ ] Publish: user declined the publish prompt; they can publish via the Publish button when ready. Domain serves only after publishing.
 - [ ] Decide scope of the email brief: rebrand to SVARNA.DIGITAL dark terminal UI, or keep current Svarga design.
