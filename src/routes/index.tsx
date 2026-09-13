@@ -360,37 +360,21 @@ function Index() {
             Capacities
           </p>
           <h2 className="mb-8 font-display text-4xl font-semibold">One model, every discipline.</h2>
-          <div className="grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-crimson/10 font-display text-xl text-crimson">
-                ॐ
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {CAPACITIES.map((cap) => (
+              <div
+                key={cap.title}
+                className="rounded-2xl border border-ink/5 bg-sand/50 p-6 transition-all hover:-translate-y-0.5 hover:border-saffron/40 hover:shadow-lg hover:shadow-ink/5"
+              >
+                <div
+                  className={`grid size-10 place-items-center rounded-xl font-display text-xl ${cap.tile}`}
+                >
+                  {cap.icon}
+                </div>
+                <h3 className="mt-4 font-display text-xl font-semibold">{cap.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{cap.body}</p>
               </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Vedantic Reasoning</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Cites Upaniṣadic and Āyurvedic sources alongside peer-reviewed literature in a
-                single, grounded response.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-saffron/20 font-display text-xl text-marigold">
-                ◈
-              </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Image Generation</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Luminous, high-fidelity imagery rendered from the same understanding that writes the
-                answer — live in the studio below.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-              <div className="grid size-10 place-items-center rounded-xl bg-leaf/15 font-display text-xl text-leaf">
-                ✦
-              </div>
-              <h3 className="mt-4 font-display text-2xl font-semibold">Multilingual · 39</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                Fluent across Sanskrit, Hindi, English and 36 more, tuned for nuance and cultural
-                context.
-              </p>
-            </div>
+            ))}
           </div>
         </section>
 
