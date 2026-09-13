@@ -309,6 +309,9 @@ function Index() {
                 <p className="mt-1 text-xs text-ink/50">Languages</p>
               </div>
             </div>
+            <div className="mt-8">
+              <TrustStrip />
+            </div>
           </div>
           <div className="relative">
             <div className="absolute -inset-6 animate-sv-spin rounded-full bg-saffron/10 blur-3xl" />
