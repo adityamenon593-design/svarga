@@ -3,7 +3,7 @@ export interface AiEvent {
   mode: string;
   model: string;
   durationMs: number;
-  userId?: string | null;
+  userId?: string | null | undefined;
   /** Prompt/input tokens billed for the call, when the provider reports them. */
   inputTokens?: number;
   /** Completion/output tokens billed for the call, when the provider reports them. */
