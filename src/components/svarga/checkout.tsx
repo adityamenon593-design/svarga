@@ -255,7 +255,7 @@ export function Checkout() {
         wallets all accepted, inclusive of applicable taxes. Every paid feature unlocks the moment
         your payment is confirmed. Cancel any time — no lock-in.
       </p>
-      {liveTest && user ? (
+      {liveTest && user?.email?.toLowerCase() === OWNER_EMAIL ? (
         <div className="mx-auto max-w-md rounded-2xl border border-dashed border-crimson/40 bg-sand/40 p-5 text-center">
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
             Owner only · live rail check
