@@ -73,9 +73,15 @@ export function Checkout() {
   const [busy, setBusy] = useState<PlanId | null>(null);
   const [yearly, setYearly] = useState(false);
   const [currency, setCurrency] = useState<Currency>("INR");
+  const [liveTest, setLiveTest] = useState(false);
 
   useEffect(() => {
     setCurrency(detectCurrency());
+    try {
+      setLiveTest(new URLSearchParams(window.location.search).get("livetest") === "1");
+    } catch {
+      setLiveTest(false);
+    }
   }, []);
 
   async function pay(planId: PlanId) {
