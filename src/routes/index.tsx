@@ -70,6 +70,7 @@ function Index() {
           <a href="#benchmarks">Benchmarks</a>
           <a href="#capacities">Capacities</a>
           <a href="#studio">Studio</a>
+          <a href="#settings">Settings</a>
         </nav>
         <div className="flex items-center gap-3">
           <a href="#console" className="hidden text-sm font-medium sm:block">
