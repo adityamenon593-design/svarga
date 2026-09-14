@@ -97,7 +97,6 @@ export async function streamSvarga({
         },
       });
 
-
   const last = messages.at(-1);
   const lastText =
     last?.parts
@@ -111,9 +110,7 @@ export async function streamSvarga({
   const retrievedContext = sources.length
     ? `\n\nRetrieved sources (use only if relevant; do not invent beyond them; cite as [source: Title] and list under ## Sources):\n${sources.map((s) => `- ${s.title}${s.locator ? ` (${s.locator})` : ""}: ${s.excerpt ?? ""}`).join("\n")}`
     : "";
-  const model = localUrl
-    ? (process.env["SVARGA_LOCAL_MODEL"] ?? "svarga")
-    : modelForMode(mode);
+  const model = localUrl ? (process.env["SVARGA_LOCAL_MODEL"] ?? "svarga") : modelForMode(mode);
 
   const notes = memory
     .map((item) => item.trim().slice(0, 300))
