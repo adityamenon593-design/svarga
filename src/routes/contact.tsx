@@ -89,16 +89,16 @@ function ContactPage() {
           </div>
 
           <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
-            <h2 className="font-display text-xl font-semibold">Postal address</h2>
-            <p className="mt-2 text-sm text-ink/60">Official correspondence:</p>
+            <h2 className="font-display text-xl font-semibold">Official correspondence</h2>
+            <p className="mt-2 text-sm text-ink/60">Business and legal address:</p>
             <address className="mt-4 not-italic text-sm leading-relaxed text-ink/80">
-              Svarga.ai
+              Svarga Digital
               <br />
-              Bengaluru, Karnataka
+              Kochi, Kerala
               <br />
               India
               <br />
-              <span className="text-ink/50">(Full street address will be added here.)</span>
+              Udyam: UDYAM-KL-02-0169185 · NIC 62
             </address>
           </div>
         </div>

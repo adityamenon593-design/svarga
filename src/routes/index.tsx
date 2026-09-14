@@ -365,6 +365,10 @@ function Index() {
               single grounded answer — and renders what it describes. Ask it anything in the
               console.
             </p>
+            <p className="mt-3 max-w-md text-xs text-ink/50">
+              Powered by configured frontier models. Svarga adds Indian reasoning, memory, and
+              guardrails — it does not own or independently train the underlying base LLM weights.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/chat"
@@ -682,7 +686,8 @@ function Index() {
             Mohan Menon.
           </p>
           <p className="mt-2 text-xs text-ink/40">
-            Udyam-registered MSME, Government of India. Made in Bharat.
+            Svarga Digital — Udyam-registered MSME, Government of India. NIC 62: Computer
+            programming, consultancy and related activities. Made in Bharat.
           </p>
           <p className="mt-2 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.

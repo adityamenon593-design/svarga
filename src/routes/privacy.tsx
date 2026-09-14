@@ -33,7 +33,7 @@ function PrivacyPage() {
           ← Back to Svarga
         </Link>
         <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-ink/60">Last updated: 13 September 2026</p>
+        <p className="mt-2 text-sm text-ink/60">Last updated: 14 September 2026</p>
 
         <div className="mt-10 space-y-6 text-ink/80">
           <p>
@@ -68,31 +68,42 @@ function PrivacyPage() {
             data.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">3. Data storage</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            3. AI training and your choices
+          </h2>
+          <p>
+            Svarga.ai does not use your prompts, documents, or chat history to train, fine-tune, or
+            improve third-party foundation models. Any future improvement of Svarga&apos;s own
+            adapters or tuning will use only anonymized conversation data from users who have
+            explicitly opted in. You can toggle this choice anytime in the Settings panel. If you do
+            not opt in, your data is never included.
+          </p>
+
+          <h2 className="font-display text-2xl font-semibold text-ink">4. Data storage</h2>
           <p>
             Data is stored with secure cloud providers. Uploaded documents are kept private to your
             account and processed only to power your own searches.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">4. Cookies and analytics</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">5. Cookies and analytics</h2>
           <p>
             We use essential cookies for authentication and may use analytics to understand how the
             product is used. You can disable non-essential cookies in your browser.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">5. Your rights</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">6. Your rights</h2>
           <p>
             You can access, update, or delete your account and data by contacting us. Indian
             residents may exercise rights available under applicable Indian data-protection laws.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">6. Children</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">7. Children</h2>
           <p>
             The Services are not directed to children under 13. If we learn that we have collected
             personal information from a child under 13 without parental consent, we will delete it.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">7. Changes</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">8. Changes</h2>
           <p>
             We may update this policy. We will notify users of material changes by posting the
             updated policy on this page.
