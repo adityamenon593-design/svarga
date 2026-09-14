@@ -134,15 +134,31 @@ export function GitaListening() {
     return () => window.clearTimeout(id);
   }, [remaining, halt]);
 
+  // Keep a speed change applied to whatever is playing right now.
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = speed;
+  }, [speed]);
+
   const playUrl = (url: string) =>
     new Promise<void>((resolve, reject) => {
       const audio = audioRef.current ?? new Audio();
       audioRef.current = audio;
       audio.src = url;
+      audio.playbackRate = speed;
       audio.onended = () => resolve();
       audio.onerror = () => reject(new Error("Could not play that audio."));
       void audio.play().catch(reject);
     });
+
+  /** Nudges the current audio forward or back; falls back to the next/previous item. */
+  const seek = (seconds: number) => {
+    const audio = audioRef.current;
+    if (playing && audio && Number.isFinite(audio.duration) && audio.duration > 0) {
+      audio.currentTime = Math.max(0, Math.min(audio.duration - 0.25, audio.currentTime + seconds));
+      return;
+    }
+    jump(index + (seconds > 0 ? 1 : -1));
+  };
 
   const speakVerse = async (verse: Verse) => {
     const response = await fetch("/api/voice/speak", {
