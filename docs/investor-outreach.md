@@ -342,3 +342,23 @@ If you only pitch one person, pitch him. He is India's most accessible high-prof
 - If no reply in ten days, send exactly one nudge — a genuine product update, not "just following up": *"Quick update: crossed [X] users / shipped [Y]. Still at svarga.digital if you ever have a minute."*
 - After that nudge, stop and move to the next name. Persistence past two messages costs you the relationship.
 - Run the warm-intro request in parallel from day one. It converts better than everything above combined.
+
+### Final send-ready message (warm version)
+
+Also delivered as a branded PDF: `svarga-kunal-shah-outreach.pdf`.
+
+> Namaste Kunal,
+>
+> Thank you for connecting. I'll keep this short out of respect for your time.
+>
+> I'm Aditya Mohan Menon, a BCA graduate in Kochi. I built Svarga.ai on my own — India's own AI assistant. It answers in 39 Indian and world languages, reads PDFs and EPUBs, works by voice, and has a Baby Krishna mode that responds from Bhagavad-gītā principles with real citations and a hard rule against inventing verses.
+>
+> It is live at svarga.digital, taking payments over UPI and Razorpay at ₹149 a month. No funding, no team, no agency — just me and the product.
+>
+> I'm raising a small pre-seed to reach the people this was built for. But honestly, even if a cheque isn't a fit, your read on the wedge would be worth more to me than most meetings I could get.
+>
+> Grateful either way.
+>
+> Aditya Mohan Menon
+> Founder, Svarga.ai
+> adityamenon593@gmail.com · svarga.digital
