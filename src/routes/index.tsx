@@ -68,10 +68,10 @@ function IndianFlag({ className = "" }: { className?: string }) {
           return (
             <line
               key={i}
-              x1={Math.cos(a) * 12}
-              y1={Math.sin(a) * 12}
-              x2={Math.cos(a) * 3}
-              y2={Math.sin(a) * 3}
+              x1={(Math.cos(a) * 12).toFixed(3)}
+              y1={(Math.sin(a) * 12).toFixed(3)}
+              x2={(Math.cos(a) * 3).toFixed(3)}
+              y2={(Math.sin(a) * 3).toFixed(3)}
               strokeWidth="1.2"
               className="stroke-ink"
             />
