@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
 
+import { forgetMemory, listMemory } from "@/lib/memory.functions";
 import { applyReferralCode, getMyReferral } from "@/lib/referrals.functions";
 import {
   clearAllMemory,
@@ -11,6 +12,9 @@ import {
   setMemoryEnabled,
   setTrainingConsent,
 } from "@/lib/settings.functions";
+
+type MemoryItem = { id: string; kind: string; content: string };
+
 
 type Referral = {
   code: string;
