@@ -35,3 +35,4 @@
 - [ ] Performance safeguards (timeouts, streaming UX, error fallbacks)
 - [ ] 60-second first-visit onboarding walkthrough
 - [ ] Launch event tracking (page views, chat starts, sign-in, subscribe clicks)
+- [ ] IndiaAI Mission application (govt funding route) — prepare submission pack
