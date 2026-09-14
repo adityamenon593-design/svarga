@@ -86,6 +86,7 @@ const VERSES: Verse[] = [
 ];
 
 const TIMERS = [0, 15, 30, 45, 60] as const;
+const SPEEDS = [0.75, 1, 1.25, 1.5] as const;
 
 type SourceMode = "verses" | "recordings";
 
