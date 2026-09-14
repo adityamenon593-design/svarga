@@ -140,6 +140,24 @@ export function ChatConsole() {
   const removeThread = useServerFn(deleteConversation);
   const fetchUsage = useServerFn(getMyUsage);
 
+  // Stop any spoken reply and release the mic when the chat leaves the screen.
+  useEffect(
+    () => () => {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+        audio.onended = null;
+        audio.src = "";
+      }
+      audioRef.current = null;
+      const rec = recorder.current;
+      if (rec && rec.state !== "inactive") rec.stop();
+      rec?.stream.getTracks().forEach((track) => track.stop());
+      recorder.current = null;
+    },
+    [],
+  );
+
   useEffect(() => {
     if (!user) {
       setToken(null);
