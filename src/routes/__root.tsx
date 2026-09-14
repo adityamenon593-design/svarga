@@ -141,6 +141,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // Launch analytics: one page view per navigation, including the first load.
+  useEffect(() => {
+    track("page_view");
+    return router.subscribe("onResolved", () => track("page_view"));
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -150,3 +157,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
