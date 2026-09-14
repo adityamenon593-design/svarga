@@ -287,3 +287,58 @@ Honest read on every channel available to you, ranked by what actually converts 
 4. **Ongoing:** Instagram reels for users, ISKCON conversation for distribution, Kochi events in person.
 
 Traction is the real pitch. Every paying user you add between now and the first reply raises your odds more than any message rewrite.
+
+---
+
+## One-target sprint: Kunal Shah
+
+If you only pitch one person, pitch him. He is India's most accessible high-profile angel, writes constantly about Indian consumer psychology and dharma-adjacent ideas, and has 313 investments on record with a $10K–$500K range and a ~$100K sweet spot ([3](https://signal.nfx.com/investors/kunal-shah_1)).
+
+**Important context before you write:** as of June 2026 he is Head of WhatsApp, while remaining founder of CRED and an active angel ([1](https://www.linkedin.com/in/kunalshah1)). Do not open with "Hi CRED founder". Acknowledge the current role or skip roles entirely.
+
+### Contact routes (public only)
+
+| Route | Handle / link | Status |
+| --- | --- | --- |
+| LinkedIn | https://www.linkedin.com/in/kunalshah1 | Verified. 1.4M followers, so connection notes matter more than messages. |
+| X / Twitter | @kunalb11 | Widely used handle; confirm it yourself before sending — I could not verify it in this search pass. |
+| CRED | https://cred.club — general company contact only | No founder inbox. |
+| Newtap Ventures | His consumer-finance venture; no public pitch form found | Unverified as an inbound route. |
+| Warm intro | Peak XV / Sequoia network, Y Combinator network, AngelList ([3](https://signal.nfx.com/investors/kunal-shah_1)) | **Best odds.** |
+| WhatsApp | Not public | No personal number exists publicly. Use the draft below only after a mutual contact passes the number along. |
+
+### 1. LinkedIn connection note (under 300 characters)
+
+> Aditya, BCA grad from Kochi. Built Svarga.ai solo — an Indian AI that speaks 39 languages, reads your documents, and answers Gita questions without inventing verses. Live and paid at svarga.digital. Would value 60 seconds of your read on it.
+
+### 2. LinkedIn follow-up (send after he accepts, wait 2 days)
+
+> Thank you for connecting, Kunal.
+>
+> Short version: I'm Aditya Mohan Menon, a BCA graduate in Kochi. I built Svarga.ai alone — India's own AI assistant. It answers in 39 Indian and world languages, reads PDFs and EPUBs, works by voice, and has a Baby Krishna mode that responds from Bhagavad-gītā principles with real citations and a hard rule against inventing verses.
+>
+> It's live at svarga.digital, on UPI and Razorpay, ₹149/month. No funding so far — just me.
+>
+> I'm raising a small pre-seed to reach the users this was built for. Even if the cheque isn't a fit, your read on the wedge would be worth more to me than most meetings.
+>
+> Aditya · adityamenon593@gmail.com
+
+### 3. X DM version
+
+> Built India's own AI alone in Kochi. 39 languages, reads your docs, and a Baby Krishna mode that answers from Gita principles without making up verses. Live and paid: svarga.digital. Raising a small pre-seed. What would you kill first?
+
+### 4. WhatsApp version (only after a warm intro)
+
+> Namaste Kunal ji, Aditya here — [name] passed along your number. I'm the founder of Svarga.ai, an AI built in India that speaks 39 languages and has a Baby Krishna mode answering from Gita principles. It's live and paying at svarga.digital, built solo. Raising a small pre-seed. Happy to send a 2-minute walkthrough whenever it suits you. Thank you for the time 🙏
+
+### 5. Warm-intro request (send to your own network)
+
+> Hi [name], a small ask. I've built Svarga.ai — India's own AI assistant, live and paying at svarga.digital, 39 languages, built by me alone in Kochi. I'm raising a small pre-seed and Kunal Shah is the one angel I'd most want a read from. If you're connected to him and it feels right, would you forward this message? Completely fine if not. Thank you either way.
+
+### 6. Timing and follow-up rules
+
+- Send the connection note on a weekday morning IST. Never attach a deck to a first message.
+- After he accepts, wait two days, then send the follow-up. One message only.
+- If no reply in ten days, send exactly one nudge — a genuine product update, not "just following up": *"Quick update: crossed [X] users / shipped [Y]. Still at svarga.digital if you ever have a minute."*
+- After that nudge, stop and move to the next name. Persistence past two messages costs you the relationship.
+- Run the warm-intro request in parallel from day one. It converts better than everything above combined.
