@@ -135,7 +135,8 @@ export async function streamSvarga({
     // failing the whole request with a context-length overflow.
     messages: await convertToModelMessages(trimHistory(messages)),
     tools: svargaTools(userId),
-    stopWhen: stepCountIs(50),
+    // Enough for real multi-tool work, low enough that a loop cannot stall an answer.
+    stopWhen: stepCountIs(16),
     providerOptions: {
       openai: {
         forceReasoning: true,
