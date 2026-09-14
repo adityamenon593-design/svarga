@@ -111,6 +111,7 @@ export function PrivacyInvitePanel() {
     setBusy(true);
     try {
       await wipeMemory({});
+      setMemories([]);
       toast.success("Everything Svarga remembered about you is deleted.");
     } catch {
       toast.error("Could not clear your memory. Please try again.");
@@ -118,6 +119,19 @@ export function PrivacyInvitePanel() {
       setBusy(false);
     }
   };
+
+  const forgetOne = async (id: string) => {
+    const previous = memories;
+    setMemories((rows) => rows.filter((row) => row.id !== id));
+    try {
+      await dropMemory({ data: { id } });
+      toast.success("Forgotten.");
+    } catch {
+      setMemories(previous);
+      toast.error("Could not delete that. Please try again.");
+    }
+  };
+
 
   const submitCode = async () => {
     if (codeInput.trim().length < 4) {
