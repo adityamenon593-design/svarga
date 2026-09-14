@@ -330,6 +330,7 @@ export function ChatConsole() {
             toast.error("Svarga did not catch that. Please try again.");
             return;
           }
+          setVoiceMode(true);
           setInput((current) => (current ? `${current} ${heard}` : heard));
         } catch (error) {
           toast.error(error instanceof Error ? error.message : "Voice input failed.");
