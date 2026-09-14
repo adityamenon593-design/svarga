@@ -71,24 +71,32 @@ def consented_pairs(sb, limit: int, min_answer: int) -> list[dict]:
 
 
 def extra_pairs() -> list[dict]:
-    folder = DATA_DIR / "extra"
-    folder.mkdir(exist_ok=True)
+    """Svarga's own committed seed set, plus any openly licensed files you add."""
+    from svarga_common import ROOT
+
+    folders = [ROOT / "seed", DATA_DIR / "extra"]
     out: list[dict] = []
-    for path in sorted(folder.glob("*.jsonl")):
-        for line in path.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                item = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if item.get("instruction") and item.get("output"):
-                out.append(
-                    {"instruction": item["instruction"].strip(), "output": item["output"].strip()}
-                )
-    print(f"{len(out)} pairs from openly licensed files in local/data/extra/.")
+    for folder in folders:
+        folder.mkdir(exist_ok=True)
+        for path in sorted(folder.glob("*.jsonl")):
+            for line in path.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if item.get("instruction") and item.get("output"):
+                    out.append(
+                        {
+                            "instruction": item["instruction"].strip(),
+                            "output": item["output"].strip(),
+                        }
+                    )
+    print(f"{len(out)} pairs from the Svarga seed set and local/data/extra/.")
     return out
+
 
 
 def main() -> None:
