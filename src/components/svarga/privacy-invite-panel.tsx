@@ -5,7 +5,12 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 
 import { applyReferralCode, getMyReferral } from "@/lib/referrals.functions";
-import { clearAllMemory, getPrivacySettings, setMemoryEnabled } from "@/lib/settings.functions";
+import {
+  clearAllMemory,
+  getPrivacySettings,
+  setMemoryEnabled,
+  setTrainingConsent,
+} from "@/lib/settings.functions";
 
 type Referral = {
   code: string;
