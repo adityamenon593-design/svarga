@@ -7,7 +7,12 @@
 - [x] Gita listening mode: hands-free audio, own recordings + verse recitation, sleep timer
 - [x] Low-light night reading theme for chat
 - [x] Explained: Svarga is not a separately trained LLM; data feeds in via Library + consented Colab fine-tuning
-- [ ] Publish to svarga.digital (launch day)
+- [x] AI/model-ownership disclaimer added to Terms and homepage
+- [x] Udyam MSME details added to footer and Terms (Svarga Digital · UDYAM-KL-02-0169185 · NIC 62)
+- [x] Lawyer-friendly review pack prepared
+- [x] Legal compliance checklist prepared
+- [x] Beta launch checklist prepared
+- [ ] Publish to svarga.digital (final re-publish after legal edits)
 - [x] Faster, sharper answers: leaner thinking standard, effort tiering, skip retrieval on short asks
 - [x] Listen button only in voice mode
 - [x] Update ISKCON outreach message with BCA graduate credential
@@ -15,7 +20,6 @@
 - [x] Kunal Shah one-target outreach pack: contacts, LinkedIn/X/WhatsApp drafts, follow-up rules
 - [x] Kunal Shah DM delivered as branded PDF
 - [ ] LinkedIn profile review (waiting on pasted profile text)
-- [x] Udyam MSME certification shown on site
 - [ ] Fine-tuning: no own open-source model yet; see docs/fine-tuning.md
 - [x] Google Colab workbench: chat, feed data, export dataset, LoRA fine-tune
 - [x] External fine-tuning workflow: consent toggle, owner-only PII-scrubbed export, adapter training, deploy path

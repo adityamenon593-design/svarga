@@ -682,7 +682,8 @@ function Index() {
             Mohan Menon.
           </p>
           <p className="mt-2 text-xs text-ink/40">
-            Udyam-registered MSME, Government of India. Made in Bharat.
+            Svarga Digital — Udyam-registered MSME, Government of India. NIC 62: Computer
+            programming, consultancy and related activities. Made in Bharat.
           </p>
           <p className="mt-2 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.
