@@ -98,6 +98,7 @@ export function GitaListening() {
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState<number>(0);
   const [remaining, setRemaining] = useState<number | null>(null);
+  const [speed, setSpeed] = useState<number>(1);
   const [token, setToken] = useState<string | null>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
