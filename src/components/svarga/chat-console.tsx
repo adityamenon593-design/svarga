@@ -656,7 +656,10 @@ export function ChatConsole() {
       >
         <PromptInputTextarea
           value={input}
-          onChange={(event) => setInput(event.target.value)}
+          onChange={(event) => {
+            setVoiceMode(false);
+            setInput(event.target.value);
+          }}
           placeholder={
             mode === "image" ? "Describe the image Svarga should create…" : "Ask Svarga anything…"
           }
