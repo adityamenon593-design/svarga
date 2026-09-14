@@ -70,27 +70,28 @@ function TermsPage() {
             Services.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">3. Acceptable use</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">4. Acceptable use</h2>
           <p>
             You may not use the Services to generate harmful, illegal, defamatory, infringing, or
             sexually explicit content, or to attempt to bypass safety guardrails. We reserve the
             right to suspend or terminate accounts that violate these rules.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">4. Payments</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">5. Payments</h2>
           <p>
             Paid plans are billed in INR or USD through our payment processor. By upgrading, you
             authorize the charges. Prices are subject to change with reasonable notice.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">5. Intellectual property</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">6. Intellectual property</h2>
           <p>
             Svarga.ai, its name, logo, design, website, source code, database structure, system
-            prompts, instructions, personas (including the Baby Krishna buddy), workflows, and all
-            related materials are the exclusive property of Aditya Mohan Menon and are protected
-            under the Copyright Act, 1957, the Trade Marks Act, 1999, and the Information Technology
-            Act, 2000. No licence to any of it is granted to you, whether express or implied, except
-            the limited right to use the Services as a customer.
+            prompts, instructions, personas (including the Baby Krishna buddy and Gita listening
+            features), workflows, model routing, retrieval logic, and all related materials are the
+            exclusive property of Aditya Mohan Menon and are protected under the Copyright Act, 1957,
+            the Trade Marks Act, 1999, and the Information Technology Act, 2000. No licence to any of
+            it is granted to you, whether express or implied, except the limited right to use the
+            Services as a customer.
           </p>
           <p>
             You retain rights to the prompts and files you upload. You are granted a limited,
@@ -99,7 +100,7 @@ function TermsPage() {
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">
-            6. Restrictions — copying, scraping and reverse engineering
+            7. Restrictions — copying, scraping and reverse engineering
           </h2>
           <p>You may not, and may not permit any person or automated system to:</p>
           <ul className="list-disc space-y-1 pl-6">
@@ -132,20 +133,20 @@ function TermsPage() {
             injunctive relief, damages and costs.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">7. Disclaimer</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">8. Disclaimer</h2>
           <p>
             The Services are provided “as is” without warranties of any kind. Svarga.ai is not
             liable for indirect, incidental, or consequential damages arising from your use of the
             Services.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">8. Governing law</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">9. Governing law</h2>
           <p>
             These terms are governed by the laws of India. Disputes shall be subject to the
             exclusive jurisdiction of the courts in Bengaluru, Karnataka.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">9. Changes</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">10. Changes</h2>
           <p>
             We may update these terms from time to time. Continued use of the Services after changes
             means you accept the updated terms.
