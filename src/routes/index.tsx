@@ -667,7 +667,6 @@ function Index() {
               FAQ
             </Link>
             <Link to="/terms" className="transition-colors hover:text-crimson">
-
               Terms & Conditions
             </Link>
             <Link to="/privacy" className="transition-colors hover:text-crimson">

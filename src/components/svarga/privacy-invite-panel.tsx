@@ -15,7 +15,6 @@ import {
 
 type MemoryItem = { id: string; kind: string; content: string };
 
-
 type Referral = {
   code: string;
   invites: number;
@@ -65,7 +64,6 @@ export function PrivacyInvitePanel() {
       .catch(() => undefined);
     refreshMemories();
   }, [signedIn, loadPrivacy, loadReferral, refreshMemories]);
-
 
   if (!signedIn) {
     return (
@@ -131,7 +129,6 @@ export function PrivacyInvitePanel() {
       toast.error("Could not delete that. Please try again.");
     }
   };
-
 
   const submitCode = async () => {
     if (codeInput.trim().length < 4) {
@@ -223,7 +220,6 @@ export function PrivacyInvitePanel() {
             by one.
           </p>
         )}
-
       </div>
 
       <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">

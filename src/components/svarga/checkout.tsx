@@ -15,7 +15,6 @@ import {
   type Currency,
 } from "@/lib/payments.functions";
 
-
 declare global {
   interface Window {
     Razorpay?: new (options: Record<string, unknown>) => {
@@ -130,7 +129,7 @@ export function Checkout() {
               },
             });
             track("payment_success", planId);
-        toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
+            toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
           } finally {
@@ -152,7 +151,7 @@ export function Checkout() {
           .then((result) => {
             if (result.status === "paid") {
               track("payment_success", planId);
-        toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
+              toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
             }
           })
           .catch(() => undefined);
