@@ -199,3 +199,91 @@ Keep a one-page note ready with:
 - [11] https://www.olakrutrim.com/ — Krutrim Cloud homepage
 - [11] https://www.olakrutrim.com/contact-center-ai — Krutrim contact / sales
 - [12] https://www.zoho.com/one/startups.html — Zoho One for Startups
+
+---
+
+## LinkedIn outreach playbook
+
+Your own profile does the selling before the message does. Fix these first:
+
+1. **Headline:** `Founder, Svarga.ai — India's own AI assistant | 39 languages | Built in Kochi for Bharat`
+2. **About:** 4 short lines — what Svarga is, who it serves, that it is live with paying users, and your ask (pre-seed / pilots).
+3. **Featured section:** pin svarga.digital, the Baby Krishna buddy screenshot, and the launch reel.
+4. **Post 2–3 times a week for two weeks before you DM anyone.** Partners check your feed. An empty profile kills a good message.
+5. **Never pitch in the connection note and again in the first DM.** One ask, once.
+
+### People to connect with (public profiles)
+
+| Person / firm | Profile | Why |
+| --- | --- | --- |
+| Peak XV Partners | linkedin.com/company/peakxvpartners | Surge applications get noticed when a partner already follows you |
+| Accel Atoms (Prayank Swaroop, Anand Daniel) | search "Accel India partner" | AI cohort is the exact fit |
+| Blume Ventures (Karthik Reddy, Sanjay Nath) | linkedin.com/company/blume-venture-advisors | Founder-friendly, replies to good notes |
+| Elevation Capital | linkedin.com/company/elevationcapital | Consumer India thesis |
+| Kunal Shah | linkedin.com/in/kunalshah1 | Indian consumer trust thinker |
+| Nikhil Kamath | in.linkedin.com/in/nikhilkamathcio | Dharma-aligned thesis via Gruhas |
+| Lightspeed India | linkedin.com/company/lightspeed-india | No pitch form; LinkedIn is the door |
+| ISKCON comms / temple leads | search "ISKCON digital" | Distribution, not money |
+
+### LinkedIn message sequence
+
+**Step 1 — connection note (300 chars max)**
+
+> Hi [Name], I'm Aditya — I built Svarga.ai, India's own AI assistant. Live at svarga.digital with 39 languages, Vedic/Gita modes and ₹ subscriptions. Following your work on Indian consumer AI and would love to stay connected.
+
+**Step 2 — first DM, 2 days after they accept**
+
+> Thanks for connecting, [Name].
+>
+> Quick context: Svarga.ai is a live Indian AI assistant — 39 languages, document library, voice, and a Baby Krishna / Gita layer that no global model ships. Razorpay subscriptions from ₹149. Built solo in Kochi.
+>
+> We're raising a small pre-seed (₹40L–₹1Cr, SAFE) for 12–15 months of runway. Happy to send a 2-pager — no call needed unless it's interesting to you.
+>
+> Aditya
+
+**Step 3 — one follow-up after 7 days, then stop**
+
+> Hi [Name], circling back once in case this slipped. Svarga is live at svarga.digital if you'd rather just try it. Either way, thanks for the time. 🙏
+
+### Public post that attracts investors
+
+> Built India's own AI assistant, alone, in Kochi.
+>
+> Svarga speaks 39 Indian and world languages, reads your PDFs, answers by voice, and has a Baby Krishna mode that answers from Gita principles without inventing verses.
+>
+> ₹149/month. UPI. No VC money yet.
+>
+> svarga.digital — tell me what breaks.
+
+Posts like this get investor inbounds far more reliably than DMs do. Post it, then DM the people who engage.
+
+---
+
+## All venues reviewed
+
+Honest read on every channel available to you, ranked by what actually converts at your stage.
+
+| Venue | Effort | Odds | Verdict |
+| --- | --- | --- | --- |
+| **Accelerator forms** (Surge, Atoms) | Low | Medium | **Do first.** Designed for exactly your stage; a solo technical founder with a live paying product is a real application, not a long shot. |
+| **LinkedIn** | Medium | Medium | **Do second.** Best cold channel that exists for Indian VCs. Works only if your profile and feed are alive first. |
+| **Nikhil Kamath's pitch form** | Very low | Low–medium | Send it. Costs ten minutes, public and legitimate. |
+| **VC pitch forms** (Blume, Elevation, Neon, Together) | Low | Low–medium | Send all of them in one sitting. High volume, low cost. |
+| **Warm intros** | High | **High** | The single highest-converting route. Map who you already know — KSUM, Maker Village, Huddle Global, college alumni, ISKCON network — and ask for one introduction each. |
+| **X / Twitter** | Medium | Medium | Indian VC and AI Twitter is genuinely active. Build in public, tag nobody, let the work travel. |
+| **Instagram / reels** | Medium | Low for funding, **high for users** | Not an investor channel. It is your best user-growth channel — and user growth is what makes investors reply. |
+| **ISKCON / temple partnerships** | Medium | High for distribution | Not money, but real users and the credibility story that makes the deck land. |
+| **Govt routes** (Startup India, KSUM, BHASHINI, MeitY) | High, slow | Medium | Grants and recognition, months not weeks. Apply in parallel and forget about them. |
+| **JioGenNext / corporate programmes** | Medium | Medium | No equity, real distribution. Worth an application. |
+| **Email to partners** | Low | Low | Partner inboxes are flooded. Use only after a LinkedIn connection accepts. |
+| **Cold WhatsApp to investors** | Low | **Very low** | Skip. Personal numbers are not public and unsolicited messages there damage the impression. Use WhatsApp only after someone gives you the number. |
+| **Demo days / Huddle Global, TiE Kerala** | Medium | Medium–high | You're in Kochi — this is your home advantage. Show up in person; one hallway conversation beats fifty DMs. |
+
+### The order I'd actually run it
+
+1. **This week:** fix LinkedIn profile, post the "built it alone in Kochi" post, submit Surge + Atoms + Nikhil Kamath forms.
+2. **Next week:** connection requests to the eight people in the table above, one post every second day.
+3. **Week three:** first DMs to everyone who accepted, plus Blume/Elevation/Together/Neon forms.
+4. **Ongoing:** Instagram reels for users, ISKCON conversation for distribution, Kochi events in person.
+
+Traction is the real pitch. Every paying user you add between now and the first reply raises your odds more than any message rewrite.
