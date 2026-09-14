@@ -16,3 +16,6 @@
 - [ ] LinkedIn profile review (waiting on pasted profile text)
 - [x] Udyam MSME certification shown on site
 - [ ] Fine-tuning: no own open-source model yet; see docs/fine-tuning.md
+- [ ] Google Colab workbench: chat, feed data, export dataset, LoRA fine-tune
+- [ ] External fine-tuning workflow: consented dataset export, adapter training, export/deploy path
+- [ ] Clarify hosting: Lovable hosts, Hostinger is registrar/DNS only
