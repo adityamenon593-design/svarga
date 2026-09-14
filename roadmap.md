@@ -12,3 +12,4 @@
 - [x] Update ISKCON outreach message with BCA graduate credential
 - [x] Investor outreach pack: shortlist, official channels, ready-to-send messages
 - [x] Kunal Shah one-target outreach pack: contacts, LinkedIn/X/WhatsApp drafts, follow-up rules
+- [ ] Kunal Shah DM as PDF + LinkedIn profile review (awaiting pasted profile text)
