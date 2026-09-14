@@ -57,8 +57,7 @@ const VERSES: Verse[] = [
   {
     ref: "BG 4.7",
     iast: "yadā yadā hi dharmasya glānir bhavati bhārata, abhyutthānam adharmasya tadātmānaṁ sṛjāmy aham",
-    meaning:
-      "Whenever dharma declines and adharma rises, then I bring myself forth.",
+    meaning: "Whenever dharma declines and adharma rises, then I bring myself forth.",
   },
   {
     ref: "BG 6.35",
@@ -105,7 +104,9 @@ export function GitaListening() {
   const fileInput = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    void supabase.auth.getSession().then(({ data }) => setToken(data.session?.access_token ?? null));
+    void supabase.auth
+      .getSession()
+      .then(({ data }) => setToken(data.session?.access_token ?? null));
   }, []);
 
   const halt = useCallback(() => {
