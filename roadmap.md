@@ -12,7 +12,7 @@
 - [x] Lawyer-friendly review pack prepared
 - [x] Legal compliance checklist prepared
 - [x] Beta launch checklist prepared
-- [ ] Publish to svarga.digital (final re-publish after legal edits)
+- [x] Publish to svarga.digital (final re-publish after legal edits)
 - [x] Faster, sharper answers: leaner thinking standard, effort tiering, skip retrieval on short asks
 - [x] Listen button only in voice mode
 - [x] Update ISKCON outreach message with BCA graduate credential
