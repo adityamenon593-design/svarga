@@ -35,7 +35,7 @@ function TermsPage() {
         <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
           Terms & Conditions
         </h1>
-        <p className="mt-2 text-sm text-ink/60">Last updated: 13 September 2026</p>
+        <p className="mt-2 text-sm text-ink/60">Last updated: 14 September 2026</p>
 
         <div className="mt-10 space-y-6 text-ink/80">
           <p>

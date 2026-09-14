@@ -670,6 +670,10 @@ function Index() {
           </div>
 
           <p className="mt-6 text-xs text-ink/40">
+            © {new Date().getFullYear()} Svarga.ai. All rights reserved. Owned exclusively by Aditya
+            Mohan Menon.
+          </p>
+          <p className="mt-2 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.
           </p>
         </div>
