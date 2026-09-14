@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
 import {
+import { track } from "@/lib/track";
   createOrder,
   checkOrderStatus,
   verifyPayment,
@@ -88,6 +89,7 @@ export function Checkout() {
   }, []);
 
   async function pay(planId: PlanId) {
+    track("subscribe_click", planId);
     if (!user || busy) return;
     if (!paymentHostRegistered()) {
       const target = `https://svarga.digital${window.location.search}${window.location.hash}`;
@@ -126,7 +128,8 @@ export function Checkout() {
                 signature: resp.razorpay_signature,
               },
             });
-            toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
+            track("payment_success", planId);
+        toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
           } finally {
@@ -147,7 +150,8 @@ export function Checkout() {
         void runCheckStatus({ data: { orderId: order.orderId } })
           .then((result) => {
             if (result.status === "paid") {
-              toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
+              track("payment_success", planId);
+        toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
             }
           })
           .catch(() => undefined);
