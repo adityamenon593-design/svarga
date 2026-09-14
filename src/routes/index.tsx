@@ -5,7 +5,9 @@ import { useAuth } from "@/hooks/use-auth";
 
 import { DocumentLibrary } from "@/components/svarga/document-library";
 import { ImageStudio } from "@/components/svarga/image-studio";
+import { OnboardingTour } from "@/components/svarga/onboarding-tour";
 import { PrivacyInvitePanel } from "@/components/svarga/privacy-invite-panel";
+
 import { SettingsPanel } from "@/components/svarga/settings-panel";
 import { ContactPanel } from "@/components/svarga/contact-panel";
 import { Checkout } from "@/components/svarga/checkout";
