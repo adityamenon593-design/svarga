@@ -214,7 +214,7 @@ Read the group rules first. If self-promo isn't allowed, skip it.
 
 ---
 
-## Outreach block (14:00–16:00) — already written
+## Outreach block (12:30 onward) — already written
 
 | Target | Where the copy lives |
 |---|---|
