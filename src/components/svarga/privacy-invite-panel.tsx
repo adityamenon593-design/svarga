@@ -5,7 +5,12 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 
 import { applyReferralCode, getMyReferral } from "@/lib/referrals.functions";
-import { clearAllMemory, getPrivacySettings, setMemoryEnabled } from "@/lib/settings.functions";
+import {
+  clearAllMemory,
+  getPrivacySettings,
+  setMemoryEnabled,
+  setTrainingConsent,
+} from "@/lib/settings.functions";
 
 type Referral = {
   code: string;
@@ -23,11 +28,13 @@ export function PrivacyInvitePanel() {
   const signedIn = Boolean(user);
   const loadPrivacy = useServerFn(getPrivacySettings);
   const savePrivacy = useServerFn(setMemoryEnabled);
+  const saveTraining = useServerFn(setTrainingConsent);
   const wipeMemory = useServerFn(clearAllMemory);
   const loadReferral = useServerFn(getMyReferral);
   const applyCode = useServerFn(applyReferralCode);
 
   const [memoryOn, setMemoryOn] = useState(true);
+  const [trainingOn, setTrainingOn] = useState(false);
   const [referral, setReferral] = useState<Referral | null>(null);
   const [codeInput, setCodeInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -35,7 +42,10 @@ export function PrivacyInvitePanel() {
   useEffect(() => {
     if (!signedIn) return;
     void loadPrivacy({})
-      .then((r) => setMemoryOn(r.memoryEnabled))
+      .then((r) => {
+        setMemoryOn(r.memoryEnabled);
+        setTrainingOn(r.trainingConsent);
+      })
       .catch(() => undefined);
     void loadReferral({})
       .then(setReferral)
@@ -62,6 +72,22 @@ export function PrivacyInvitePanel() {
       toast.success(next ? "Svarga will learn from your chats." : "Learning turned off.");
     } catch {
       setMemoryOn(!next);
+      toast.error("Could not save that. Please try again.");
+    }
+  };
+
+  const toggleTraining = async () => {
+    const next = !trainingOn;
+    setTrainingOn(next);
+    try {
+      await saveTraining({ data: { consent: next } });
+      toast.success(
+        next
+          ? "Thank you — your chats can help train Svarga's own model."
+          : "Your chats will not be used for training.",
+      );
+    } catch {
+      setTrainingOn(!next);
       toast.error("Could not save that. Please try again.");
     }
   };
@@ -130,6 +156,37 @@ export function PrivacyInvitePanel() {
             className="rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink/70 disabled:opacity-50"
           >
             Clear everything remembered
+          </button>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+        <div className="flex items-center gap-2">
+          <span className={`size-2 rounded-full ${trainingOn ? "bg-leaf" : "bg-ink/25"}`} />
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/50">
+            Help train Svarga
+          </p>
+        </div>
+        <h3 className="mt-3 font-display text-2xl font-semibold">
+          {trainingOn ? "You are helping build it" : "Not sharing for training"}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink/60">
+          Svarga is building India&apos;s own model. If you switch this on, your questions and
+          Svarga&apos;s answers may be used to teach it. Phone numbers, emails and ID numbers are
+          stripped out first, and anything containing them is dropped entirely. This is off unless
+          you turn it on, and you can turn it off any time.
+        </p>
+        <div className="mt-5">
+          <button
+            type="button"
+            onClick={() => void toggleTraining()}
+            className={
+              trainingOn
+                ? "rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink/70"
+                : "rounded-full bg-crimson px-5 py-2.5 text-sm font-semibold text-cream"
+            }
+          >
+            {trainingOn ? "Stop sharing for training" : "Help train Svarga"}
           </button>
         </div>
       </div>
