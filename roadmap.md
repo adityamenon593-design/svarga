@@ -14,3 +14,5 @@
 - [x] Kunal Shah one-target outreach pack: contacts, LinkedIn/X/WhatsApp drafts, follow-up rules
 - [x] Kunal Shah DM delivered as branded PDF
 - [ ] LinkedIn profile review (waiting on pasted profile text)
+- [x] Udyam MSME certification shown on site
+- [ ] Fine-tuning: no own open-source model yet; see docs/fine-tuning.md

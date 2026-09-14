@@ -674,6 +674,9 @@ function Index() {
             Mohan Menon.
           </p>
           <p className="mt-2 text-xs text-ink/40">
+            Udyam-registered MSME, Government of India. Made in Bharat.
+          </p>
+          <p className="mt-2 text-xs text-ink/40">
             Benchmark figures shown are illustrative placeholders, not measured results.
           </p>
         </div>
