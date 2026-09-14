@@ -12,6 +12,7 @@ import { Checkout } from "@/components/svarga/checkout";
 import { DonatePanel } from "@/components/svarga/donate";
 import { BuddyKrishna } from "@/components/svarga/buddy-krishna";
 import { LanguageSelector } from "@/components/svarga/languages";
+import { GitaListening } from "@/components/svarga/gita-listening";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
