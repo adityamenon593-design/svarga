@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
+import { track } from "@/lib/track";
 import {
   createOrder,
   checkOrderStatus,
@@ -88,6 +89,7 @@ export function Checkout() {
   }, []);
 
   async function pay(planId: PlanId) {
+    track("subscribe_click", planId);
     if (!user || busy) return;
     if (!paymentHostRegistered()) {
       const target = `https://svarga.digital${window.location.search}${window.location.hash}`;
@@ -126,6 +128,7 @@ export function Checkout() {
                 signature: resp.razorpay_signature,
               },
             });
+            track("payment_success", planId);
             toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
           } catch (err) {
             toast.error(err instanceof Error ? err.message : "Verification failed.");
@@ -147,6 +150,7 @@ export function Checkout() {
         void runCheckStatus({ data: { orderId: order.orderId } })
           .then((result) => {
             if (result.status === "paid") {
+              track("payment_success", planId);
               toast.success(`Payment confirmed. Welcome to ${plan.name.split(" — ")[0]}.`);
             }
           })

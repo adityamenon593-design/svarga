@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
 
+import { forgetMemory, listMemory } from "@/lib/memory.functions";
 import { applyReferralCode, getMyReferral } from "@/lib/referrals.functions";
 import {
   clearAllMemory,
@@ -11,6 +12,8 @@ import {
   setMemoryEnabled,
   setTrainingConsent,
 } from "@/lib/settings.functions";
+
+type MemoryItem = { id: string; kind: string; content: string };
 
 type Referral = {
   code: string;
@@ -32,12 +35,21 @@ export function PrivacyInvitePanel() {
   const wipeMemory = useServerFn(clearAllMemory);
   const loadReferral = useServerFn(getMyReferral);
   const applyCode = useServerFn(applyReferralCode);
+  const loadMemories = useServerFn(listMemory);
+  const dropMemory = useServerFn(forgetMemory);
 
   const [memoryOn, setMemoryOn] = useState(true);
   const [trainingOn, setTrainingOn] = useState(false);
   const [referral, setReferral] = useState<Referral | null>(null);
   const [codeInput, setCodeInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [memories, setMemories] = useState<MemoryItem[]>([]);
+
+  const refreshMemories = useCallback(() => {
+    void loadMemories({})
+      .then((rows) => setMemories(rows as MemoryItem[]))
+      .catch(() => undefined);
+  }, [loadMemories]);
 
   useEffect(() => {
     if (!signedIn) return;
@@ -50,7 +62,8 @@ export function PrivacyInvitePanel() {
     void loadReferral({})
       .then(setReferral)
       .catch(() => undefined);
-  }, [signedIn, loadPrivacy, loadReferral]);
+    refreshMemories();
+  }, [signedIn, loadPrivacy, loadReferral, refreshMemories]);
 
   if (!signedIn) {
     return (
@@ -96,11 +109,24 @@ export function PrivacyInvitePanel() {
     setBusy(true);
     try {
       await wipeMemory({});
+      setMemories([]);
       toast.success("Everything Svarga remembered about you is deleted.");
     } catch {
       toast.error("Could not clear your memory. Please try again.");
     } finally {
       setBusy(false);
+    }
+  };
+
+  const forgetOne = async (id: string) => {
+    const previous = memories;
+    setMemories((rows) => rows.filter((row) => row.id !== id));
+    try {
+      await dropMemory({ data: { id } });
+      toast.success("Forgotten.");
+    } catch {
+      setMemories(previous);
+      toast.error("Could not delete that. Please try again.");
     }
   };
 
@@ -158,6 +184,42 @@ export function PrivacyInvitePanel() {
             Clear everything remembered
           </button>
         </div>
+        {memories.length > 0 ? (
+          <div className="mt-5 border-t border-ink/10 pt-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/50">
+              What Svarga remembers
+            </p>
+            <ul className="mt-3 space-y-2">
+              {memories.map((item) => (
+                <li
+                  key={item.id}
+                  className="flex items-start justify-between gap-3 rounded-xl bg-cream/70 px-3 py-2"
+                >
+                  <span className="text-sm leading-relaxed text-ink/75">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/40">
+                      {item.kind}
+                    </span>
+                    <br />
+                    {item.content}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => void forgetOne(item.id)}
+                    aria-label={`Forget: ${item.content}`}
+                    className="shrink-0 rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/60 hover:text-crimson"
+                  >
+                    Forget
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="mt-4 text-xs text-ink/45">
+            Nothing remembered yet. Anything Svarga learns will be listed here for you to delete one
+            by one.
+          </p>
+        )}
       </div>
 
       <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">

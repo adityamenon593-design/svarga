@@ -30,6 +30,7 @@ import { generateSvargaImage } from "@/lib/image.functions";
 import { getMyUsage } from "@/lib/entitlements.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { learnFromTurn, listMemory } from "@/lib/memory.functions";
+import { track } from "@/lib/track";
 
 type UsageInfo = {
   label: string;
@@ -270,7 +271,9 @@ export function ChatConsole() {
   const send = (text: string) => {
     const trimmed = text.trim();
     if ((!trimmed && !attachment) || busy) return;
+    track(messages.length === 0 ? "chat_start" : "chat_message", mode);
     setInput("");
+
     if (mode === "image") {
       lastPrompt.current = "";
       void renderInConsole(trimmed);

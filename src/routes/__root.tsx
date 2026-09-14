@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { track } from "../lib/track";
 
 function NotFoundComponent() {
   return (
@@ -141,6 +142,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // Launch analytics: one page view per navigation, including the first load.
+  useEffect(() => {
+    track("page_view");
+    return router.subscribe("onResolved", () => track("page_view"));
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -31,3 +31,8 @@
 - [ ] Stop audio/TTS playing after navigating away from a page
 - [ ] Full pre-launch bug sweep
 - [ ] Faster responses + simpler UI; strengthen the learning loop (memory feedback)
+- [ ] Investor-ready FAQ page
+- [ ] Performance safeguards (timeouts, streaming UX, error fallbacks)
+- [ ] 60-second first-visit onboarding walkthrough
+- [ ] Launch event tracking (page views, chat starts, sign-in, subscribe clicks)
+- [ ] IndiaAI Mission application (govt funding route) — prepare submission pack

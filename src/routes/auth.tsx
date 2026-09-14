@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 import { useAuth } from "@/hooks/use-auth";
 import { lovable } from "@/integrations/lovable/index";
+import { track } from "@/lib/track";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
@@ -53,6 +54,7 @@ function AuthPage() {
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
+        track("sign_up", "password");
         toast.success("Check your inbox to confirm your address.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -60,6 +62,7 @@ function AuthPage() {
           password,
         });
         if (error) throw error;
+        track("sign_in", "password");
         toast.success("Signed in successfully.");
         void navigate({ to: "/" });
       }
@@ -74,6 +77,7 @@ function AuthPage() {
     if (busy || googleBusy) return;
     setGoogleBusy(true);
     try {
+      track("sign_in_click", "google");
       const result = await lovable.auth.signInWithOAuth("google", {
         redirect_uri: window.location.origin,
       });
