@@ -87,16 +87,31 @@ export function ChatConsole() {
 
   const [rendering, setRendering] = useState(false);
   const [night, setNight] = useState(false);
+  // Reading comfort: text size and line spacing, remembered across sessions.
+  const [fontSize, setFontSize] = useState(14);
+  const [lineHeight, setLineHeight] = useState(1.65);
 
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem("svarga-night");
       if (saved === "1") setNight(true);
       else if (saved === null && new Date().getHours() >= 20) setNight(true);
+      const fs = Number(window.localStorage.getItem("svarga-read-size"));
+      if (fs >= 13 && fs <= 22) setFontSize(fs);
+      const lh = Number(window.localStorage.getItem("svarga-read-lead"));
+      if (lh >= 1.4 && lh <= 2.2) setLineHeight(lh);
     } catch {
       /* storage unavailable */
     }
   }, []);
+
+  const remember = (key: string, value: string) => {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch {
+      /* storage unavailable */
+    }
+  };
 
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
