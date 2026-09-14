@@ -86,6 +86,7 @@ const VERSES: Verse[] = [
 ];
 
 const TIMERS = [0, 15, 30, 45, 60] as const;
+const SPEEDS = [0.75, 1, 1.25, 1.5] as const;
 
 type SourceMode = "verses" | "recordings";
 
@@ -97,6 +98,7 @@ export function GitaListening() {
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState<number>(0);
   const [remaining, setRemaining] = useState<number | null>(null);
+  const [speed, setSpeed] = useState<number>(1);
   const [token, setToken] = useState<string | null>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -132,15 +134,31 @@ export function GitaListening() {
     return () => window.clearTimeout(id);
   }, [remaining, halt]);
 
+  // Keep a speed change applied to whatever is playing right now.
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = speed;
+  }, [speed]);
+
   const playUrl = (url: string) =>
     new Promise<void>((resolve, reject) => {
       const audio = audioRef.current ?? new Audio();
       audioRef.current = audio;
       audio.src = url;
+      audio.playbackRate = speed;
       audio.onended = () => resolve();
       audio.onerror = () => reject(new Error("Could not play that audio."));
       void audio.play().catch(reject);
     });
+
+  /** Nudges the current audio forward or back; falls back to the next/previous item. */
+  const seek = (seconds: number) => {
+    const audio = audioRef.current;
+    if (playing && audio && Number.isFinite(audio.duration) && audio.duration > 0) {
+      audio.currentTime = Math.max(0, Math.min(audio.duration - 0.25, audio.currentTime + seconds));
+      return;
+    }
+    jump(index + (seconds > 0 ? 1 : -1));
+  };
 
   const speakVerse = async (verse: Verse) => {
     const response = await fetch("/api/voice/speak", {
@@ -335,6 +353,43 @@ export function GitaListening() {
           >
             ⏭
           </button>
+        </div>
+
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => seek(-15)}
+            aria-label="Back 15 seconds"
+            className="rounded-full border border-cream/20 px-3 py-1 text-xs text-cream/65 transition-colors hover:text-cream"
+          >
+            ↺ 15s
+          </button>
+          <button
+            type="button"
+            onClick={() => seek(15)}
+            aria-label="Forward 15 seconds"
+            className="rounded-full border border-cream/20 px-3 py-1 text-xs text-cream/65 transition-colors hover:text-cream"
+          >
+            15s ↻
+          </button>
+          <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cream/40">
+            Speed
+          </span>
+          {SPEEDS.map((rate) => (
+            <button
+              key={rate}
+              type="button"
+              onClick={() => setSpeed(rate)}
+              aria-pressed={speed === rate}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                speed === rate
+                  ? "bg-cream text-ink"
+                  : "border border-cream/20 text-cream/60 hover:text-cream"
+              }`}
+            >
+              {rate}×
+            </button>
+          ))}
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
