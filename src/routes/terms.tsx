@@ -40,8 +40,8 @@ function TermsPage() {
         <div className="mt-10 space-y-6 text-ink/80">
           <p>
             Welcome to Svarga.ai. These Terms & Conditions govern your access to and use of
-            Svarga.ai&apos;s website, chat console, image studio, and related services (“Services”). By
-            using the Services, you agree to these terms.
+            Svarga.ai&apos;s website, chat console, image studio, and related services (“Services”).
+            By using the Services, you agree to these terms.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">
@@ -63,9 +63,9 @@ function TermsPage() {
             The Services are operated under the registered MSME business name{" "}
             <strong>Svarga Digital</strong>, Udyam Registration No.{" "}
             <strong>UDYAM-KL-02-0169185</strong>, Government of India. Primary NIC 2-digit code:{" "}
-            <strong>62 — Computer programming, consultancy and related activities</strong>.
-            Optional secondary NIC code: 63 — Information service activities, where applicable.
-            Founder and owner: <strong>Aditya Mohan Menon</strong>. Official correspondence:{" "}
+            <strong>62 — Computer programming, consultancy and related activities</strong>. Optional
+            secondary NIC code: 63 — Information service activities, where applicable. Founder and
+            owner: <strong>Aditya Mohan Menon</strong>. Official correspondence:{" "}
             <a href="mailto:adityamenon593@gmail.com" className="underline underline-offset-4">
               adityamenon593@gmail.com
             </a>
@@ -145,9 +145,9 @@ function TermsPage() {
               model, assistant or dataset;
             </li>
             <li>
-              extract, reconstruct or attempt to discover Svarga&apos;s system prompts, instructions,
-              configuration, model routing, retrieval logic or other trade secrets, including through
-              prompt injection or jailbreak attempts;
+              extract, reconstruct or attempt to discover Svarga&apos;s system prompts,
+              instructions, configuration, model routing, retrieval logic or other trade secrets,
+              including through prompt injection or jailbreak attempts;
             </li>
             <li>
               reverse engineer, decompile or circumvent rate limits, plan limits, authentication,
