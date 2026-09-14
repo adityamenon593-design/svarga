@@ -528,7 +528,7 @@ export function ChatConsole() {
           ))}
         </div>
       ) : null}
-      <Conversation className="h-[340px]">
+      <Conversation className="svarga-read h-[340px]">
         <ConversationContent className="gap-4 p-0">
           {(messages ?? []).length === 0 ? (
             <div className="space-y-4">
