@@ -77,6 +77,24 @@ export function PrivacyInvitePanel() {
     }
   };
 
+  const toggleTraining = async () => {
+    const next = !trainingOn;
+    setTrainingOn(next);
+    try {
+      await saveTraining({ data: { consent: next } });
+      toast.success(
+        next
+          ? "Thank you — your chats can help train Svarga's own model."
+          : "Your chats will not be used for training.",
+      );
+    } catch {
+      setTrainingOn(!next);
+      toast.error("Could not save that. Please try again.");
+    }
+  };
+
+
+
   const clearMemory = async () => {
     setBusy(true);
     try {
