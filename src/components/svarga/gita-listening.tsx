@@ -355,6 +355,44 @@ export function GitaListening() {
           </button>
         </div>
 
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => seek(-15)}
+            aria-label="Back 15 seconds"
+            className="rounded-full border border-cream/20 px-3 py-1 text-xs text-cream/65 transition-colors hover:text-cream"
+          >
+            ↺ 15s
+          </button>
+          <button
+            type="button"
+            onClick={() => seek(15)}
+            aria-label="Forward 15 seconds"
+            className="rounded-full border border-cream/20 px-3 py-1 text-xs text-cream/65 transition-colors hover:text-cream"
+          >
+            15s ↻
+          </button>
+          <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cream/40">
+            Speed
+          </span>
+          {SPEEDS.map((rate) => (
+            <button
+              key={rate}
+              type="button"
+              onClick={() => setSpeed(rate)}
+              aria-pressed={speed === rate}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                speed === rate
+                  ? "bg-cream text-ink"
+                  : "border border-cream/20 text-cream/60 hover:text-cream"
+              }`}
+            >
+              {rate}×
+            </button>
+          ))}
+        </div>
+
+
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cream/40">
             Sleep timer
