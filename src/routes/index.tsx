@@ -365,6 +365,10 @@ function Index() {
               single grounded answer — and renders what it describes. Ask it anything in the
               console.
             </p>
+            <p className="mt-3 max-w-md text-xs text-ink/50">
+              Powered by configured frontier models. Svarga adds Indian reasoning, memory, and
+              guardrails — it does not own or independently train the underlying base LLM weights.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/chat"
