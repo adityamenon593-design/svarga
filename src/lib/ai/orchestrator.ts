@@ -77,19 +77,26 @@ export async function streamSvarga({
   userId?: string | null;
   persona?: "krishna" | undefined;
 }) {
+  // Local-model mode: when you run Svarga on your own laptop with Ollama up,
+  // set SVARGA_LOCAL_MODEL_URL (e.g. http://localhost:11434/v1) and the answer
+  // comes from your own model instead of the cloud one. Never set in production.
+  const localUrl = process.env["SVARGA_LOCAL_MODEL_URL"];
   const apiKey = process.env["LOVABLE_API_KEY"];
-  if (!apiKey) {
+  if (!localUrl && !apiKey) {
     throw new Error("LOVABLE_API_KEY is not configured");
   }
 
-  const gateway = createOpenAI({
-    apiKey,
-    baseURL: process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1",
-    headers: {
-      "Lovable-API-Key": apiKey,
-      "X-Lovable-AIG-SDK": "vercel-ai-sdk",
-    },
-  });
+  const gateway = localUrl
+    ? createOpenAI({ apiKey: "local", baseURL: localUrl })
+    : createOpenAI({
+        apiKey: apiKey!,
+        baseURL: process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1",
+        headers: {
+          "Lovable-API-Key": apiKey!,
+          "X-Lovable-AIG-SDK": "vercel-ai-sdk",
+        },
+      });
+
 
   const last = messages.at(-1);
   const lastText =
