@@ -36,3 +36,5 @@
 - [ ] 60-second first-visit onboarding walkthrough
 - [ ] Launch event tracking (page views, chat starts, sign-in, subscribe clicks)
 - [ ] IndiaAI Mission application (govt funding route) — prepare submission pack
+- [x] Local laptop LLM stack: Ollama runtime, DB-connected bridge, dataset builder, 4GB QLoRA training, GGUF export, optional local-model mode in the site
+- [ ] IndiaAI Mission proposal pack (five pillars)
