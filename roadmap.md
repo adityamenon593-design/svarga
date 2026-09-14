@@ -9,4 +9,5 @@
 - [ ] Publish to svarga.digital
 - [x] Faster, sharper answers: leaner thinking standard, effort tiering, skip retrieval on short asks
 - [x] Listen button only in voice mode
-- [ ] Update ISKCON outreach message with BCA graduate credential
+- [x] Update ISKCON outreach message with BCA graduate credential
+- [x] Investor outreach pack: shortlist, official channels, ready-to-send messages
