@@ -667,6 +667,14 @@ function Index() {
             <Link to="/contact" className="transition-colors hover:text-crimson">
               Contact Us
             </Link>
+            <a
+              href="https://colab.research.google.com/github/AdityaMohanMenon/svarga/blob/main/notebooks/svarga-colab-workbench.ipynb"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-crimson"
+            >
+              Developer notebook (Colab)
+            </a>
           </div>
 
           <p className="mt-6 text-xs text-ink/40">
