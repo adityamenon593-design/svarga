@@ -100,7 +100,7 @@ organic — `https://svarga.digital?utm_source=instagram&utm_medium=paid&utm_cam
 
 ---
 
-## Post A — LinkedIn launch post (08:30)
+## Post A — LinkedIn launch post (12:12)
 
 > I built an AI for India. Today it goes live.
 >
@@ -141,7 +141,7 @@ organic — `https://svarga.digital?utm_source=instagram&utm_medium=paid&utm_cam
 
 ---
 
-## Caption B — Instagram Reel (09:30)
+## Caption B — Instagram Reel (12:10 — post this first)
 
 > India built its own AI today. 🇮🇳
 >
@@ -156,7 +156,7 @@ organic — `https://svarga.digital?utm_source=instagram&utm_medium=paid&utm_cam
 
 ---
 
-## Message C — WhatsApp to friends and family (11:00)
+## Message C — WhatsApp to friends and family (14:00)
 
 > Hi [name] 🙏
 >
@@ -173,7 +173,7 @@ organic — `https://svarga.digital?utm_source=instagram&utm_medium=paid&utm_cam
 
 ---
 
-## Message D — community groups (12:00)
+## Message D — community groups (15:00)
 
 Read the group rules first. If self-promo isn't allowed, skip it.
 
@@ -188,7 +188,7 @@ Read the group rules first. If self-promo isn't allowed, skip it.
 
 ---
 
-## Post E — X / Twitter (17:30)
+## Post E — X / Twitter (16:00)
 
 > Launched Svarga.ai today. 🇮🇳
 >
