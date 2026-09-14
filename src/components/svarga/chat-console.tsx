@@ -413,6 +413,12 @@ export function ChatConsole() {
   return (
     <div
       data-night={night ? "on" : undefined}
+      style={
+        {
+          "--chat-size": `${fontSize}px`,
+          "--chat-lead": String(lineHeight),
+        } as React.CSSProperties
+      }
       className="svarga-chat relative rounded-3xl border border-ink/10 bg-white p-6 shadow-2xl shadow-ink/10"
     >
       <div className="mb-4 flex items-center gap-2">
