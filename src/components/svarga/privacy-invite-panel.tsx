@@ -28,11 +28,13 @@ export function PrivacyInvitePanel() {
   const signedIn = Boolean(user);
   const loadPrivacy = useServerFn(getPrivacySettings);
   const savePrivacy = useServerFn(setMemoryEnabled);
+  const saveTraining = useServerFn(setTrainingConsent);
   const wipeMemory = useServerFn(clearAllMemory);
   const loadReferral = useServerFn(getMyReferral);
   const applyCode = useServerFn(applyReferralCode);
 
   const [memoryOn, setMemoryOn] = useState(true);
+  const [trainingOn, setTrainingOn] = useState(false);
   const [referral, setReferral] = useState<Referral | null>(null);
   const [codeInput, setCodeInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -40,12 +42,16 @@ export function PrivacyInvitePanel() {
   useEffect(() => {
     if (!signedIn) return;
     void loadPrivacy({})
-      .then((r) => setMemoryOn(r.memoryEnabled))
+      .then((r) => {
+        setMemoryOn(r.memoryEnabled);
+        setTrainingOn(r.trainingConsent);
+      })
       .catch(() => undefined);
     void loadReferral({})
       .then(setReferral)
       .catch(() => undefined);
   }, [signedIn, loadPrivacy, loadReferral]);
+
 
   if (!signedIn) {
     return (
