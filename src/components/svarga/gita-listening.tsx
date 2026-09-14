@@ -122,6 +122,22 @@ export function GitaListening() {
     }
   }, []);
 
+  // Silence everything when this view unmounts, so audio never follows the user to another page.
+  useEffect(
+    () => () => {
+      stopRef.current = true;
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+        audio.onended = null;
+        audio.onerror = null;
+        audio.src = "";
+      }
+      audioRef.current = null;
+    },
+    [],
+  );
+
   // Sleep timer — counts down and stops playback, so it can be left running at night.
   useEffect(() => {
     if (remaining === null) return;
