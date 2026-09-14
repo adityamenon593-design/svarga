@@ -86,6 +86,18 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  const [night, setNight] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("svarga-night");
+      if (saved === "1") setNight(true);
+      else if (saved === null && new Date().getHours() >= 20) setNight(true);
+    } catch {
+      /* storage unavailable */
+    }
+  }, []);
+
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [usage, setUsage] = useState<UsageInfo | null>(null);

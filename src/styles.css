@@ -284,3 +284,44 @@
     animation: none;
   }
 }
+
+/* Night reading: a low-light, distraction-free chat surface. Deep ink ground
+   with warm cream text — comfortable contrast without glare. */
+.svarga-chat[data-night="on"] {
+  background: oklch(0.21 0.018 70);
+  border-color: oklch(1 0 0 / 0.1);
+  color: oklch(0.93 0.02 85);
+}
+
+.svarga-chat[data-night="on"] * {
+  border-color: oklch(1 0 0 / 0.12);
+}
+
+.svarga-chat[data-night="on"] [class*="text-ink"],
+.svarga-chat[data-night="on"] [class*="text-ink"] * {
+  color: oklch(0.92 0.02 85);
+}
+
+.svarga-chat[data-night="on"] [class*="text-ink/4"],
+.svarga-chat[data-night="on"] [class*="text-ink/5"],
+.svarga-chat[data-night="on"] [class*="text-ink/6"] {
+  color: oklch(0.92 0.02 85 / 0.6);
+}
+
+.svarga-chat[data-night="on"] [class*="bg-sand"],
+.svarga-chat[data-night="on"] [class*="bg-white"],
+.svarga-chat[data-night="on"] [class*="bg-cream"] {
+  background-color: oklch(0.26 0.018 70);
+}
+
+.svarga-chat[data-night="on"] textarea {
+  color: oklch(0.94 0.02 85);
+}
+
+.svarga-chat[data-night="on"] textarea::placeholder {
+  color: oklch(0.94 0.02 85 / 0.45);
+}
+
+.svarga-chat[data-night="on"] [class*="text-crimson"] {
+  color: oklch(0.78 0.13 45);
+}
