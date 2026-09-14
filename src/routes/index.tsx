@@ -471,6 +471,10 @@ function Index() {
 
         <LanguageSelector />
 
+        <ClientOnly fallback={<div className="h-[420px] animate-pulse rounded-3xl bg-ink/5" />}>
+          <GitaListening />
+        </ClientOnly>
+
         <section id="buddies" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
             Buddies
