@@ -30,3 +30,4 @@
 - [ ] Rework launch schedule to 12:10pm IST start + ₹1,000 Instagram ads plan
 - [ ] Stop audio/TTS playing after navigating away from a page
 - [ ] Full pre-launch bug sweep
+- [ ] Faster responses + simpler UI; strengthen the learning loop (memory feedback)
