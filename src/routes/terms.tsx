@@ -44,15 +44,16 @@ function TermsPage() {
             using the Services, you agree to these terms.
           </p>
 
-          <h2 className="font-display text-2xl font-semibold text-ink">1. Ownership — all rights reserved</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">
+            1. Ownership — all rights reserved
+          </h2>
           <p>
             Svarga.ai, its name, logo, branding, design, website, source code, database structure,
             system prompts, instructions, personas (including the Baby Krishna buddy and Gita
             listening features), workflows, model routing, retrieval logic, generated content, and
-            all related materials are the exclusive property of{" "}
-            <strong>Aditya Mohan Menon</strong>. All rights reserved. No licence, title, or
-            ownership interest in Svarga.ai is granted to any user, visitor, investor, partner, or
-            third party, whether express or implied.
+            all related materials are the exclusive property of <strong>Aditya Mohan Menon</strong>.
+            All rights reserved. No licence, title, or ownership interest in Svarga.ai is granted to
+            any user, visitor, investor, partner, or third party, whether express or implied.
           </p>
 
           <h2 className="font-display text-2xl font-semibold text-ink">2. Services</h2>
@@ -88,10 +89,10 @@ function TermsPage() {
             Svarga.ai, its name, logo, design, website, source code, database structure, system
             prompts, instructions, personas (including the Baby Krishna buddy and Gita listening
             features), workflows, model routing, retrieval logic, and all related materials are the
-            exclusive property of Aditya Mohan Menon and are protected under the Copyright Act, 1957,
-            the Trade Marks Act, 1999, and the Information Technology Act, 2000. No licence to any of
-            it is granted to you, whether express or implied, except the limited right to use the
-            Services as a customer.
+            exclusive property of Aditya Mohan Menon and are protected under the Copyright Act,
+            1957, the Trade Marks Act, 1999, and the Information Technology Act, 2000. No licence to
+            any of it is granted to you, whether express or implied, except the limited right to use
+            the Services as a customer.
           </p>
           <p>
             You retain rights to the prompts and files you upload. You are granted a limited,
