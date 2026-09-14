@@ -278,6 +278,8 @@ function Index() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-cream font-sans text-ink antialiased">
+      <OnboardingTour />
+
       <header className="sticky top-0 z-30 border-b border-ink/10 bg-cream/90 backdrop-blur">
         <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
