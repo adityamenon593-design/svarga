@@ -392,7 +392,6 @@ export function GitaListening() {
           ))}
         </div>
 
-
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cream/40">
             Sleep timer
