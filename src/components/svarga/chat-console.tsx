@@ -86,6 +86,8 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  // Listening aloud only makes sense when the user is talking to Svarga by voice.
+  const [voiceMode, setVoiceMode] = useState(false);
   const [night, setNight] = useState(false);
   // Reading comfort: text size and line spacing, remembered across sessions.
   const [fontSize, setFontSize] = useState(14);
@@ -623,13 +625,15 @@ export function ChatConsole() {
                       </ul>
                     </div>
                   )}
-                  <button
-                    type="button"
-                    onClick={() => void speak(message.id, answer.body)}
-                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
-                  >
-                    {speakingId === message.id ? "■ Stop" : "▶ Listen"}
-                  </button>
+                  {voiceMode ? (
+                    <button
+                      type="button"
+                      onClick={() => void speak(message.id, answer.body)}
+                      className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
+                    >
+                      {speakingId === message.id ? "■ Stop" : "▶ Listen"}
+                    </button>
+                  ) : null}
                 </MessageContent>
               </Message>
             );
