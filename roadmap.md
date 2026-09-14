@@ -38,3 +38,4 @@
 - [ ] IndiaAI Mission application (govt funding route) — prepare submission pack
 - [x] Local laptop LLM stack: Ollama runtime, DB-connected bridge, dataset builder, 4GB QLoRA training, GGUF export, optional local-model mode in the site
 - [ ] IndiaAI Mission proposal pack (five pillars)
+- [x] Svarga seed training set: 206 curated Indian-context examples in local/seed/ (generator: local/generate_seed.py)
