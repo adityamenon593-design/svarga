@@ -435,17 +435,39 @@ export function ChatConsole() {
           onClick={() => {
             const next = !night;
             setNight(next);
-            try {
-              window.localStorage.setItem("svarga-night", next ? "1" : "0");
-            } catch {
-              /* storage unavailable */
-            }
+            remember("svarga-night", next ? "1" : "0");
           }}
           aria-pressed={night}
           title={night ? "Switch to day reading" : "Switch to night reading"}
           className="rounded-full border border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink/60 transition-colors hover:text-ink"
         >
           {night ? "☾ Night" : "☀ Day"}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            const next = fontSize >= 22 ? 14 : fontSize + 2;
+            setFontSize(next);
+            remember("svarga-read-size", String(next));
+          }}
+          title="Text size"
+          aria-label={`Text size ${fontSize} pixels, tap to change`}
+          className="rounded-full border border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink/60 transition-colors hover:text-ink"
+        >
+          A{fontSize}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            const next = lineHeight >= 2.1 ? 1.5 : Math.round((lineHeight + 0.2) * 10) / 10;
+            setLineHeight(next);
+            remember("svarga-read-lead", String(next));
+          }}
+          title="Line spacing"
+          aria-label={`Line spacing ${lineHeight}, tap to change`}
+          className="rounded-full border border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink/60 transition-colors hover:text-ink"
+        >
+          ≡ {lineHeight.toFixed(1)}
         </button>
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
