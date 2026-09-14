@@ -28,3 +28,5 @@
 - [x] Launch day schedule with exact copy for LinkedIn, Instagram, WhatsApp, X + PDF
 - [x] Jarvis-grade knowledge upgrade: all sciences + jyotiṣa/astrology handled honestly
 - [ ] Rework launch schedule to 12:10pm IST start + ₹1,000 Instagram ads plan
+- [ ] Stop audio/TTS playing after navigating away from a page
+- [ ] Full pre-launch bug sweep
