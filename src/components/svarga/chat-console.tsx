@@ -86,6 +86,8 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  // Listening aloud only makes sense when the user is talking to Svarga by voice.
+  const [voiceMode, setVoiceMode] = useState(false);
   const [night, setNight] = useState(false);
   // Reading comfort: text size and line spacing, remembered across sessions.
   const [fontSize, setFontSize] = useState(14);
@@ -328,6 +330,7 @@ export function ChatConsole() {
             toast.error("Svarga did not catch that. Please try again.");
             return;
           }
+          setVoiceMode(true);
           setInput((current) => (current ? `${current} ${heard}` : heard));
         } catch (error) {
           toast.error(error instanceof Error ? error.message : "Voice input failed.");
@@ -623,13 +626,15 @@ export function ChatConsole() {
                       </ul>
                     </div>
                   )}
-                  <button
-                    type="button"
-                    onClick={() => void speak(message.id, answer.body)}
-                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
-                  >
-                    {speakingId === message.id ? "■ Stop" : "▶ Listen"}
-                  </button>
+                  {voiceMode ? (
+                    <button
+                      type="button"
+                      onClick={() => void speak(message.id, answer.body)}
+                      className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
+                    >
+                      {speakingId === message.id ? "■ Stop" : "▶ Listen"}
+                    </button>
+                  ) : null}
                 </MessageContent>
               </Message>
             );
@@ -651,7 +656,10 @@ export function ChatConsole() {
       >
         <PromptInputTextarea
           value={input}
-          onChange={(event) => setInput(event.target.value)}
+          onChange={(event) => {
+            setVoiceMode(false);
+            setInput(event.target.value);
+          }}
           placeholder={
             mode === "image" ? "Describe the image Svarga should create…" : "Ask Svarga anything…"
           }

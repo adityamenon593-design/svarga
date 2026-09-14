@@ -7,3 +7,5 @@
 - [x] Gita listening mode: hands-free audio, own recordings + verse recitation, sleep timer
 - [x] Low-light night reading theme for chat
 - [ ] Publish to svarga.digital
+- [x] Faster, sharper answers: leaner thinking standard, effort tiering, skip retrieval on short asks
+- [x] Listen button only in voice mode

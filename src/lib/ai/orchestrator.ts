@@ -28,23 +28,26 @@ const AGENT_INSTRUCTIONS = `Agentic behaviour: you have tools — web_search (li
 - If a tool is unavailable or returns nothing, say so plainly and answer from your own knowledge with a caveat. Never fabricate tool results or citations.
 - If the user sends an image, read it carefully and answer about what is actually in it (text, diagram, handwriting, screenshot, food, crop, document) — do not guess.`;
 
-const QUALITY_BAR = `Thinking standard (apply on every non-trivial question):
-- First decide what is actually being asked, what the user's real goal is, and what would count as a complete answer. Answer the goal, not just the literal words.
-- Consider at least two ways to approach a hard problem and take the better one; if two answers are genuinely defensible, give both and say which you'd pick and why.
-- Check yourself before finalising: arithmetic, units, dates, names, logic, and whether any step assumed something unstated. Fix errors silently mid-answer, or out loud if the user already saw the wrong version.
-- Give the decisive detail: exact numbers, real names, concrete steps, and the one caveat that actually matters. No filler, no padding, no restating the question.
-- Match depth to the question — one clean line for a simple ask, structured depth for a hard one. Never pad a short answer, never truncate a hard one.
-- End with the next useful step only when it genuinely helps.`;
+const QUALITY_BAR = `Answering standard — fast first, then deep only where depth earns its place:
+- Lead with the answer in the first sentence. Never open with a preamble, a restatement of the question, or "great question".
+- Answer the user's real goal, not just the literal words, and give the decisive detail: exact numbers, real names, concrete steps, and the one caveat that actually matters.
+- Simple or factual ask → one to three tight lines, no headings, no bullet scaffolding. Hard ask → structured depth, still without filler.
+- Silently verify arithmetic, units, dates, names and logic before you finalise. Accuracy beats speed whenever they conflict; if unsure, say so in one short line rather than padding.
+- For a genuinely hard problem weigh the two best approaches internally and present only the better one (mention the alternative in a clause if it truly matters).
+- Use a tool only when the answer actually depends on it; otherwise answer directly.
+- End with a next step only when it genuinely helps.`;
 
-// Heuristic escalation: hard questions get deeper reasoning even in balanced mode.
+// Heuristic escalation: hard questions get deeper reasoning, everything else stays fast.
 const HARD_SIGNALS =
-  /\b(why|how|prove|derive|explain|compare|analy[sz]e|design|optimi[sz]e|debug|strategy|trade-?off|calculate|forecast|legal|tax|gst|diagnos|architect|algorithm|should i|which is better)\b/i;
+  /\b(prove|derive|analy[sz]e|design|optimi[sz]e|debug|strategy|trade-?off|forecast|legal|tax|gst|diagnos|architect|algorithm|should i|which is better|step by step)\b/i;
+
+const TRIVIAL = /^.{0,80}$/s;
 
 function effortFor(mode: SvargaMode, text: string): "low" | "medium" | "high" {
-  if (mode === "reasoning" || mode === "research") return "high";
-  if (text.length > 400 || HARD_SIGNALS.test(text) || (text.match(/\?/g)?.length ?? 0) > 1) {
-    return "medium";
-  }
+  if (mode === "reasoning") return "high";
+  if (mode === "research") return "medium";
+  if (HARD_SIGNALS.test(text) || text.length > 600) return "high";
+  if (TRIVIAL.test(text.trim())) return "low";
   return "low";
 }
 
@@ -96,7 +99,8 @@ export async function streamSvarga({
       .join(" ") ?? "";
   validateChatInput(lastText, messages.length);
   const injection = containsPromptInjection(lastText);
-  const sources = await retrieveContext(lastText, userId);
+  // Retrieval costs a round-trip; skip it for greetings and one-liners that cannot need sources.
+  const sources = lastText.trim().length >= 25 ? await retrieveContext(lastText, userId) : [];
   const retrievedContext = sources.length
     ? `\n\nRetrieved sources (use only if relevant; do not invent beyond them; cite as [source: Title] and list under ## Sources):\n${sources.map((s) => `- ${s.title}${s.locator ? ` (${s.locator})` : ""}: ${s.excerpt ?? ""}`).join("\n")}`
     : "";
@@ -131,7 +135,8 @@ export async function streamSvarga({
     // failing the whole request with a context-length overflow.
     messages: await convertToModelMessages(trimHistory(messages)),
     tools: svargaTools(userId),
-    stopWhen: stepCountIs(50),
+    // Enough for real multi-tool work, low enough that a loop cannot stall an answer.
+    stopWhen: stepCountIs(16),
     providerOptions: {
       openai: {
         forceReasoning: true,
