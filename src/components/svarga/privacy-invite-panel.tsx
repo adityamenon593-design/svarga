@@ -52,7 +52,6 @@ export function PrivacyInvitePanel() {
       .catch(() => undefined);
   }, [signedIn, loadPrivacy, loadReferral]);
 
-
   if (!signedIn) {
     return (
       <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
@@ -92,8 +91,6 @@ export function PrivacyInvitePanel() {
       toast.error("Could not save that. Please try again.");
     }
   };
-
-
 
   const clearMemory = async () => {
     setBusy(true);
@@ -193,8 +190,6 @@ export function PrivacyInvitePanel() {
           </button>
         </div>
       </div>
-
-
 
       <div className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
         <div className="flex items-center gap-2">

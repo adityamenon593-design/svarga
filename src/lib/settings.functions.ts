@@ -14,8 +14,7 @@ export const getPrivacySettings = createServerFn({ method: "GET" })
       .maybeSingle();
     return {
       memoryEnabled: (data as { memory_enabled?: boolean } | null)?.memory_enabled ?? true,
-      trainingConsent:
-        (data as { training_consent?: boolean } | null)?.training_consent ?? false,
+      trainingConsent: (data as { training_consent?: boolean } | null)?.training_consent ?? false,
     };
   });
 
