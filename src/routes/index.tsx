@@ -12,6 +12,7 @@ import { Checkout } from "@/components/svarga/checkout";
 import { DonatePanel } from "@/components/svarga/donate";
 import { BuddyKrishna } from "@/components/svarga/buddy-krishna";
 import { LanguageSelector } from "@/components/svarga/languages";
+import { GitaListening } from "@/components/svarga/gita-listening";
 
 function AccountNav() {
   const { user, signOut } = useAuth();
@@ -67,10 +68,10 @@ function IndianFlag({ className = "" }: { className?: string }) {
           return (
             <line
               key={i}
-              x1={Math.cos(a) * 12}
-              y1={Math.sin(a) * 12}
-              x2={Math.cos(a) * 3}
-              y2={Math.sin(a) * 3}
+              x1={(Math.cos(a) * 12).toFixed(3)}
+              y1={(Math.sin(a) * 12).toFixed(3)}
+              x2={(Math.cos(a) * 3).toFixed(3)}
+              y2={(Math.sin(a) * 3).toFixed(3)}
               strokeWidth="1.2"
               className="stroke-ink"
             />
@@ -469,6 +470,10 @@ function Index() {
         </section>
 
         <LanguageSelector />
+
+        <ClientOnly fallback={<div className="h-[420px] animate-pulse rounded-3xl bg-ink/5" />}>
+          <GitaListening />
+        </ClientOnly>
 
         <section id="buddies" className="border-t border-ink/10 py-14">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">

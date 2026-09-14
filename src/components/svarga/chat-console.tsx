@@ -86,6 +86,18 @@ export function ChatConsole() {
   const savedFor = useRef<string | null>(null);
 
   const [rendering, setRendering] = useState(false);
+  const [night, setNight] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("svarga-night");
+      if (saved === "1") setNight(true);
+      else if (saved === null && new Date().getHours() >= 20) setNight(true);
+    } catch {
+      /* storage unavailable */
+    }
+  }, []);
+
   const [memory, setMemory] = useState<string[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [usage, setUsage] = useState<UsageInfo | null>(null);
@@ -384,7 +396,10 @@ export function ChatConsole() {
   };
 
   return (
-    <div className="relative rounded-3xl border border-ink/10 bg-white p-6 shadow-2xl shadow-ink/10">
+    <div
+      data-night={night ? "on" : undefined}
+      className="svarga-chat relative rounded-3xl border border-ink/10 bg-white p-6 shadow-2xl shadow-ink/10"
+    >
       <div className="mb-4 flex items-center gap-2">
         <span className="size-2.5 rounded-full bg-saffron" />
         <span className="size-2.5 rounded-full bg-crimson" />
@@ -394,6 +409,23 @@ export function ChatConsole() {
             ? `${usage.label} · ${usage.questionsUsed}/${usage.questionsAllowed} questions this ${usage.questionWindow} · ${usage.imagesUsed}/${usage.imagesAllowed} images`
             : "svarga · made in india · live"}
         </span>
+        <button
+          type="button"
+          onClick={() => {
+            const next = !night;
+            setNight(next);
+            try {
+              window.localStorage.setItem("svarga-night", next ? "1" : "0");
+            } catch {
+              /* storage unavailable */
+            }
+          }}
+          aria-pressed={night}
+          title={night ? "Switch to day reading" : "Switch to night reading"}
+          className="rounded-full border border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink/60 transition-colors hover:text-ink"
+        >
+          {night ? "☾ Night" : "☀ Day"}
+        </button>
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
         {MODES.map((item) => {
