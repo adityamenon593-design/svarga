@@ -270,7 +270,9 @@ export function ChatConsole() {
   const send = (text: string) => {
     const trimmed = text.trim();
     if ((!trimmed && !attachment) || busy) return;
+    track(messages.length === 0 ? "chat_start" : "chat_message", mode);
     setInput("");
+
     if (mode === "image") {
       lastPrompt.current = "";
       void renderInConsole(trimmed);
