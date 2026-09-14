@@ -30,6 +30,7 @@ import { generateSvargaImage } from "@/lib/image.functions";
 import { getMyUsage } from "@/lib/entitlements.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { learnFromTurn, listMemory } from "@/lib/memory.functions";
+import { track } from "@/lib/track";
 
 type UsageInfo = {
   label: string;
