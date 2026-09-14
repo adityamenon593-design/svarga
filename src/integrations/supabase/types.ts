@@ -354,6 +354,8 @@ export type Database = {
           memory_enabled: boolean
           referral_code: string
           referred_by: string | null
+          training_consent: boolean
+          training_consent_at: string | null
           updated_at: string
           user_id: string
         }
@@ -362,6 +364,8 @@ export type Database = {
           memory_enabled?: boolean
           referral_code: string
           referred_by?: string | null
+          training_consent?: boolean
+          training_consent_at?: string | null
           updated_at?: string
           user_id: string
         }
@@ -370,6 +374,8 @@ export type Database = {
           memory_enabled?: boolean
           referral_code?: string
           referred_by?: string | null
+          training_consent?: boolean
+          training_consent_at?: string | null
           updated_at?: string
           user_id?: string
         }
