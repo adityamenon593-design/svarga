@@ -24,3 +24,5 @@
 - [x] Google Colab workbench: chat, feed data, export dataset, LoRA fine-tune
 - [x] External fine-tuning workflow: consent toggle, owner-only PII-scrubbed export, adapter training, deploy path
 - [x] Clarify hosting: Lovable hosts, Hostinger is registrar/DNS only
+- [x] Pitch pack (narrative, pricing, GTM, ask, objection answers) + branded PDF
+- [x] Launch day schedule with exact copy for LinkedIn, Instagram, WhatsApp, X + PDF
