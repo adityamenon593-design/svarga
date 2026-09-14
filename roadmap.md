@@ -6,7 +6,8 @@
 - [x] Heavy Vedic-sciences grounding in system prompt
 - [x] Gita listening mode: hands-free audio, own recordings + verse recitation, sleep timer
 - [x] Low-light night reading theme for chat
-- [ ] Publish to svarga.digital
+- [x] Explained: Svarga is not a separately trained LLM; data feeds in via Library + consented Colab fine-tuning
+- [ ] Publish to svarga.digital (launch day)
 - [x] Faster, sharper answers: leaner thinking standard, effort tiering, skip retrieval on short asks
 - [x] Listen button only in voice mode
 - [x] Update ISKCON outreach message with BCA graduate credential
