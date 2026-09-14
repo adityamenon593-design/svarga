@@ -17,23 +17,86 @@ you paste and send.
 
 ---
 
-## Launch day — hour by hour
+## Launch day — hour by hour (go-live 12:10 PM)
 
 | Time | Action |
 |---|---|
-| 07:30 | Final incognito check of site + /chat |
-| 08:30 | **LinkedIn launch post** (Post A) — best reach window |
-| 09:30 | **Instagram Reel** (use the launch reel) with Caption B |
-| 10:00 | Reply to every LinkedIn comment for 30 min |
-| 11:00 | **WhatsApp broadcast** to friends/family (Message C) |
-| 12:00 | Share in 3 relevant WhatsApp/Telegram communities (Message D) |
-| 14:00 | **Outreach block:** send ISKCON message + Kunal Shah connection note |
-| 15:00 | Submit to one accelerator (Surge / Accel Atoms / JioGenNext) |
-| 16:00 | Email one Kerala ecosystem contact (KSUM / Maker Village / Huddle) |
-| 17:30 | **X / Twitter post** (Post E) |
-| 19:00 | Reply to every comment and DM; note bugs in roadmap.md |
-| 21:00 | **Instagram Story** with the day's numbers (Copy F) |
-| 22:00 | Write down: signups, paid, top 3 bugs, best feedback quote |
+| 11:00 | Final incognito check of site + /chat; keep the links ready |
+| 11:45 | Draft posts loaded and ready to paste — do not post yet |
+| **12:10** | **GO LIVE.** Instagram Reel first (Caption B), then LinkedIn post (Post A) within 5 minutes of each other |
+| 12:20 | Instagram Story pointing to the Reel + link sticker to svarga.digital |
+| 12:30 | Send the ISKCON message and the Kunal Shah connection note |
+| 13:00 | Reply to every Instagram and LinkedIn comment — first hour decides reach |
+| 14:00 | **Friends and family** WhatsApp round (Message C), one by one, not a broadcast list |
+| 15:00 | Share in 3 relevant WhatsApp/Telegram communities (Message D) |
+| 16:00 | X / Twitter post (Post E) |
+| 16:30 | **Set up the Instagram ad** — ₹1,000 total, see the ads section below |
+| 18:00 | Submit to one accelerator (Surge / Accel Atoms / JioGenNext) |
+| 19:00 | Reply to every comment and DM; log bugs in roadmap.md |
+| 21:00 | Instagram Story with the day's numbers (Copy F) |
+| 22:00 | Write down: signups, paid, top 3 bugs, best feedback quote, ad spend so far |
+
+**Why 12:10 works:** lunch-hour scroll on Instagram, and LinkedIn's midday
+India window. Posting the Reel first gives it a head start before you send
+traffic from everywhere else.
+
+**Order matters:** organic posts → personal outreach → friends and family →
+paid ads. The ad performs better once the post already has real comments and
+the profile looks alive.
+
+---
+
+## Instagram ads — ₹1,000 maximum
+
+Run this yourself in the Instagram app or Meta Ads Manager. I cannot create
+Instagram ads for you; everything below is exactly what to enter.
+
+**The honest expectation:** ₹1,000 in India buys roughly 15,000–40,000
+impressions or 300–900 link clicks on a good creative. Treat it as a test that
+tells you which audience responds, not as a growth budget.
+
+### Setup
+
+1. Wait until the launch Reel has been up for about 4 hours and has real
+   comments — boost the post that is already working, never a cold one.
+2. Instagram → the Reel → **Boost post** (or Meta Ads Manager for more control).
+3. **Goal:** Website visits (link clicks). Not "more profile visits", not
+   "more messages".
+4. **Destination URL:** `https://svarga.digital`
+5. **Call to action:** Learn more
+6. **Budget:** ₹250 per day × 4 days = ₹1,000. Do not run ₹1,000 in one day —
+   four days gives Meta time to learn and gives you data to compare.
+7. **Audience — create a custom one, do not use "Automatic":**
+   - Locations: India (add Kochi, Bengaluru, Hyderabad, Pune, Delhi NCR as a
+     second ad set if you want to compare)
+   - Age: 20–45
+   - Interests: Artificial intelligence, ChatGPT, Bhagavad Gita, Spirituality,
+     Technology, Startups, Competitive exams
+   - Languages: English, Hindi, Malayalam
+8. Turn **Advantage+ placements OFF** if the option appears — keep it on Reels
+   and Stories only, where your creative actually fits.
+
+### Ad copy for the boost
+
+> India's own AI. Speaks 39+ languages, thinks in ₹, cites the Gita by chapter
+> and verse instead of making it up, and reads your own PDFs.
+>
+> Free to start. Built in Kochi. → svarga.digital
+
+### What to check each day
+
+| Metric | Good | Act if |
+|---|---|---|
+| Cost per link click | under ₹4 | over ₹8 → change the audience |
+| Click-through rate | over 1% | under 0.5% → change the creative, not the budget |
+| Signups from the ad | any | zero after ₹500 → stop, fix the landing page first |
+
+**Stop rule:** if you've spent ₹500 with zero signups, pause the ad. The
+problem is the page or the offer, and another ₹500 will not fix it.
+
+**Track it:** use this link in the ad so you can tell ad traffic apart from
+organic — `https://svarga.digital?utm_source=instagram&utm_medium=paid&utm_campaign=launch`
+
 
 ---
 
