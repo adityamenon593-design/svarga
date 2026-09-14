@@ -325,3 +325,13 @@
 .svarga-chat[data-night="on"] [class*="text-crimson"] {
   color: oklch(0.78 0.13 45);
 }
+
+/* Reading comfort: text size and line spacing inside the chat transcript. */
+.svarga-chat .svarga-read,
+.svarga-chat .svarga-read p,
+.svarga-chat .svarga-read li,
+.svarga-chat .svarga-read td,
+.svarga-chat .svarga-read blockquote {
+  font-size: var(--chat-size, 14px);
+  line-height: var(--chat-lead, 1.65);
+}
