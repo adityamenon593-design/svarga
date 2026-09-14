@@ -158,7 +158,7 @@ export async function streamSvarga({
             include: ["reasoning.encrypted_content"],
           },
         },
-
+    onFinish: ({ usage }) => {
       recordAiEvent({
         event: "chat_completed",
         mode,
