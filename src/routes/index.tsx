@@ -663,7 +663,11 @@ function Index() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/10 pt-6 text-sm text-ink/60">
+            <Link to="/faq" className="transition-colors hover:text-crimson">
+              FAQ
+            </Link>
             <Link to="/terms" className="transition-colors hover:text-crimson">
+
               Terms & Conditions
             </Link>
             <Link to="/privacy" className="transition-colors hover:text-crimson">
