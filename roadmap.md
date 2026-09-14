@@ -26,3 +26,5 @@
 - [x] Clarify hosting: Lovable hosts, Hostinger is registrar/DNS only
 - [x] Pitch pack (narrative, pricing, GTM, ask, objection answers) + branded PDF
 - [x] Launch day schedule with exact copy for LinkedIn, Instagram, WhatsApp, X + PDF
+- [x] Jarvis-grade knowledge upgrade: all sciences + jyotiṣa/astrology handled honestly
+- [ ] Rework launch schedule to 12:10pm IST start + ₹1,000 Instagram ads plan
