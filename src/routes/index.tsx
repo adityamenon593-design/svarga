@@ -204,7 +204,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-
 const CAPACITIES = [
   {
     icon: "ॐ",
@@ -418,10 +417,22 @@ function Index() {
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Grounded reasoning", body: "Built on a leading foundation model, tuned to reason across Vedic and Western sources together." },
-              { title: "Cited answers", body: "Responses draw on real texts and current web sources, with citations you can check." },
-              { title: "Remembers you", body: "Opt-in memory means Svarga recalls your context across conversations, if you choose." },
-              { title: "39 languages", body: "Tuned for Indian languages and context, not just translated English." },
+              {
+                title: "Grounded reasoning",
+                body: "Built on a leading foundation model, tuned to reason across Vedic and Western sources together.",
+              },
+              {
+                title: "Cited answers",
+                body: "Responses draw on real texts and current web sources, with citations you can check.",
+              },
+              {
+                title: "Remembers you",
+                body: "Opt-in memory means Svarga recalls your context across conversations, if you choose.",
+              },
+              {
+                title: "39 languages",
+                body: "Tuned for Indian languages and context, not just translated English.",
+              },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
                 <h3 className="font-display text-xl font-semibold">{item.title}</h3>
