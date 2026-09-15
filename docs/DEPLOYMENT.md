@@ -2,7 +2,9 @@
 
 ## Required before launch
 
-- [ ] Set `LOVABLE_API_KEY` in the hosting provider; never commit it.
+- [ ] Set `OPENAI_API_KEY` in the hosting provider; never commit it. The app prefers direct OpenAI/OpenAI-compatible chat and falls back to Lovable only when this is absent.
+- [ ] Optionally set `OPENAI_BASE_URL` and `SVARGA_OPENAI_*_MODEL` values when using an OpenAI-compatible gateway or a newer approved model.
+- [ ] Keep Hostinger as the registrar/DNS provider and Lovable as the application host; verify the apex and `www` DNS records point to the active Lovable deployment.
 - [ ] Set Supabase public URL/key and verify authentication redirects.
 - [ ] If payments are enabled, set Razorpay server credentials and run a test-mode payment.
 - [ ] Apply the Supabase payments migration and verify RLS policies.
