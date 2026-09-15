@@ -96,9 +96,7 @@ export async function streamSvarga({
     : openAiKey
       ? createOpenAI({
           apiKey: openAiKey,
-          ...(process.env["OPENAI_BASE_URL"]
-            ? { baseURL: process.env["OPENAI_BASE_URL"] }
-            : {}),
+          ...(process.env["OPENAI_BASE_URL"] ? { baseURL: process.env["OPENAI_BASE_URL"] } : {}),
         })
       : createOpenAI({
           apiKey: lovableKey!,
