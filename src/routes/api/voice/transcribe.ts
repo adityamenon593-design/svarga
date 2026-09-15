@@ -5,7 +5,10 @@ export const Route = createFileRoute("/api/voice/transcribe")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env["LOVABLE_API_KEY"];
+        const openAiKey = process.env["OPENAI_API_KEY"];
+        const lovableKey = process.env["LOVABLE_API_KEY"];
+        const useOpenAI = Boolean(openAiKey);
+        const apiKey = openAiKey ?? lovableKey;
         if (!apiKey) return new Response("Voice is not configured.", { status: 503 });
 
         const { userIdFromRequest, checkRateLimit } = await import("@/lib/entitlements.server");
@@ -40,12 +43,23 @@ export const Route = createFileRoute("/api/voice/transcribe")({
           )[type] ?? "webm";
 
         const upstream = new FormData();
-        upstream.append("model", "google/gemini-3.5-transcribe");
+        upstream.append(
+          "model",
+          useOpenAI
+            ? (process.env["SVARGA_OPENAI_TRANSCRIPTION_MODEL"] ?? "gpt-4o-mini-transcribe")
+            : "google/gemini-3.5-transcribe",
+        );
         upstream.append("file", audio, `recording.${ext}`);
 
-        const response = await fetch("https://ai.gateway.lovable.dev/v1/audio/transcriptions", {
+        const baseUrl = useOpenAI
+          ? (process.env["OPENAI_BASE_URL"] ?? "https://api.openai.com/v1")
+          : (process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1");
+        const response = await fetch(baseUrl.replace(/\/$/, "") + "/audio/transcriptions", {
           method: "POST",
-          headers: { Authorization: `Bearer ${apiKey}` },
+          headers: {
+            Authorization: "Bearer " + apiKey,
+            ...(useOpenAI ? {} : { "Lovable-API-Key": apiKey }),
+          },
           body: upstream,
         });
         if (!response.ok) {
