@@ -8,12 +8,12 @@ export const Route = createFileRoute("/api/health")({
       GET: async () => {
         const hasProviderKey = Boolean(
           process.env["OPENAI_API_KEY"] ||
-            process.env["LOVABLE_API_KEY"] ||
-            process.env["SVARGA_LOCAL_MODEL_URL"],
+          process.env["LOVABLE_API_KEY"] ||
+          process.env["SVARGA_LOCAL_MODEL_URL"],
         );
         const hasRagProvider = Boolean(
           process.env["SVARGA_RAG_ENABLED"] === "true" &&
-            (process.env["OPENAI_API_KEY"] || process.env["LOVABLE_API_KEY"]),
+          (process.env["OPENAI_API_KEY"] || process.env["LOVABLE_API_KEY"]),
         );
         return new Response(
           JSON.stringify({
