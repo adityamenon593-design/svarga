@@ -1,4 +1,4 @@
-import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
@@ -348,12 +348,6 @@ function Index() {
                 Made in India · Viksit Bharat
               </span>
             </div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-saffron/40 bg-sand/60 px-3 py-1">
-              <span className="size-1.5 animate-sv-pulse rounded-full bg-crimson" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">
-                Parameshvara 2.0 · v2.0.0
-              </span>
-            </div>
             <h1 className="font-display leading-[0.95] tracking-tight">
               <span className="block text-6xl font-semibold">India&rsquo;s own AI, where</span>
               <span className="block text-6xl font-semibold">ancient knowledge</span>
@@ -384,16 +378,16 @@ function Index() {
             </div>
             <div className="mt-8 flex gap-8">
               <div>
-                <p className="font-display text-3xl font-semibold">4.2×</p>
-                <p className="mt-1 text-xs text-ink/50">Training corpus</p>
-              </div>
-              <div>
-                <p className="font-display text-3xl font-semibold">212 T</p>
-                <p className="mt-1 text-xs text-ink/50">Parameters</p>
-              </div>
-              <div>
                 <p className="font-display text-3xl font-semibold">39</p>
                 <p className="mt-1 text-xs text-ink/50">Languages</p>
+              </div>
+              <div>
+                <p className="font-display text-3xl font-semibold">100%</p>
+                <p className="mt-1 text-xs text-ink/50">Indian-owned</p>
+              </div>
+              <div>
+                <p className="font-display text-3xl font-semibold">₹</p>
+                <p className="mt-1 text-xs text-ink/50">Priced for India</p>
               </div>
             </div>
             <div className="mt-8">
