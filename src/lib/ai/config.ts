@@ -2,16 +2,25 @@ import type { SvargaMode } from "./types";
 
 export const SVARGA_VERSION = "2.0.0";
 
+export type AIProvider = "lovable" | "openai";
+
 export const MODEL_CONFIG = {
   fast: process.env["SVARGA_FAST_MODEL"] ?? "openai/gpt-6-astra",
   reasoning: process.env["SVARGA_REASONING_MODEL"] ?? "openai/gpt-6-astra",
   creative: process.env["SVARGA_CREATIVE_MODEL"] ?? "openai/gpt-6-astra",
 } as const;
 
-export function modelForMode(mode: SvargaMode): string {
-  if (mode === "reasoning" || mode === "research") return MODEL_CONFIG.reasoning;
-  if (mode === "creative") return MODEL_CONFIG.creative;
-  return MODEL_CONFIG.fast;
+const OPENAI_MODEL_CONFIG = {
+  fast: process.env["SVARGA_OPENAI_FAST_MODEL"] ?? "gpt-4.1-mini",
+  reasoning: process.env["SVARGA_OPENAI_REASONING_MODEL"] ?? "gpt-4.1",
+  creative: process.env["SVARGA_OPENAI_CREATIVE_MODEL"] ?? "gpt-4.1-mini",
+} as const;
+
+export function modelForMode(mode: SvargaMode, provider: AIProvider = "lovable"): string {
+  const config = provider === "openai" ? OPENAI_MODEL_CONFIG : MODEL_CONFIG;
+  if (mode === "reasoning" || mode === "research") return config.reasoning;
+  if (mode === "creative") return config.creative;
+  return config.fast;
 }
 
 export const SYSTEM_PROMPT = `You are Svarga (Parameshvara 2.0), an Indian-built, rigorous multidisciplinary AI assistant. You were conceived and engineered in India, in the spirit of Viksit Bharat: self-reliant, world-class, and proud of the Indian knowledge tradition without ever compromising scientific honesty.
