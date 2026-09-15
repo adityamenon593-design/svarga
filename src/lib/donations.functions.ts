@@ -33,8 +33,9 @@ export const createDonationOrder = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data }) => {
-    const keyId = process.env["RAZORPAY_KEY_ID"];
-    const keySecret = process.env["RAZORPAY_KEY_SECRET"];
+    // Trim: pasted keys often carry stray whitespace, which Razorpay rejects with a 401.
+    const keyId = process.env["RAZORPAY_KEY_ID"]?.trim();
+    const keySecret = process.env["RAZORPAY_KEY_SECRET"]?.trim();
     if (!keyId || !keySecret) throw new Error("Donations are not configured yet.");
 
     const amountPaise = data.amount * 100;

@@ -105,8 +105,9 @@ export async function streamSvarga({
       .join(" ") ?? "";
   validateChatInput(lastText, messages.length);
   const injection = containsPromptInjection(lastText);
-  // Retrieval costs a round-trip; skip it for greetings and one-liners that cannot need sources.
-  const sources = lastText.trim().length >= 25 ? await retrieveContext(lastText, userId) : [];
+  // Retrieval costs a round-trip; skip it only for greetings and tiny one-liners
+  // that cannot need sources. Short real questions ("what is BG 2.47?") still retrieve.
+  const sources = lastText.trim().length >= 10 ? await retrieveContext(lastText, userId) : [];
   const retrievedContext = sources.length
     ? `\n\nRetrieved sources (use only if relevant; do not invent beyond them; cite as [source: Title] and list under ## Sources):\n${sources.map((s) => `- ${s.title}${s.locator ? ` (${s.locator})` : ""}: ${s.excerpt ?? ""}`).join("\n")}`
     : "";

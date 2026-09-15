@@ -647,15 +647,13 @@ export function ChatConsole() {
                       </ul>
                     </div>
                   )}
-                  {voiceMode ? (
-                    <button
-                      type="button"
-                      onClick={() => void speak(message.id, answer.body)}
-                      className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
-                    >
-                      {speakingId === message.id ? "■ Stop" : "▶ Listen"}
-                    </button>
-                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => void speak(message.id, answer.body)}
+                    className="mt-3 font-mono text-[10px] uppercase tracking-widest text-ink/50 transition-colors hover:text-crimson"
+                  >
+                    {speakingId === message.id ? "■ Stop" : "▶ Listen"}
+                  </button>
                 </MessageContent>
               </Message>
             );

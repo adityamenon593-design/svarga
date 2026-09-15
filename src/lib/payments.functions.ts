@@ -145,8 +145,10 @@ export const createOrder = createServerFn({ method: "POST" })
     z.object({ plan: z.enum(PLAN_IDS), currency: z.enum(CURRENCIES).default("INR") }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const keyId = process.env["RAZORPAY_KEY_ID"];
-    const keySecret = process.env["RAZORPAY_KEY_SECRET"];
+    // Trim: keys pasted from a dashboard often carry stray whitespace/newlines,
+    // which makes Razorpay reject them with a 401 "Authentication failed".
+    const keyId = process.env["RAZORPAY_KEY_ID"]?.trim();
+    const keySecret = process.env["RAZORPAY_KEY_SECRET"]?.trim();
     if (!keyId || !keySecret) throw new Error("Payments are not configured yet.");
 
     const plan = PLANS[data.plan as PlanId];
