@@ -81,21 +81,33 @@ export async function streamSvarga({
   // set SVARGA_LOCAL_MODEL_URL (e.g. http://localhost:11434/v1) and the answer
   // comes from your own model instead of the cloud one. Never set in production.
   const localUrl = process.env["SVARGA_LOCAL_MODEL_URL"];
-  const apiKey = process.env["LOVABLE_API_KEY"];
-  if (!localUrl && !apiKey) {
-    throw new Error("LOVABLE_API_KEY is not configured");
+  const openAiKey = process.env["OPENAI_API_KEY"];
+  const lovableKey = process.env["LOVABLE_API_KEY"];
+  if (!localUrl && !openAiKey && !lovableKey) {
+    throw new Error("No AI provider is configured. Set OPENAI_API_KEY.");
   }
 
+  // Prefer a first-party OpenAI-compatible endpoint so production chat does not
+  // depend on Lovable AI credits. Keep Lovable as a backwards-compatible fallback
+  // until the new provider secret is configured in the deployment environment.
+  const provider = localUrl ? "local" : openAiKey ? "openai" : "lovable";
   const gateway = localUrl
     ? createOpenAI({ apiKey: "local", baseURL: localUrl })
-    : createOpenAI({
-        apiKey: apiKey!,
-        baseURL: process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1",
-        headers: {
-          "Lovable-API-Key": apiKey!,
-          "X-Lovable-AIG-SDK": "vercel-ai-sdk",
-        },
-      });
+    : openAiKey
+      ? createOpenAI({
+          apiKey: openAiKey,
+          ...(process.env["OPENAI_BASE_URL"]
+            ? { baseURL: process.env["OPENAI_BASE_URL"] }
+            : {}),
+        })
+      : createOpenAI({
+          apiKey: lovableKey!,
+          baseURL: process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1",
+          headers: {
+            "Lovable-API-Key": lovableKey!,
+            "X-Lovable-AIG-SDK": "vercel-ai-sdk",
+          },
+        });
 
   const last = messages.at(-1);
   const lastText =
@@ -111,7 +123,9 @@ export async function streamSvarga({
   const retrievedContext = sources.length
     ? `\n\nRetrieved sources (use only if relevant; do not invent beyond them; cite as [source: Title] and list under ## Sources):\n${sources.map((s) => `- ${s.title}${s.locator ? ` (${s.locator})` : ""}: ${s.excerpt ?? ""}`).join("\n")}`
     : "";
-  const model = localUrl ? (process.env["SVARGA_LOCAL_MODEL"] ?? "svarga") : modelForMode(mode);
+  const model = localUrl
+    ? (process.env["SVARGA_LOCAL_MODEL"] ?? "svarga")
+    : modelForMode(mode, provider === "openai" ? "openai" : "lovable");
 
   const notes = memory
     .map((item) => item.trim().slice(0, 300))
@@ -145,17 +159,18 @@ export async function streamSvarga({
     tools: svargaTools(userId),
     // Enough for real multi-tool work, low enough that a loop cannot stall an answer.
     stopWhen: stepCountIs(localUrl ? 4 : 16),
-    providerOptions: localUrl
-      ? {}
-      : {
-          openai: {
-            forceReasoning: true,
-            reasoningEffort: effortFor(mode, lastText),
-            reasoningSummary: "auto",
-            store: false,
-            include: ["reasoning.encrypted_content"],
+    providerOptions:
+      localUrl || provider === "openai"
+        ? { openai: { store: false } }
+        : {
+            openai: {
+              forceReasoning: true,
+              reasoningEffort: effortFor(mode, lastText),
+              reasoningSummary: "auto",
+              store: false,
+              include: ["reasoning.encrypted_content"],
+            },
           },
-        },
     onFinish: ({ usage }) => {
       recordAiEvent({
         event: "chat_completed",
