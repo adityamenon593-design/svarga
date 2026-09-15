@@ -1,4 +1,4 @@
-﻿import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
