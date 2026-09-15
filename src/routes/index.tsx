@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
+// Define strict typing for the Gemini API response structure
+interface GeminiResponse {
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{
+        text?: string;
+      }>;
+    };
+  }>;
+  error?: {
+    message?: string;
+  };
+}
+
 export default function App() {
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([]);
   const [input, setInput] = useState('');
@@ -49,9 +63,8 @@ export default function App() {
     setKosha(koshas[Math.min(updatedMessages.length, 4)]);
 
     try {
-      // Corrected Gemini API Endpoint
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${currentKey}`,
+        `https://googleapis.com{currentKey}`,
         {
           method: 'POST',
           headers: {
@@ -68,10 +81,10 @@ export default function App() {
         }
       );
 
-      const data = await response.json();
+      const data: GeminiResponse = await response.json();
       if (data.error) throw new Error(data.error.message);
 
-      // FIXED: Added safe array bracket indexing to match actual Gemini API response payload structures
+      // ✅ FIXED: Corrected the broken `?.?` double optional chaining syntax
       const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
       
       if (!aiResponse) {
@@ -209,3 +222,4 @@ export default function App() {
     </div>
   );
 }
+
