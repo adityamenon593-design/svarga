@@ -105,7 +105,7 @@ export const TIERS = [
     price: { INR: { monthly: 499, yearly: 4990 }, USD: { monthly: 19, yearly: 190 } },
     popular: true,
     features: [
-      "Unlimited questions (fair use)",
+      "3,000 questions a month",
       "300 images a month",
       "Every mode, including Creative",
       "Long-term memory and priority answers",
@@ -117,7 +117,7 @@ export const TIERS = [
     tagline: "For teams and builders",
     price: { INR: { monthly: 1499, yearly: 14990 }, USD: { monthly: 49, yearly: 490 } },
     features: [
-      "Everything in Pro, unlimited",
+      "12,000 questions a month",
       "1,500 images a month",
       "Fastest queue and longest context",
       "Early features and email support",
