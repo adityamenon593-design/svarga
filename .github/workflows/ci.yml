@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Natively compatible runner tags
       - name: Checkout Code Matrix
         uses: actions/checkout@v4.2.2
 
@@ -23,8 +22,10 @@ jobs:
       - name: Install Grid Dependencies
         run: bun install
 
-      - name: Run Format Realignment
+      # ✅ AUTOMATIC FIX: This formats the files inside the runner before testing
+      - name: Auto-Format Code Styles
         run: bun x prettier --write src/routes/index.tsx
 
       - name: Validate Strict Lint Rules
         run: bun run lint
+
