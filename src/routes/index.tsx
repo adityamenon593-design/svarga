@@ -204,11 +204,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const BENCHMARKS = [
-  { name: "Parameshvara 2.0", score: 96.8, tone: "bg-crimson", muted: false },
-  { name: "Frontier Model A", score: 88.1, tone: "bg-saffron", muted: true },
-  { name: "Frontier Model B", score: 84.7, tone: "bg-saffron", muted: true },
-];
 
 const CAPACITIES = [
   {
@@ -421,34 +416,22 @@ function Index() {
         </section>
 
         <section id="benchmarks" className="border-t border-ink/10 py-14">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
-                Benchmarks
-              </p>
-              <h2 className="mt-2 font-display text-4xl font-semibold">
-                Outpacing every incumbent
-              </h2>
-            </div>
-            <p className="hidden max-w-xs text-sm text-ink/50 sm:block">
-              Composite reasoning, multimodal image, and multilingual scores. Higher is better.
-            </p>
-          </div>
-          <div className="space-y-6">
-            {BENCHMARKS.map((row) => (
-              <div key={row.name}>
-                <div
-                  className={`mb-2 flex justify-between font-mono text-xs ${row.muted ? "text-ink/50" : "text-ink/60"}`}
-                >
-                  <span>{row.name}</span>
-                  <span>{row.score}</span>
-                </div>
-                <div className="h-2.5 overflow-hidden rounded-full bg-sand">
-                  <div
-                    className={`h-full rounded-full ${row.tone}`}
-                    style={{ width: `${row.score}%` }}
-                  />
-                </div>
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-crimson">
+            How it works
+          </p>
+          <h2 className="mb-8 font-display text-4xl font-semibold">
+            Ancient wisdom, modern reasoning.
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Grounded reasoning", body: "Built on a leading foundation model, tuned to reason across Vedic and Western sources together." },
+              { title: "Cited answers", body: "Responses draw on real texts and current web sources, with citations you can check." },
+              { title: "Remembers you", body: "Opt-in memory means Svarga recalls your context across conversations, if you choose." },
+              { title: "39 languages", body: "Tuned for Indian languages and context, not just translated English." },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-ink/5 bg-sand/50 p-6">
+                <h3 className="font-display text-xl font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{item.body}</p>
               </div>
             ))}
           </div>
