@@ -52,7 +52,10 @@ export const learnFromTurn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => LearnInput.parse(input))
   .handler(async ({ data, context }) => {
-    const apiKey = process.env["LOVABLE_API_KEY"];
+    const openAiKey = process.env["OPENAI_API_KEY"];
+    const lovableKey = process.env["LOVABLE_API_KEY"];
+    const useOpenAI = Boolean(openAiKey);
+    const apiKey = openAiKey ?? lovableKey;
     if (!apiKey) return { learned: 0 };
 
     // Learning is opt-out: respect the user's privacy switch.
@@ -63,16 +66,24 @@ export const learnFromTurn = createServerFn({ method: "POST" })
       .maybeSingle();
     if (settings && settings.memory_enabled === false) return { learned: 0 };
 
-    const gateway = createOpenAI({
-      apiKey,
-      baseURL: "https://ai.gateway.lovable.dev/v1",
-      headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
-    });
+    const gateway = useOpenAI
+      ? createOpenAI({
+          apiKey,
+          ...(process.env["OPENAI_BASE_URL"] ? { baseURL: process.env["OPENAI_BASE_URL"] } : {}),
+        })
+      : createOpenAI({
+          apiKey,
+          baseURL: process.env["LOVABLE_AI_BASE_URL"] ?? "https://ai.gateway.lovable.dev/v1",
+          headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
+        });
+    const model = useOpenAI
+      ? (process.env["SVARGA_OPENAI_REASONING_MODEL"] ?? "gpt-4.1")
+      : (process.env["SVARGA_REASONING_MODEL"] ?? "openai/gpt-6-astra");
 
     let memories: Array<{ kind: "preference" | "fact" | "goal" | "skill"; content: string }> = [];
     try {
       const result = streamText({
-        model: gateway.responses("openai/gpt-6-astra"),
+        model: gateway.responses(model),
         system:
           "Extract durable memories about the user from one exchange. Return at most 5 items, each under 200 characters. " +
           "A 'preference' is how the user wants answers (language, tone, depth, format). A 'fact' is a stable detail the user stated about themselves (role, location, domain, project). " +
