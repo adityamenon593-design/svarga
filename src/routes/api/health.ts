@@ -6,7 +6,15 @@ export const Route = createFileRoute("/api/health")({
   server: {
     handlers: {
       GET: async () => {
-        const hasProviderKey = Boolean(process.env["LOVABLE_API_KEY"]);
+        const hasProviderKey = Boolean(
+          process.env["OPENAI_API_KEY"] ||
+            process.env["LOVABLE_API_KEY"] ||
+            process.env["SVARGA_LOCAL_MODEL_URL"],
+        );
+        const hasRagProvider = Boolean(
+          process.env["SVARGA_RAG_ENABLED"] === "true" &&
+            (process.env["OPENAI_API_KEY"] || process.env["LOVABLE_API_KEY"]),
+        );
         return new Response(
           JSON.stringify({
             ok: hasProviderKey,
@@ -15,7 +23,7 @@ export const Route = createFileRoute("/api/health")({
             timestamp: new Date().toISOString(),
             dependencies: {
               ai: hasProviderKey ? "configured" : "missing",
-              rag: process.env["SVARGA_RAG_ENABLED"] === "true" ? "configured" : "not-configured",
+              rag: hasRagProvider ? "configured" : "not-configured",
             },
           }),
           {
