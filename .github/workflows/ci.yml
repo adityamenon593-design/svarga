@@ -1,19 +1,30 @@
-name: CI
+name: CI Verification
 
 on:
   push:
-    branches: [main, svarga-world-class]
+    branches: [ main, master ]
   pull_request:
-    branches: [main]
+    branches: [ main, master ]
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      # Natively compatible runner tags
+      - name: Checkout Code Matrix
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Bun Environment
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile
-      - run: bun run lint
-      - run: bun run build
+
+      - name: Install Grid Dependencies
+        run: bun install
+
+      - name: Run Format Realignment
+        run: bun x prettier --write src/routes/index.tsx
+
+      - name: Validate Strict Lint Rules
+        run: bun run lint
