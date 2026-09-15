@@ -108,15 +108,14 @@ export default function App() {
 
       setMessages(finalMessages);
       localStorage.setItem("akashic_history", JSON.stringify(finalMessages));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
+      const errMsg = error instanceof Error ? error.message : "Check configuration";
       setMessages((prev) => [
         ...prev,
         {
           role: "model",
-          text: `The field is experiencing frequency adjustments: ${
-            error.message || "Check configuration"
-          }`,
+          text: `The field is experiencing frequency adjustments: ${errMsg}`,
         },
       ]);
     } finally {
